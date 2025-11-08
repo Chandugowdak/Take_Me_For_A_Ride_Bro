@@ -1,6 +1,10 @@
 const bcrypt = require('bcryptjs');
 const UserModel = require('../model/Model');
+const JWT = require('jsonwebtoken');
+require('dotenv').config();
 
+
+const SECRET_JWT_CODE = process.env.SECRET_JWT_CODE; // Use the same secret code from .env file
 
 
 const userRegistration = async(req,res,next)=>{
@@ -38,8 +42,10 @@ try{
     const isPasswordCorrect = await bcrypt.compare(password , existingUser.password);
     if(!isPasswordCorrect){
         return res.status(400).json({message: "Invalid Credentials"});
+    }else{
+        const Token = await JWT.sign({id:existingUser._id}, SECRET_JWT_CODE,{expiresIn:'1h'}); //GENERATE JWT TOKEN
+    return res.status(200).json({message: "Login Successful", user: existingUser , JWT_Token: Token});
     }
-    return res.status(200).json({message: "Login Successful", user: existingUser});
 }
 catch(err){
     return res.status(500).json({message: "Server Error in Login"});

@@ -1,14 +1,13 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Diplomata&family=Nosifer&family=Rammetto+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 
-.diplomata-regular {
-  font-family: "Diplomata", serif;
-  font-weight: 400;
+
+.roboto-slab-uniquifier {
+  font-family: "Roboto Slab", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
   font-style: normal;
 }
-
-
-
 
 /* Full-page center alignment */
 .login-container {

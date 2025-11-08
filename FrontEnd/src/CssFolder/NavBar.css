@@ -5,3 +5,35 @@
   font-weight: 400;
   font-style: normal;
 }
+
+/* Responsive logo and brand text adjustments */
+@media (max-width: 768px) {
+  .navbar-brand img {
+    max-height: 40px;
+  }
+
+  .navbar-brand span {
+    font-size: 1rem;
+  }
+
+  .navbar .btn {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand span {
+    font-size: 0.9rem;
+  }
+
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-collapse {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+}
