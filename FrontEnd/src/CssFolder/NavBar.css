@@ -1,39 +1,82 @@
-@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap');
-
-.nosifer-regular {
-  font-family: "Nosifer", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+/* NAVBAR BASE */
+.custom-navbar {
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  z-index: 999;
+  padding:10px;
 }
 
-/* Responsive logo and brand text adjustments */
-@media (max-width: 768px) {
-  .navbar-brand img {
-    max-height: 40px;
-  }
-
-  .navbar-brand span {
-    font-size: 1rem;
-  }
-
-  .navbar .btn {
-    font-size: 0.9rem;
-    padding: 6px 10px;
-  }
+.nav-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@media (max-width: 576px) {
-  .navbar-brand span {
-    font-size: 0.9rem;
-  }
+/* LOGO */
+.brand-logo {
+  height: 45px;
+  width: 45px;
+}
 
-  .navbar {
-    padding: 0.5rem 1rem;
-  }
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
 
-  .navbar-collapse {
-    background-color: #f8f9fa;
-    border-radius: 0.5rem;
-    padding: 1rem;
-  }
+/* REMOVE ANY BULLETS FOR ALL */
+.custom-drop,
+.dropdown-menu,
+.mobile-item {
+  list-style: none !important;
+}
+
+/* DROPDOWN FIX */
+.custom-drop {
+  padding: 8px 0;
+}
+
+.dropdown-item {
+  padding: 8px 20px;
+  cursor: pointer;
+  display: block;
+  font-size: 16px;
+}
+
+.dropdown-item:hover {
+  background: #f0f0f0;
+}
+
+/* MOBILE SIDE MENU */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 270px;
+  height: 100vh;
+  background: #ffffff;
+  transition: 0.3s ease-in-out;
+  z-index: 2000;
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.15);
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.mobile-item {
+  margin: 15px 0;
+  font-size: 18px;
+}
+
+.menu-btn {
+  font-size: 26px;
+  background: none;
+  border: none;
+}
+
+/* LINKS */
+.nav-link {
+  cursor: pointer;
+  font-size: 17px;
 }
