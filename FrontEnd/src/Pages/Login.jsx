@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useContext} from "react";
 import "../CssFolder/Login.css";
 import { Form, Button } from "react-bootstrap";
 import NavBar from "./NavBar";
@@ -9,10 +9,12 @@ import { useNavigate,Link} from 'react-router-dom';
 
 
 
+
 export default function Login() {
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [Loading, setLoading] = useState(false);
+
 
 const navigate = useNavigate();
 
@@ -29,6 +31,8 @@ const handleSubmit = async (e) => {
     if (response.status === 200) {
       alert("Login Successful!");
       console.log("Login Response:", response.data.JWT_Token);
+      //SET JWT TO LOCAL STORAGE
+      localStorage.setItem("JWT_Token",response.data.JWT_Token);
       navigate("/home");
     } else {
       // ❌ Handle unexpected response codes (not common but safe)

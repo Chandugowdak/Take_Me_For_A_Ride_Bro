@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../assets/Logo.png";
 import "../CssFolder/NavBar.css";
+import {Link} from 'react-router-dom';
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -52,8 +53,8 @@ const NavBar = () => {
 
           {/* RIGHT */}
           <div className="nav-right d-none d-lg-flex gap-2">
-            <button className="btn btn-outline-success px-4">Login</button>
-            <button className="btn btn-success px-4">Sign Up</button>
+            < Link to="/" className="btn btn-outline-success px-4">Login</Link>
+            <Link to="/register" className="btn btn-success px-4">Sign Up</Link>
           </div>
 
           {/* MOBILE MENU BUTTON */}
