@@ -5,9 +5,7 @@ import NavBar from "./NavBar";
 import '../CssFolder/NavBar.css';
 import axios from 'axios';
 import { useNavigate,Link} from 'react-router-dom';
-
-
-
+import { GlobelValue } from "../context/GlobelVariable";
 
 
 export default function Login() {
@@ -15,6 +13,7 @@ const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [Loading, setLoading] = useState(false);
 
+const{Set_User_Login} = useContext(GlobelValue);
 
 const navigate = useNavigate();
 
@@ -33,6 +32,7 @@ const handleSubmit = async (e) => {
       console.log("Login Response:", response.data.JWT_Token);
       //SET JWT TO LOCAL STORAGE
       localStorage.setItem("JWT_Token",response.data.JWT_Token);
+      Set_User_Login(true);
       navigate("/home");
     } else {
       // ❌ Handle unexpected response codes (not common but safe)

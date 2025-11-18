@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import Logo from "../assets/Logo.png";
 import "../CssFolder/NavBar.css";
 import {Link} from 'react-router-dom';
+import { GlobelValue } from "../context/GlobelVariable";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
+  const{User_Login,Set_User_Login} = useContext(GlobelValue);
+  
+  const Handel_Logout = async()=>{
+    localStorage.removeItem("JWT_Token");
+    Set_User_Login(false);
+  }
 
   return (
     <>
@@ -51,11 +58,16 @@ const NavBar = () => {
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="nav-right d-none d-lg-flex gap-2">
-            < Link to="/" className="btn btn-outline-success px-4">Login</Link>
-            <Link to="/register" className="btn btn-success px-4">Sign Up</Link>
-          </div>
+      {User_Login ? (
+  <Link to="/" className="btn bg-danger nav-right d-none d-lg-flex gap-2" onClick={Handel_Logout}>
+    Logout
+  </Link>
+) : (
+  <div className="nav-right d-none d-lg-flex gap-2">
+    <Link to="/" className="btn btn-outline-success px-4">Login</Link>
+    <Link to="/register" className="btn btn-success px-4">Sign Up</Link>
+  </div>
+)}
 
           {/* MOBILE MENU BUTTON */}
           <button className="menu-btn d-lg-none" onClick={() => setOpen(true)}>
@@ -97,8 +109,37 @@ const NavBar = () => {
             </div>
           </div>
 
-          <button className="btn btn-outline-success w-100 mt-3">Login</button>
-          <button className="btn btn-success w-100 mt-2">Sign Up</button>
+         {/* MOBILE AUTH BUTTONS */}
+{User_Login ? (
+  <button
+    className="btn bg-danger text-white w-100 mt-3"
+    onClick={() => {
+      Handel_Logout();
+      setOpen(false);
+    }}
+  >
+    Logout
+  </button>
+) : (
+  <>
+    <Link
+      to="/"
+      className="btn btn-outline-success w-100 mt-3"
+      onClick={() => setOpen(false)}
+    >
+      Login
+    </Link>
+
+    <Link
+      to="/register"
+      className="btn btn-success w-100 mt-2"
+      onClick={() => setOpen(false)}
+    >
+      Sign Up
+    </Link>
+  </>
+)}
+
 
         </div>
       </div>
