@@ -7,6 +7,7 @@ const GlobelContext = ({children}) => {
 
     const Handel_JWT_TOKEN = async()=>{
      setJWT_Token(localStorage.getItem("JWT_Token"));
+     Set_User_Login(localStorage.getItem("Login_Status") === 'true');
     }
 
     useEffect(()=>{

@@ -13,7 +13,7 @@ const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [Loading, setLoading] = useState(false);
 
-const{Set_User_Login} = useContext(GlobelValue);
+const{Set_User_Login,setJWT_Token} = useContext(GlobelValue);
 
 const navigate = useNavigate();
 
@@ -32,6 +32,7 @@ const handleSubmit = async (e) => {
       console.log("Login Response:", response.data.JWT_Token);
       //SET JWT TO LOCAL STORAGE
       localStorage.setItem("JWT_Token",response.data.JWT_Token);
+      localStorage.setItem('Login_Status' , 'true');
       Set_User_Login(true);
       navigate("/home");
     } else {
