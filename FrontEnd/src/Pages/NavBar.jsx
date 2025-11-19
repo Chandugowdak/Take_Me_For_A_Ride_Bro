@@ -91,7 +91,7 @@ const NavBar = () => {
             <span className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
               Tariff
             </span>
-            <div className="dropdown-menu show border-0 mt-1 custom-drop">
+            <div className="dropdown-menu  border-0 mt-1 custom-drop">
               <span className="dropdown-item">Rent a Bike</span>
               <span className="dropdown-item">Rent a Car</span>
             </div>
@@ -105,7 +105,7 @@ const NavBar = () => {
             <span className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
               Partner With Us
             </span>
-            <div className="dropdown-menu show border-0 mt-1 custom-drop">
+            <div className="dropdown-menu  border-0 mt-1 custom-drop">
               <span className="dropdown-item">Earn With Us</span>
               <span className="dropdown-item">Own a Franchise</span>
             </div>
