@@ -82,7 +82,7 @@ const handleSubmit = async (e) => {
             <Form.Control type="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)} required />
           </Form.Group>
 
-          <Button className="login-btn" type="submit" block>
+          <Button className="login-btn" type="submit" >
             Login
           </Button>
         </Form>
