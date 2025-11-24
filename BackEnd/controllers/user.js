@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const UserModel = require('../model/Model');
+const UserModel = require('../model/User');
 const JWT = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -9,7 +9,7 @@ const SECRET_JWT_CODE = process.env.SECRET_JWT_CODE; // Use the same secret code
 
 const userRegistration = async(req,res,next)=>{
 
-    const {name , email , password} = req.body;
+    const {name , email , password,Type_of_User} = req.body;
     try{
 
         const existingUser = await UserModel.findOne({email: email});
@@ -18,7 +18,7 @@ const userRegistration = async(req,res,next)=>{
         }
         const hashedPassword = await bcrypt.hash(password , 10);
         const newUser = new  UserModel({
-            name: name, email:email, password:hashedPassword
+            name: name, email:email, password:hashedPassword, Type_of_User:Type_of_User
         })
         newUser.save();
         return res.status(201).json({message: "User Registered Successfully", user: newUser});

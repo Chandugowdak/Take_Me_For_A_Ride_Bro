@@ -9,13 +9,16 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [typeOfUser, setTypeOfUser] = useState("User");
+
 
 
    const navigate = useNavigate();
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const userData = { name, email, password };
+ const userData = { name, email, password, Type_of_User: typeOfUser };
+
 
   try {
     const response = await axios.post("http://localhost:3000/api/user/register", userData);
@@ -71,7 +74,14 @@ const handleSubmit = async (e) => {
             <Form.Control type="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)}  required/>
           </Form.Group>
 
-       
+       <Form.Group className="mb-3">
+  <Form.Label className="roboto-slab-uniquifier">Register As :</Form.Label>
+  <Form.Select onChange={(e) => setTypeOfUser(e.target.value)} required>
+    <option value="User">User</option>
+    <option value="Earner">Earner</option>
+  </Form.Select>
+</Form.Group>
+
 
           <Button className="register-btn" type="submit" block>
             Register
