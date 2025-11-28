@@ -6,13 +6,15 @@ import { GlobelValue } from "../context/GlobelVariable";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
-  const{User_Login,Set_User_Login,setJWT_Token} = useContext(GlobelValue);
+  const{User_Login,Set_User_Login,setJWT_Token,setUser_Type} = useContext(GlobelValue);
   
   const Handel_Logout = async()=>{
     localStorage.removeItem("JWT_Token");
+    localStorage.removeItem('User_Type');
+    localStorage.removeItem('Login_Status');
     setJWT_Token(null);
     Set_User_Login(false);
-    localStorage.removeItem('Login_Status');
+    setUser_Type(null);
   }
 
   return (
@@ -141,8 +143,6 @@ const NavBar = () => {
     </Link>
   </>
 )}
-
-
         </div>
       </div>
     </>

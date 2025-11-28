@@ -1,9 +1,9 @@
 import React,{useContext} from 'react'
-import NavBar from '../Pages/NavBar';
-import { GlobelValue } from '../context/GlobelVariable';
+import NavBar from '../../Pages/NavBar';
+import { GlobelValue } from '../../context/GlobelVariable';
 
 
-const Home = () => {
+const Earn_Home = () => {
   const{JWT_Token} = useContext(GlobelValue);
   return (
     <div>
@@ -14,4 +14,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default Earn_Home;

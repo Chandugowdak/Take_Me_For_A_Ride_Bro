@@ -3,11 +3,12 @@ import { Routes, Route } from 'react-router-dom';
 
 import Login from './Pages/Login';
 import Register from './Pages/Registration';
-import Home from './components/Home';
+import User_Home from './components/UserHome/User_Home';
+import Earn_Home from './components/EarnerHome/Earn_Home';
 
 import GlobelContext from './context/GlobelContext';
 
-// Import Routes
+// // Import Routes
 import PublicRoute from './router/PublicRoute';
 import ProtectedRoute from './router/ProtectedRoute';
 
@@ -15,17 +16,21 @@ const  App = ()=>{
   return (
     <GlobelContext>
       <Routes>
+    
 
         {/* PUBLIC ROUTES */}
         <Route element={<PublicRoute />}>
-          <Route path="/" element={<Login />} />
+              <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
 
         {/* PROTECTED ROUTES */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/Userhome" element={<User_Home />} />
+          <Route path="/Earnerhome" element={<Earn_Home  />} />
         </Route>
+
+
 
       </Routes>
     </GlobelContext>
