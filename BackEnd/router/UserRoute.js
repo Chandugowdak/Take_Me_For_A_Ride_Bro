@@ -1,13 +1,13 @@
 const express = require('express');
 const {userRegistration , LoginUser,Get_Data } = require('../controllers/user');
-const router = express.Router();
+const userrouter = express.Router();
 const Verify_User  = require('../Middleware/Auth');
 
 
-router.post('/user/register' , userRegistration);
-router.post('/user/login' , LoginUser);
-router.get('/user/getdata' , Verify_User , Get_Data);
+userrouter.post('/user/register' , userRegistration);
+userrouter.post('/user/login' , LoginUser);
+userrouter.get('/user/getdata' , Verify_User , Get_Data);
 
 
 
-module.exports = router;
+module.exports = userrouter;

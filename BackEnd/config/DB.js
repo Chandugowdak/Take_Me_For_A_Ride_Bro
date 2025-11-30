@@ -5,7 +5,7 @@ require('dotenv').config();
 const mongoURL = process.env.MONGO_URL;
 
 
-const UserDB = async()=>{
+const DB = async()=>{
     try{
         await mongoose.connect(mongoURL)
         .then(()=>{
@@ -22,4 +22,4 @@ const UserDB = async()=>{
 
 }
 
-module.exports = UserDB;
+module.exports = DB;

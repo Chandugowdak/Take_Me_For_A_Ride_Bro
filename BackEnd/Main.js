@@ -1,13 +1,11 @@
 const express =  require('express');
 const cors = require('cors');
 require('dotenv').config();
-const RentDB = require('./config/RentConfig');
-const UserDB = require('./config/Userconfig');
+const DB = require('./config/DB');
 
 // Handle routes
-const router = require('./router/UserRoute');
-const routers = require('./router/RentRout');
-
+const userrouter = require('./router/UserRoute');
+const rentrouter = require('./router/RentRout');
 //MIDDLE WARES
 const app = express();
 app.use(cors());
@@ -18,13 +16,17 @@ app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 5000;
 
-app.use('/api', router);
+app.use('/api', userrouter);
 
 // RENTEL API
-app.use('/api', routers);
+app.use('/api', rentrouter);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-    UserDB();
-    RentDB();
+DB()
+.then(()=>{
+    app.listen(PORT,()=>{
+        console.log(`Server is running on PORT ${PORT}`);
+    })
+})
+.catch((err)=>{
+    console.log("Error in DB Connection at  :", err);
 });
