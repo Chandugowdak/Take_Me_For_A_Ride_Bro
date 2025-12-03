@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import NavBar from "../../Pages/NavBar";
 import { GlobelValue } from "../../context/GlobelVariable";
 import "./User_Home.css";
+import Layout from "../../Layout_Section/Layout";
 
 const User_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
@@ -9,8 +9,6 @@ const User_Home = () => {
   return (
     <div className="user-home-container">
 
-      {/* Navbar - Common */}
-      <NavBar />
 
       {/* HERO SECTION */}
       <section className="user-hero container">

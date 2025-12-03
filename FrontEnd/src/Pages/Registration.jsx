@@ -1,7 +1,6 @@
 import React,{useState} from "react";
 import "../CssFolder/Registration.css";
 import { Form, Button } from "react-bootstrap";
-import NavBar from "./NavBar";
 import axios from 'axios';
 import { useNavigate,Link} from 'react-router-dom';
 
@@ -53,7 +52,7 @@ const handleSubmit = async (e) => {
 
   return (
     <>
-    <NavBar/>
+    
     <div className="register-container">
       <div className="register-card">
         <h2 className="register-title">Create Account</h2>
@@ -83,7 +82,7 @@ const handleSubmit = async (e) => {
 </Form.Group>
 
 
-          <Button className="register-btn" type="submit" block>
+          <Button className="register-btn" type="submit" >
             Register
           </Button>
         </Form>

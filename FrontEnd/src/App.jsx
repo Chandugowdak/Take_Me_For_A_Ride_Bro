@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-
+import Layout from './Layout_Section/Layout';
 import Login from './Pages/Login';
 import Register from './Pages/Registration';
 import User_Home from './components/UserHome/User_Home';
@@ -16,8 +16,9 @@ const  App = ()=>{
   return (
     <GlobelContext>
       <Routes>
-    
-
+        {/* IMPLEMENT OUT LET SO IT WILL BW BE PARENT ROUTE */}
+    <Route  element={<Layout/>}>
+   {/* CHILD ROUTE FOR THE OUTLET */}
         {/* PUBLIC ROUTES */}
         <Route element={<PublicRoute />}>
               <Route path="/" element={<Login />} />
@@ -30,7 +31,7 @@ const  App = ()=>{
           <Route path="/Earnerhome" element={<Earn_Home  />} />
         </Route>
 
-
+</Route>
 
       </Routes>
     </GlobelContext>
@@ -38,3 +39,6 @@ const  App = ()=>{
 }
 
 export default App;
+
+
+

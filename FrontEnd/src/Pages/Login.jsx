@@ -1,11 +1,11 @@
   import React,{useState,useContext, use} from "react";
   import "../CssFolder/Login.css";
   import { Form, Button } from "react-bootstrap";
-  import NavBar from "./NavBar";
   import '../CssFolder/NavBar.css';
   import axios from 'axios';
   import { useNavigate,Link} from 'react-router-dom';
   import { GlobelValue } from "../context/GlobelVariable";
+
 
 
   export default function Login() {
@@ -62,7 +62,8 @@
 
 
     return (
-      <><NavBar/>
+      <>
+      
       <div className="login-container">
         
         <div className="login-card">

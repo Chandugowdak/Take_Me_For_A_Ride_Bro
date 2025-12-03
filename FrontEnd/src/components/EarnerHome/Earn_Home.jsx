@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { GlobelValue } from "../../context/GlobelVariable";
 import "./Earn_Home.css";
-import NavBar from "../../Pages/NavBar";
+
 
 const Earn_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
@@ -9,7 +9,8 @@ const Earn_Home = () => {
   return (
     <div className="earn-main">
 
- <NavBar/>
+
+ 
       {/* HERO SECTION */}
       <section className="earn-hero container">
         <h1 className="earn-heading">
