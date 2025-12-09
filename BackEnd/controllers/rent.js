@@ -4,24 +4,22 @@ const Rent_Model = require('../model/Rentel');
 //ADD VEHICAL CONTROLLER
 const Add_Vehical = async (req, res) => {
 
-    const { Vehical_Name, Type_of_Vehical, Rentel_Date, Return_Date, Total_Amount } = req.body;
+    const {
+        Vehical_Name,
+        Type_of_Vehical,
+        Image_URL,   // ✅ URL from frontend
+        Rentel_Date,
+        Return_Date,
+        Total_Amount
+    } = req.body;
 
     try {
-        if (!Vehical_Name || !Type_of_Vehical || !Rentel_Date || !Return_Date || !Total_Amount) {
+        if (!Vehical_Name || !Type_of_Vehical || !Image_URL ||
+            !Rentel_Date || !Return_Date || !Total_Amount) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        // 📌 Get Image from multer
-        if (!req.file) {
-            return res.status(400).json({ message: "Image is required" });
-        }
-
-        const Image_URL = req.file.path;
-
         const userId = req.user.id;
-        if (!userId) {
-            return res.status(401).json({ message: "Unauthorized: User ID not found" });
-        }
 
         const newRentel = new Rent_Model({
             userId,
@@ -34,10 +32,10 @@ const Add_Vehical = async (req, res) => {
         });
 
         await newRentel.save();
-        
-        return res.status(201).json({ 
-            message: "Vehical Added Successfully", 
-            rentel: newRentel 
+
+        return res.status(201).json({
+            message: "Vehical Added Successfully",
+            rentel: newRentel
         });
 
     } catch (err) {
@@ -47,6 +45,7 @@ const Add_Vehical = async (req, res) => {
         });
     }
 };
+
 
 //GET THE VEHICALS ADDED BY USER
 
@@ -73,6 +72,8 @@ const Get_Vehicals = async (req, res) => {
         });
     }
 };
+
+
 //UPDATE API CALL
 const Update_Vehical = async (req, res) => {
     try {
@@ -88,6 +89,7 @@ const Update_Vehical = async (req, res) => {
         const {
             Vehical_Name,
             Type_of_Vehical,
+            Image_URL,
             Rentel_Date,
             Return_Date,
             Total_Amount
@@ -95,14 +97,10 @@ const Update_Vehical = async (req, res) => {
 
         if (Vehical_Name) vehical.Vehical_Name = Vehical_Name;
         if (Type_of_Vehical) vehical.Type_of_Vehical = Type_of_Vehical;
+        if (Image_URL) vehical.Image_URL = Image_URL; 
         if (Rentel_Date) vehical.Rentel_Date = Rentel_Date;
         if (Return_Date) vehical.Return_Date = Return_Date;
         if (Total_Amount) vehical.Total_Amount = Total_Amount;
-
-        // ✅ If new image uploaded
-        if (req.file) {
-            vehical.Image_URL = req.file.path;
-        }
 
         await vehical.save();
 
@@ -118,6 +116,10 @@ const Update_Vehical = async (req, res) => {
         });
     }
 };
+
+
+
+
 //DELETE API CALL
 const Delete_Vehical = async (req, res) => {
     try {
@@ -146,5 +148,4 @@ const Delete_Vehical = async (req, res) => {
 };
 
 
-module.exports = {Add_Vehical , Get_Vehicals , Update_Vehical , Delete_Vehical
-};
+module.exports = {Add_Vehical , Get_Vehicals , Update_Vehical , Delete_Vehical};

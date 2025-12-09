@@ -8,11 +8,10 @@ const upload = require('../Middleware/upload');   // <-- You forgot this
 rentrouter.post(
     '/add/vehical',
     Verify_User,
-    upload.single("Image_URL"),   // <-- REQUIRED for file upload
     Add_Vehical
 );
 rentrouter.get('/get/vehicals' , Verify_User , Get_Vehicals);
-rentrouter.put('/vehical/update/:id', Verify_User, upload.single('Image_URL'), Update_Vehical);
+rentrouter.put('/vehical/update/:id', Verify_User, Update_Vehical);
 rentrouter.delete('/vehical/delete/:id', Verify_User, Delete_Vehical);
 
 module.exports = rentrouter;
