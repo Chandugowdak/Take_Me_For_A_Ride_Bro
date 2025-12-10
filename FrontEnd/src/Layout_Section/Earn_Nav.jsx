@@ -32,11 +32,11 @@ const Earn_Nav = () => {
 
           {/* CENTER MENU */}
           <div className="nav-center d-none d-lg-flex">
-            <Link to="/earner/home" className="nav-link">Dashboard</Link>
+            <Link to="/Earnerhome" className="nav-link">Dashboard</Link>
 
             <Link to="/earner/add-vehicle" className="nav-link">Add Vehicle</Link>
 
-            <Link to="/earner/my-vehicles" className="nav-link">My Vehicles</Link>
+            <Link to="/Earner/Data" className="nav-link">My Vehicles</Link>
 
             <Link to="/earner/requests" className="nav-link">Requests</Link>
 
@@ -67,7 +67,7 @@ const Earn_Nav = () => {
 
           <Link to="/earner/home" className="mobile-item nav-link" onClick={() => setOpen(false)}>Dashboard</Link>
           <Link to="/earner/add-vehicle" className="mobile-item nav-link" onClick={() => setOpen(false)}>Add Vehicle</Link>
-          <Link to="/earner/my-vehicles" className="mobile-item nav-link" onClick={() => setOpen(false)}>My Vehicles</Link>
+          <Link to="/Earner/Data" className="mobile-item nav-link" onClick={() => setOpen(false)}>My Vehicles</Link>
           <Link to="/earner/requests" className="mobile-item nav-link" onClick={() => setOpen(false)}>Requests</Link>
           <Link to="/earner/earnings" className="mobile-item nav-link" onClick={() => setOpen(false)}>My Earnings</Link>
 
