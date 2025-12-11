@@ -15,9 +15,7 @@ const Earn_Home = () => {
     Total_Amount: ""
   });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async () => {
     try {
@@ -41,18 +39,14 @@ const Earn_Home = () => {
 
   return (
     <div className="earn-main">
-
       {/* HERO SECTION */}
       <section className="earn-hero container">
-        <h1 className="earn-heading">Earn Money By Renting Your Bike</h1>
+        <h1 className="earn-heading">Earn Money By Renting Your Vehicle</h1>
         <p className="earn-text">
-          List your bike on our platform and start earning with every ride.
+          List your vehicle on our platform and start earning instantly.
         </p>
-        <button
-          className="btn earn-btn-primary"
-          onClick={() => setShowModal(true)}
-        >
-          Add Your Bike
+        <button className="btn earn-btn-primary" onClick={() => setShowModal(true)}>
+          Add Your Vehicle
         </button>
       </section>
 
@@ -62,15 +56,15 @@ const Earn_Home = () => {
           <div className="col-md-4">
             <div className="feature-box shadow-sm">
               <div className="feature-icon">🏍️</div>
-              <h3>Add Your Bike</h3>
-              <p>Upload bike details, documents, and get verified quickly.</p>
+              <h3>Add Your Vehicle</h3>
+              <p>Upload your vehicle details and get verified quickly.</p>
             </div>
           </div>
           <div className="col-md-4">
             <div className="feature-box shadow-sm">
               <div className="feature-icon">📅</div>
               <h3>Get Bookings</h3>
-              <p>Users nearby will book your bike instantly.</p>
+              <p>Users nearby will book your vehicle instantly.</p>
             </div>
           </div>
           <div className="col-md-4">
@@ -87,8 +81,8 @@ const Earn_Home = () => {
       {showModal && (
         <div className="modal fade show d-block" style={{ background: "#000000aa" }}>
           <div className="modal-dialog modal-lg modal-dialog-centered">
-            <div className="modal-content p-4 rounded-4">
-              <h4 className="mb-3">Add Your Vehicle</h4>
+            <div className="modal-content rounded-4">
+              <h4>Add Your Vehicle</h4>
 
               <input
                 className="form-control mb-2"
@@ -158,7 +152,6 @@ const Earn_Home = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };

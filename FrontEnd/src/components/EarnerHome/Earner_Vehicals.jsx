@@ -1,11 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { GlobelValue } from "../../context/GlobelVariable";
-import "./Earn_Home.css";
+import "./Earner_Vehical.css";
 
-const Earner_Vehicals = () => {
+const Earner_Vehical = () => {
   const { JWT_Token } = useContext(GlobelValue);
   const [vehicals, setVehicals] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Edit Modal State
   const [editModal, setEditModal] = useState(false);
   const [editForm, setEditForm] = useState({
     id: "",
@@ -26,6 +29,8 @@ const Earner_Vehicals = () => {
       setVehicals(res.data.vehicals || []);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -33,12 +38,21 @@ const Earner_Vehicals = () => {
     fetchVehicals();
   }, []);
 
-  // Handle Edit Form Change
-  const handleChange = (e) => {
-    setEditForm({ ...editForm, [e.target.name]: e.target.value });
+  // Delete vehicle
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this vehicle?")) return;
+    try {
+      await axios.delete(`http://localhost:3000/api/vehical/delete/${id}`, {
+        headers: { Authorization: `Bearer ${JWT_Token}` },
+      });
+      alert("Vehicle deleted successfully!");
+      fetchVehicals();
+    } catch (err) {
+      alert(err.response?.data?.message || "Error deleting vehicle");
+    }
   };
 
-  // Open Edit Modal
+  // Open edit modal
   const handleEdit = (v) => {
     setEditForm({
       id: v._id,
@@ -52,7 +66,7 @@ const Earner_Vehicals = () => {
     setEditModal(true);
   };
 
-  // Submit Edit
+  // Update vehicle
   const handleUpdate = async () => {
     try {
       await axios.put(
@@ -75,49 +89,76 @@ const Earner_Vehicals = () => {
     }
   };
 
-  // Delete Vehicle
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this vehicle?")) return;
-    try {
-      await axios.delete(`http://localhost:3000/api/vehical/delete/${id}`, {
-        headers: { Authorization: `Bearer ${JWT_Token}` },
-      });
-      alert("Vehicle deleted successfully!");
-      fetchVehicals();
-    } catch (err) {
-      alert(err.response?.data?.message || "Error deleting vehicle");
-    }
+  // Handle form input change
+  const handleChange = (e) => {
+    setEditForm({ ...editForm, [e.target.name]: e.target.value });
   };
 
-  if (vehicals.length === 0)
-    return <p className="text-center mt-4">No vehicles added yet.</p>;
+  if (loading) {
+    return (
+      <div className="text-center mt-5">
+        <div className="spinner-border text-primary"></div>
+      </div>
+    );
+  }
+
+  if (vehicals.length === 0) {
+    return (
+      <div className="text-center mt-5 text-muted">
+        <h4>No vehicles added yet 🚫</h4>
+        <p>Add your first vehicle and start earning.</p>
+      </div>
+    );
+  }
 
   return (
-    <section className="container mt-5">
-      <h2 className="mb-4 text-center">Your Vehicles</h2>
+    <section className="earner-page container">
+      <h2 className="earner-title text-center mb-4">Your Listed Vehicles</h2>
+
       <div className="row g-4">
         {vehicals.map((v) => (
-          <div key={v._id} className="col-md-4 col-sm-6">
-            <div className="feature-box h-100">
-              <img
-                src={v.Image_URL}
-                alt={v.Vehical_Name}
-                className="img-fluid rounded mb-3"
-                style={{ height: "180px", objectFit: "cover" }}
-              />
-              <h5>{v.Vehical_Name}</h5>
-              <p>Type: {v.Type_of_Vehical}</p>
-              <p>₹ {v.Total_Amount}</p>
-              <div className="d-flex justify-content-between mt-2">
-                <button className="btn btn-sm btn-warning" onClick={() => handleEdit(v)}>Edit</button>
-                <button className="btn btn-sm btn-danger" onClick={() => handleDelete(v._id)}>Delete</button>
+          <div key={v._id} className="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <div className="vehical-card h-100">
+              <div className="vehical-img">
+                <img src={v.Image_URL} alt={v.Vehical_Name} />
+                <span className="vehical-type">{v.Type_of_Vehical}</span>
+              </div>
+
+              <div className="vehical-body">
+                <h5 className="vehical-title">{v.Vehical_Name}</h5>
+                <div className="vehical-meta">
+                  <p>
+                    <strong>From:</strong>{" "}
+                    {new Date(v.Rentel_Date).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>To:</strong>{" "}
+                    {new Date(v.Return_Date).toLocaleDateString()}
+                  </p>
+                </div>
+                <div className="vehical-price">₹ {v.Total_Amount}</div>
+
+                <div className="vehical-actions">
+                  <button
+                    className="btn btn-outline-warning btn-sm"
+                    onClick={() => handleEdit(v)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-outline-danger btn-sm"
+                    onClick={() => handleDelete(v._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Edit Vehicle Modal */}
+      {/* Edit Modal */}
       {editModal && (
         <div className="modal fade show d-block" style={{ background: "#000000aa" }}>
           <div className="modal-dialog modal-lg modal-dialog-centered">
@@ -181,7 +222,10 @@ const Earner_Vehicals = () => {
               />
 
               <div className="d-flex justify-content-end gap-2">
-                <button className="btn btn-secondary" onClick={() => setEditModal(false)}>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setEditModal(false)}
+                >
                   Cancel
                 </button>
                 <button className="btn btn-primary" onClick={handleUpdate}>
@@ -196,4 +240,4 @@ const Earner_Vehicals = () => {
   );
 };
 
-export default Earner_Vehicals;
+export default Earner_Vehical;

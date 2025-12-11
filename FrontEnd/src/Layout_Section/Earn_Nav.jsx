@@ -34,7 +34,7 @@ const Earn_Nav = () => {
           <div className="nav-center d-none d-lg-flex">
             <Link to="/Earnerhome" className="nav-link">Dashboard</Link>
 
-            <Link to="/earner/add-vehicle" className="nav-link">Add Vehicle</Link>
+           
 
             <Link to="/Earner/Data" className="nav-link">My Vehicles</Link>
 

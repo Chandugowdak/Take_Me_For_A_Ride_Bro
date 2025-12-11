@@ -1,79 +1,142 @@
 /* Full background */
 .earn-main {
   width: 100%;
-  background: linear-gradient(135deg, #e3f2ff, #fdfdfd);
-  padding-bottom: 40px;
+  /* background: linear-gradient(135deg, #fef9f2, #d0e8f2); */
+  padding-bottom: 60px;
+  min-height: 100vh;
 }
 
 /* Hero Section */
 .earn-hero {
   text-align: center;
-  padding: 60px 20px;
-  margin-top: 20px;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+  padding: 80px 20px;
+  margin-top: 10px;
+  background: linear-gradient(135deg, #ffffff, #f0f8ff);
+  border-radius: 25px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .earn-heading {
-  font-size: 2.7rem;
-  font-weight: 700;
-  color: #0a2a43;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0d3b66;
 }
 
 .earn-text {
-  font-size: 1.2rem;
-  color: #555;
-  margin-top: 10px;
+  font-size: 1.3rem;
+  color: #333;
+  margin-top: 15px;
 }
 
 /* Main CTA Button */
 .earn-btn-primary {
-  margin-top: 20px;
-  padding: 12px 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  background: #0d6efd;
+  margin-top: 25px;
+  padding: 14px 35px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: #ff6f61;
   color: white;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
-  transition: 0.3s ease;
+  transition: 0.4s ease;
+  box-shadow: 0px 5px 15px rgba(255,111,97,0.4);
 }
 
 .earn-btn-primary:hover {
-  background: #084298;
-  transform: translateY(-3px);
+  background: #e65550;
+  transform: translateY(-4px);
+  box-shadow: 0px 8px 20px rgba(230,85,80,0.5);
 }
 
 /* Features Section */
 .feature-box {
-  background: white;
-  padding: 30px 25px;
-  border-radius: 18px;
+  background: #ffffff;
+  padding: 35px 30px;
+  border-radius: 20px;
   text-align: center;
-  transition: 0.3s ease-in-out;
+  transition: 0.4s ease-in-out;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.08);
 }
 
 .feature-box:hover {
-  transform: translateY(-8px);
-  box-shadow: 0px 8px 25px rgba(0,0,0,0.15);
+  transform: translateY(-10px);
+  box-shadow: 0px 12px 30px rgba(0,0,0,0.15);
 }
 
 .feature-icon {
-  font-size: 45px;
-  margin-bottom: 15px;
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: #ff6f61;
 }
 
 .feature-box h3 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #0a2a43;
+  color: #0d3b66;
+  margin-bottom: 10px;
 }
 
-/* JWT Token Display */
-.token-display {
-  margin-top: 40px;
-  text-align: center;
-  color: #777;
-  font-size: 0.9rem;
+.feature-box p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Modal Styling */
+.modal-content {
+  background: linear-gradient(135deg, #ffffff, #f7fbff);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0px 15px 40px rgba(0,0,0,0.2);
+}
+
+.modal-content h4 {
+  font-size: 1.8rem;
+  color: #0d3b66;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.modal-content .form-control,
+.modal-content .form-select {
+  border-radius: 10px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+}
+
+.modal-content .btn-primary {
+  background: #ff6f61;
+  border: none;
+}
+
+.modal-content .btn-primary:hover {
+  background: #e65550;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .earn-hero {
+    padding: 60px 15px;
+  }
+  .earn-heading {
+    font-size: 2.4rem;
+  }
+  .feature-box {
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .earn-heading {
+    font-size: 2rem;
+  }
+  .earn-text {
+    font-size: 1.1rem;
+  }
+  .feature-icon {
+    font-size: 40px;
+  }
+  .feature-box h3 {
+    font-size: 1.3rem;
+  }
 }

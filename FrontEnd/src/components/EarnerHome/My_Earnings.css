@@ -1,0 +1,46 @@
+.my-earnings {
+  background: linear-gradient(135deg, #e0f7fa, #ffffff);
+  min-height: 100vh;
+}
+
+.earning-card {
+  background: #ffffff;
+  border-radius: 20px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.earning-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.earning-month {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #00796b;
+}
+
+.earning-rides {
+  font-size: 1rem;
+  color: #555;
+}
+
+.earning-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ff6f61;
+  margin-top: 5px;
+}
+
+.earning-bonus {
+  font-size: 1rem;
+  color: #009688;
+  margin-top: 5px;
+}
+
+@media(max-width: 768px){
+  .earning-card{
+    padding: 20px;
+  }
+}

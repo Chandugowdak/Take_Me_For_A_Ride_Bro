@@ -12,6 +12,8 @@ import GlobelContext from './context/GlobelContext';
 import PublicRoute from './router/PublicRoute';
 import ProtectedRoute from './router/ProtectedRoute';
 import Earner_Vehicals from './components/EarnerHome/Earner_Vehicals';
+import My_Earnings from './components/EarnerHome/My_Earnings';
+import My_Requests from './components/EarnerHome/My_Requests';
 
 const  App = ()=>{
   return (
@@ -31,6 +33,9 @@ const  App = ()=>{
           <Route path="/Userhome" element={<User_Home />} />
           <Route path="/Earnerhome" element={<Earn_Home  />} />
           <Route path="/Earner/Data" element={<Earner_Vehicals/>}/>
+          <Route path="/earner/requests" element={<My_Requests/>}/>
+          <Route path="/earner/earnings" element={<My_Earnings/>}/>
+      
         </Route>
 
 </Route>

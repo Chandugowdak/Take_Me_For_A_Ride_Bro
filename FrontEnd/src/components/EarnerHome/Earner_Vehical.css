@@ -1,0 +1,95 @@
+/* PAGE WRAPPER */
+.earner-page {
+  padding: 40px 0;
+}
+
+/* TITLE */
+.earner-title {
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: #0a2a43;
+}
+
+/* VEHICAL CARD */
+.vehical-card {
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.vehical-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* IMAGE SECTION */
+.vehical-img {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.vehical-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* TYPE BADGE */
+.vehical-type {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(13, 110, 253, 0.9);
+  color: white;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border-radius: 20px;
+}
+
+/* BODY */
+.vehical-body {
+  padding: 18px;
+}
+
+.vehical-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0a2a43;
+  margin-bottom: 10px;
+}
+
+/* META INFO */
+.vehical-meta p {
+  font-size: 0.85rem;
+  margin: 0;
+  color: #555;
+}
+
+/* PRICE */
+.vehical-price {
+  margin: 12px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #198754;
+}
+
+/* ACTION BUTTONS */
+.vehical-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 576px) {
+  .earner-title {
+    font-size: 1.8rem;
+  }
+
+  .vehical-img {
+    height: 160px;
+  }
+}
