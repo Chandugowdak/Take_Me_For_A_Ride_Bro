@@ -31,9 +31,9 @@ const User_Nav = () => {
 
           {/* CENTER MENU */}
           <div className="nav-center d-none d-lg-flex">
-            <Link to="/user-home" className="nav-link">Home</Link>
+            <Link to="/userhome" className="nav-link">Home</Link>
 
-            <Link to="/user/bookings" className="nav-link">My Bookings</Link>
+            <Link to="/user/booking" className="nav-link">My Bookings</Link>
 
             <Link to="/user/offers" className="nav-link">Offers</Link>
 

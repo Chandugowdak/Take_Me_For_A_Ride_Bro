@@ -147,5 +147,26 @@ const Delete_Vehical = async (req, res) => {
     }
 };
 
-
-module.exports = {Add_Vehical , Get_Vehicals , Update_Vehical , Delete_Vehical};
+//GET ALL THE VEHICAL DATA
+const Get_All_Vehicals = async(req,res)=>{
+  try{
+    const Vehicals = await Rent_Model.find().sort({ createdAt: -1 });
+    if(Vehicals.length === 0 ){
+        return res.status(404).json({   message: "No Vehicals found" });
+    }else{
+        return res.status(200).json({
+            message: "All Vehicals fetched successfully",
+            count: Vehicals.length,
+            Vehicals
+        });
+    }
+  }
+  catch(err){
+    return res.status(500).json({
+        message: "Server Error in Fetching All Vehicals",
+        error: err.message  
+    })
+  }
+     
+}
+module.exports = {Add_Vehical , Get_Vehicals , Update_Vehical , Delete_Vehical , Get_All_Vehicals};

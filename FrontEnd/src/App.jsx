@@ -14,6 +14,9 @@ import ProtectedRoute from './router/ProtectedRoute';
 import Earner_Vehicals from './components/EarnerHome/Earner_Vehicals';
 import My_Earnings from './components/EarnerHome/My_Earnings';
 import My_Requests from './components/EarnerHome/My_Requests';
+import My_Bookings from './components/UserHome/My_Bookings';
+import Offers from './components/UserHome/Offers';
+import Support from './components/UserHome/Support';
 
 const  App = ()=>{
   return (
@@ -35,6 +38,9 @@ const  App = ()=>{
           <Route path="/Earner/Data" element={<Earner_Vehicals/>}/>
           <Route path="/earner/requests" element={<My_Requests/>}/>
           <Route path="/earner/earnings" element={<My_Earnings/>}/>
+          <Route path="/user/booking" element={<My_Bookings/>}/>
+          <Route path="/user/offers" element={<Offers/>}/>
+          <Route path="/user/support" element={<Support/>}/>
       
         </Route>
 
