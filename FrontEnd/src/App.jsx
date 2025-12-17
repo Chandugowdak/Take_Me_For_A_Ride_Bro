@@ -17,6 +17,7 @@ import My_Requests from './components/EarnerHome/My_Requests';
 import My_Bookings from './components/UserHome/My_Bookings';
 import Offers from './components/UserHome/Offers';
 import Support from './components/UserHome/Support';
+import User_Data from './User_Data/User_Data';
 
 const  App = ()=>{
   return (
@@ -41,6 +42,7 @@ const  App = ()=>{
           <Route path="/user/booking" element={<My_Bookings/>}/>
           <Route path="/user/offers" element={<Offers/>}/>
           <Route path="/user/support" element={<Support/>}/>
+          <Route path='/user/data' element={<User_Data/>}/>
       
         </Route>
 
