@@ -2,32 +2,42 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { GlobelValue } from "../../context/GlobelVariable";
 import "./User_Home.css";
-import Layout from "../../Layout_Section/Layout";
 
 const User_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
   const [vehicals, setVehicals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Fetch Vehicles
-const fetchVehicals = async () => {
-  try {
-    const res = await axios.get(
-      "http://localhost:3000/api/vehicals/all"
-    );
+  const fetchVehicals = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/vehicals/all");
 
-    setVehicals(Array.isArray(res.data.Vehicals) ? res.data.Vehicals : []);
-    setLoading(false);
-  } catch (error) {
-    console.error("Error fetching vehicals", error);
-    setLoading(false);
-  }
-};
-
+      setVehicals(Array.isArray(res.data.Vehicals) ? res.data.Vehicals : []);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching vehicals", error);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchVehicals();
   }, []);
+
+  /* ========================= */
+  /* SEARCH LOGIC */
+  /* ========================= */
+  const filteredVehicals = vehicals.filter((item) => {
+    const keyword = searchTerm.toLowerCase();
+
+    return (
+      item.Vehical_Name?.toLowerCase().includes(keyword) ||
+      item.Type_of_Vehical?.toLowerCase().includes(keyword) ||
+      item.Location?.toLowerCase().includes(keyword)
+    );
+  });
 
   return (
     <div className="user-home-container">
@@ -44,8 +54,12 @@ const fetchVehicals = async () => {
             type="text"
             className="form-control search-input"
             placeholder="Search Bike, Location..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button className="btn btn-primary search-btn">Search</button>
+          <button className="btn btn-primary search-btn">
+            Search
+          </button>
         </div>
       </section>
 
@@ -57,11 +71,11 @@ const fetchVehicals = async () => {
 
           {loading ? (
             <p className="text-center">Loading vehicles...</p>
-          ) : vehicals.length === 0 ? (
-            <p className="text-center">No vehicles available</p>
+          ) : filteredVehicals.length === 0 ? (
+            <p className="text-center">No matching vehicles found</p>
           ) : (
-            vehicals.map((item) => (
-              <div className="col-md-4" key={item._id}>
+            filteredVehicals.map((item) => (
+              <div className="col-12 col-sm-6 col-md-4" key={item._id}>
                 <div className="bike-card shadow-sm">
 
                   {/* Vehicle Image */}
@@ -121,9 +135,6 @@ const fetchVehicals = async () => {
           </div>
         </div>
       </section>
-
-      {/* JWT Token */}
-      <p className="token-display">{JWT_Token}</p>
 
     </div>
   );

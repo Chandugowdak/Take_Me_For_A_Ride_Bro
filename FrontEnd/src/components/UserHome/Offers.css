@@ -1,0 +1,83 @@
+.offers-wrapper {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #e3f2fd, #ffffff);
+}
+
+/* Heading */
+.offers-heading {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0d1b2a;
+}
+
+.offers-subheading {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Offer Card */
+.offer-box {
+  height: 220px;
+  border-radius: 22px;
+  padding: 30px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.offer-box::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255,255,255,0.08);
+  transform: rotate(25deg);
+}
+
+/* Hover */
+.offer-box:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+}
+
+.offer-box h3 {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.offer-box p {
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+/* Code */
+.code {
+  align-self: flex-start;
+  background: rgba(255,255,255,0.2);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Color Themes */
+.blue { background: linear-gradient(135deg, #2196f3, #1e88e5); }
+.green { background: linear-gradient(135deg, #43a047, #2e7d32); }
+.purple { background: linear-gradient(135deg, #8e24aa, #6a1b9a); }
+.orange { background: linear-gradient(135deg, #fb8c00, #ef6c00); }
+.dark { background: linear-gradient(135deg, #263238, #000); }
+.red { background: linear-gradient(135deg, #e53935, #b71c1c); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .offers-heading {
+    font-size: 2.2rem;
+  }
+}

@@ -1,18 +1,22 @@
-/* Background */
+/* ============================= */
+/* GLOBAL BACKGROUND */
+/* ============================= */
 .user-home-container {
   background: #f4f8ff;
   min-height: 100vh;
   padding-bottom: 40px;
 }
 
-/* Hero Section */
+/* ============================= */
+/* HERO SECTION */
+/* ============================= */
 .user-hero {
   text-align: center;
   padding: 60px 20px;
   margin-top: 20px;
   background: white;
   border-radius: 20px;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .user-title {
@@ -24,9 +28,12 @@
 .user-desc {
   font-size: 1.1rem;
   color: #555;
+  margin-top: 8px;
 }
 
-/* Search Box */
+/* ============================= */
+/* SEARCH BOX */
+/* ============================= */
 .search-box {
   margin: 25px auto 0;
   max-width: 600px;
@@ -38,6 +45,7 @@
 }
 
 .search-input {
+  flex: 1;
   border-radius: 10px;
 }
 
@@ -46,28 +54,34 @@
   padding: 8px 20px;
 }
 
-/* Popular Bikes Section */
+/* ============================= */
+/* SECTION HEADING */
+/* ============================= */
 .section-heading {
   font-weight: 700;
   color: #0a2a43;
 }
 
+/* ============================= */
+/* VEHICLE CARD */
+/* ============================= */
 .bike-card {
   background: white;
   padding: 20px;
   border-radius: 16px;
   text-align: center;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
+  height: 100%;
 }
 
 .bike-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .bike-image {
   width: 100%;
-  height: 150px;
+  height: 160px;
   background: linear-gradient(135deg, #e8f0ff, #d0e2ff);
   border-radius: 12px;
   margin-bottom: 15px;
@@ -76,38 +90,132 @@
 .bike-name {
   font-weight: 600;
   color: #15314b;
+  margin-bottom: 4px;
 }
 
 .bike-price {
   color: #777;
+  margin-bottom: 10px;
 }
 
 .rent-btn {
-  margin-top: 10px;
+  margin-top: auto;
   border-radius: 10px;
 }
 
-/* Steps Section */
+/* ============================= */
+/* HOW IT WORKS */
+/* ============================= */
 .step-card {
   background: white;
   padding: 25px;
   border-radius: 14px;
   text-align: center;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  height: 100%;
 }
 
 .step-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .step-icon {
   font-size: 40px;
+  margin-bottom: 10px;
 }
 
-/* JWT Token */
+/* ============================= */
+/* JWT TOKEN */
+/* ============================= */
 .token-display {
   margin-top: 40px;
   text-align: center;
   color: #777;
+  word-break: break-all;
+  font-size: 0.85rem;
+}
+
+/* ============================= */
+/* RESPONSIVE DESIGN */
+/* ============================= */
+
+/* ---------- Mobile (<=576px) ---------- */
+@media (max-width: 576px) {
+
+  .user-hero {
+    padding: 40px 15px;
+  }
+
+  .user-title {
+    font-size: 1.8rem;
+  }
+
+  .user-desc {
+    font-size: 0.95rem;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .search-btn {
+    width: 100%;
+  }
+
+  .bike-image {
+    height: 130px;
+  }
+
+  .bike-card {
+    padding: 15px;
+  }
+
+  .step-card {
+    padding: 18px;
+  }
+
+  .step-icon {
+    font-size: 32px;
+  }
+}
+
+/* ---------- Tablet (577px – 991px) ---------- */
+@media (min-width: 577px) and (max-width: 991px) {
+
+  .user-title {
+    font-size: 2.1rem;
+  }
+
+  .search-box {
+    max-width: 500px;
+  }
+
+  .bike-image {
+    height: 150px;
+  }
+}
+
+/* ---------- Large Screens (>=1200px) ---------- */
+@media (min-width: 1200px) {
+
+  .user-hero {
+    padding: 80px 30px;
+  }
+
+  .user-title {
+    font-size: 3rem;
+  }
+
+  .user-desc {
+    font-size: 1.2rem;
+  }
+
+  .bike-image {
+    height: 200px;
+  }
+
+  .bike-card {
+    padding: 25px;
+  }
 }
