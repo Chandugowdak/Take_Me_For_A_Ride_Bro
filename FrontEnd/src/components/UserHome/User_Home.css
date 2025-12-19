@@ -2,7 +2,7 @@
 /* GLOBAL BACKGROUND */
 /* ============================= */
 .user-home-container {
-  background: #f4f8ff;
+   background: linear-gradient(135deg, #fffaf0, #ffffff);
   min-height: 100vh;
   padding-bottom: 40px;
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import "../CssFolder/NavBar.css";
-import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -14,46 +14,53 @@ const NavBar = () => {
 
           {/* LEFT */}
           <div className="nav-left d-flex align-items-center">
-            <img src={Logo} className="brand-logo" alt="Logo" />
-            <span className="brand-name fw-bold ms-2">
-              Take_Me_For_A_Ride
-            </span>
+            <Link to="/">
+              <img src={Logo} className="brand-logo" alt="Logo" />
+            </Link>
+
+            <Link
+              to="/"
+              className="brand-name fw-bold ms-2 text-dark text-decoration-none"
+            >
+              Take_Me_Forword
+            </Link>
           </div>
 
-          {/* CENTER MENU */}
+          {/* CENTER MENU (DESKTOP) */}
           <div className="nav-center d-none d-lg-flex">
 
-            {/* Tariff */}
-            <div className="nav-item dropdown">
-              <span className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                Tariff
-              </span>
-              <div className="dropdown-menu custom-drop">
-                <span className="dropdown-item">Rent a Bike</span>
-                <span className="dropdown-item">Rent a Car</span>
-              </div>
-            </div>
-
-            {/* Offers */}
             <div className="nav-item">
-              <span className="nav-link">Offers</span>
+              <Link to="/Sub" className="nav-link">
+                Subscription
+              </Link>
             </div>
 
-            {/* Partner */}
+            <div className="nav-item">
+              <Link to="/OffersSection" className="nav-link">
+                Offers
+              </Link>
+            </div>
+
             <div className="nav-item dropdown">
-              <span className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              <span
+                className="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
                 Partner With Us
               </span>
+
               <div className="dropdown-menu custom-drop">
                 <Link className="dropdown-item" to="/earn/with/us">
                   Earn With Us
                 </Link>
-                <span className="dropdown-item">Own a Franchise</span>
+                <Link className="dropdown-item" to="/franchise/own">
+                  Own a Franchise
+                </Link>
               </div>
             </div>
           </div>
 
-          {/* RIGHT (PUBLIC AUTH BUTTONS) */}
+          {/* RIGHT AUTH (DESKTOP) */}
           <div className="nav-right d-none d-lg-flex gap-2">
             <Link to="/" className="btn btn-outline-success px-4">
               Login
@@ -64,7 +71,10 @@ const NavBar = () => {
           </div>
 
           {/* MOBILE MENU BUTTON */}
-          <button className="menu-btn d-lg-none" onClick={() => setOpen(true)}>
+          <button
+            className="menu-btn d-lg-none"
+            onClick={() => setOpen(true)}
+          >
             ☰
           </button>
         </div>
@@ -75,28 +85,41 @@ const NavBar = () => {
         <div className="side-menu-content p-3">
 
           <div className="text-end">
-            <button className="btn-close" onClick={() => setOpen(false)} />
+            <button
+              className="btn-close"
+              onClick={() => setOpen(false)}
+            />
           </div>
 
-          {/* MOBILE ITEMS */}
+          {/* MOBILE LINKS */}
           <div className="mobile-item">
-            <span className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-              Tariff
-            </span>
-            <div className="dropdown-menu border-0 mt-1 custom-drop">
-              <span className="dropdown-item">Rent a Bike</span>
-              <span className="dropdown-item">Rent a Car</span>
-            </div>
+            <Link
+              to="/Sub"
+              className="nav-link"
+              onClick={() => setOpen(false)}
+            >
+              Subscription
+            </Link>
           </div>
 
           <div className="mobile-item">
-            <span className="nav-link">Offers</span>
+            <Link
+              to="/OffersSection"
+              className="nav-link"
+              onClick={() => setOpen(false)}
+            >
+              Offers
+            </Link>
           </div>
 
           <div className="mobile-item">
-            <span className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <span
+              className="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
+            >
               Partner With Us
             </span>
+
             <div className="dropdown-menu border-0 mt-1 custom-drop">
               <Link
                 className="dropdown-item"
@@ -105,7 +128,14 @@ const NavBar = () => {
               >
                 Earn With Us
               </Link>
-              <Link className="dropdown-item" to="/franchise/own">Own a Franchise</Link>
+
+              <Link
+                className="dropdown-item"
+                to="/franchise/own"
+                onClick={() => setOpen(false)}
+              >
+                Own a Franchise
+              </Link>
             </div>
           </div>
 

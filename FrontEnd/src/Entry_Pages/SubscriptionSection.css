@@ -1,0 +1,102 @@
+.subscription-section {
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+}
+
+/* Title */
+.sub-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.sub-desc {
+  color: #6c757d;
+}
+
+/* Bike Cards */
+.bike-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  border: 1px solid #e2e4e8;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.bike-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+}
+
+.bike-img {
+  height: 120px;
+  background: #f1f3f5;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bike-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+
+
+.bike-name {
+  font-weight: 600;
+  color: #212529;
+  margin-top: 8px;
+}
+
+.bike-price span {
+  color: #ffb300; /* yellow accent */
+  font-weight: 700;
+}
+
+.subscribe-btn {
+  background: #ffb300;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+}
+
+.subscribe-btn:hover {
+  background: #e6a200;
+  color: #fff;
+}
+
+/* FAQ */
+.faq-section {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #e2e4e8;
+}
+
+.faq-title {
+  font-weight: 700;
+  color: #212529;
+}
+
+.accordion-button:not(.collapsed) {
+  background: #ffb300;
+  color: #fff;
+}
+
+.accordion-button {
+  color: #212529;
+}
+
+.accordion-body {
+  color: #495057;
+}
+
+@media (max-width: 576px) {
+  .sub-title {
+    font-size: 1.6rem;
+  }
+}

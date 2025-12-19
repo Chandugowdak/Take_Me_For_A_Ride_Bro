@@ -1,5 +1,6 @@
 import React from 'react';
 import './Franchise.css';
+import {Link} from 'react-router-dom'
 
 const Franchise = () => {
   return (
@@ -13,9 +14,9 @@ const Franchise = () => {
               Build a profitable rental business by owning a franchise with a
               trusted mobility brand.
             </p>
-            <button className="btn btn-warning btn-lg mt-3">
+            <Link to="/" className="btn btn-warning btn-lg mt-3">
               Apply for Franchise
-            </button>
+            </Link>
           </div>
           <div className="col-lg-6 text-center">
             <img
@@ -91,7 +92,7 @@ const Franchise = () => {
         <div className="cta-box">
           <h3>Ready to Start Your Franchise Journey?</h3>
           <p>Join us and grow your business with confidence.</p>
-          <button className="btn btn-light btn-lg">Get Started</button>
+          <Link to="/" className="btn btn-light btn-lg">Get Started</Link>
         </div>
       </div>
     </div>

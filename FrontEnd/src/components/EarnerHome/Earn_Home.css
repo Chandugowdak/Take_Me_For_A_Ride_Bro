@@ -1,7 +1,7 @@
 /* Full background */
 .earn-main {
   width: 100%;
-  /* background: linear-gradient(135deg, #fef9f2, #d0e8f2); */
+   background: linear-gradient(135deg, #fffaf0, #ffffff);
   padding-bottom: 60px;
   min-height: 100vh;
 }

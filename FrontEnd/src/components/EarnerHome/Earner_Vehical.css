@@ -1,6 +1,7 @@
 /* PAGE WRAPPER */
 .earner-page {
   padding: 40px 0;
+   background: linear-gradient(135deg, #fffaf0, #ffffff);
 }
 
 /* TITLE */
@@ -12,7 +13,7 @@
 
 /* VEHICAL CARD */
 .vehical-card {
-  background: #ffffff;
+   background: linear-gradient(135deg, #fffaf0, #ffffff);
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.08);
