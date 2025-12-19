@@ -1,0 +1,100 @@
+
+.earn-with-us {
+  background: linear-gradient(135deg, #fff8e1, #ffffff);
+}
+
+.main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.sub-title {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.earn-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px 25px;
+  text-align: center;
+  height: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.earn-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ffc107;
+  color: #000;
+  font-size: 1.4rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+
+.earn-card h5 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.earn-card p {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+}
+
+.benefits-list li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.highlight-box {
+  background: #212529;
+  color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 20px;
+}
+
+.highlight-box h3 {
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.highlight-box p {
+  font-size: 1rem;
+  color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+}

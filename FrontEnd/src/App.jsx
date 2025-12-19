@@ -18,6 +18,8 @@ import My_Bookings from './components/UserHome/My_Bookings';
 import Offers from './components/UserHome/Offers';
 import Support from './components/UserHome/Support';
 import User_Data from './User_Data/User_Data';
+import EarnWithUs from './Entry_Pages/EarnWitUs';
+import Franchise from './Entry_Pages/Franchise';
 
 const  App = ()=>{
   return (
@@ -30,6 +32,8 @@ const  App = ()=>{
         <Route element={<PublicRoute />}>
               <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/earn/with/us" element={<EarnWithUs/>}/>
+          <Route path="/franchise/own" element={<Franchise/>}/>
         </Route>
 
         {/* PROTECTED ROUTES */}

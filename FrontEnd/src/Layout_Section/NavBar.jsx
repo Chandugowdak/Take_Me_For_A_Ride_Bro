@@ -1,21 +1,10 @@
-import React, { useState,useContext } from "react";
+import React, { useState } from "react";
 import Logo from "../assets/Logo.png";
 import "../CssFolder/NavBar.css";
-import {Link} from 'react-router-dom';
-import { GlobelValue } from "../context/GlobelVariable";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
-  const{User_Login,Set_User_Login,setJWT_Token,setUser_Type} = useContext(GlobelValue);
-  
-  const Handel_Logout = async()=>{
-    localStorage.removeItem("JWT_Token");
-    localStorage.removeItem('User_Type');
-    localStorage.removeItem('Login_Status');
-    setJWT_Token(null);
-    Set_User_Login(false);
-    setUser_Type(null);
-  }
 
   return (
     <>
@@ -31,7 +20,7 @@ const NavBar = () => {
             </span>
           </div>
 
-          {/* CENTER MENU (NO UL/LI) */}
+          {/* CENTER MENU */}
           <div className="nav-center d-none d-lg-flex">
 
             {/* Tariff */}
@@ -56,22 +45,23 @@ const NavBar = () => {
                 Partner With Us
               </span>
               <div className="dropdown-menu custom-drop">
-                <span className="dropdown-item">Earn With Us</span>
+                <Link className="dropdown-item" to="/earn/with/us">
+                  Earn With Us
+                </Link>
                 <span className="dropdown-item">Own a Franchise</span>
               </div>
             </div>
           </div>
 
-      {User_Login ? (
-  <Link to="/" className="btn bg-danger nav-right d-none d-lg-flex gap-2" onClick={Handel_Logout}>
-    Logout
-  </Link>
-) : (
-  <div className="nav-right d-none d-lg-flex gap-2">
-    <Link to="/" className="btn btn-outline-success px-4">Login</Link>
-    <Link to="/register" className="btn btn-success px-4">Sign Up</Link>
-  </div>
-)}
+          {/* RIGHT (PUBLIC AUTH BUTTONS) */}
+          <div className="nav-right d-none d-lg-flex gap-2">
+            <Link to="/" className="btn btn-outline-success px-4">
+              Login
+            </Link>
+            <Link to="/register" className="btn btn-success px-4">
+              Sign Up
+            </Link>
+          </div>
 
           {/* MOBILE MENU BUTTON */}
           <button className="menu-btn d-lg-none" onClick={() => setOpen(true)}>
@@ -88,12 +78,12 @@ const NavBar = () => {
             <button className="btn-close" onClick={() => setOpen(false)} />
           </div>
 
-          {/* MOBILE MENU BLOCKS (NO UL/LI) */}
+          {/* MOBILE ITEMS */}
           <div className="mobile-item">
             <span className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
               Tariff
             </span>
-            <div className="dropdown-menu  border-0 mt-1 custom-drop">
+            <div className="dropdown-menu border-0 mt-1 custom-drop">
               <span className="dropdown-item">Rent a Bike</span>
               <span className="dropdown-item">Rent a Car</span>
             </div>
@@ -107,42 +97,35 @@ const NavBar = () => {
             <span className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
               Partner With Us
             </span>
-            <div className="dropdown-menu  border-0 mt-1 custom-drop">
-              <span className="dropdown-item">Earn With Us</span>
-              <span className="dropdown-item">Own a Franchise</span>
+            <div className="dropdown-menu border-0 mt-1 custom-drop">
+              <Link
+                className="dropdown-item"
+                to="/earn/with/us"
+                onClick={() => setOpen(false)}
+              >
+                Earn With Us
+              </Link>
+              <Link className="dropdown-item" to="/franchise/own">Own a Franchise</Link>
             </div>
           </div>
 
-         {/* MOBILE AUTH BUTTONS */}
-{User_Login ? (
-  <button
-    className="btn bg-danger text-white w-100 mt-3"
-    onClick={() => {
-      Handel_Logout();
-      setOpen(false);
-    }}
-  >
-    Logout
-  </button>
-) : (
-  <>
-    <Link
-      to="/"
-      className="btn btn-outline-success w-100 mt-3"
-      onClick={() => setOpen(false)}
-    >
-      Login
-    </Link>
+          {/* MOBILE AUTH */}
+          <Link
+            to="/"
+            className="btn btn-outline-success w-100 mt-3"
+            onClick={() => setOpen(false)}
+          >
+            Login
+          </Link>
 
-    <Link
-      to="/register"
-      className="btn btn-success w-100 mt-2"
-      onClick={() => setOpen(false)}
-    >
-      Sign Up
-    </Link>
-  </>
-)}
+          <Link
+            to="/register"
+            className="btn btn-success w-100 mt-2"
+            onClick={() => setOpen(false)}
+          >
+            Sign Up
+          </Link>
+
         </div>
       </div>
     </>

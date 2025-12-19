@@ -1,0 +1,103 @@
+.franchise-section {
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+}
+
+.franchise-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+
+.franchise-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 500px;
+}
+
+.hero-image {
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.feature-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 16px;
+  text-align: center;
+  height: 100%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+}
+
+.feature-card h5 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.step-card {
+  background: #212529;
+  color: #ffffff;
+  padding: 30px 20px;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.step-card span {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  background: #ffc107;
+  color: #000;
+  border-radius: 50%;
+  font-weight: bold;
+  line-height: 45px;
+  margin-bottom: 10px;
+}
+
+.step-card h6 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.step-card p {
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.cta-box {
+  background: #ffc107;
+  padding: 50px 30px;
+  border-radius: 22px;
+}
+
+.cta-box h3 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cta-box p {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .franchise-title {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+}
