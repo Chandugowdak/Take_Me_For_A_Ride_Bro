@@ -21,7 +21,8 @@ import User_Data from './User_Data/User_Data';
 import EarnWithUs from './Entry_Pages/EarnWitUs';
 import Franchise from './Entry_Pages/Franchise';
 import OffersSection from './Entry_Pages/OffersSection';
-import SubscriptionSection from './Entry_Pages/SubscriptionSection';  
+import SubscriptionSection from './Entry_Pages/SubscriptionSection'; 
+import GetRidingAccessories from './Entry_Pages/GetRidingAccessories'; 
 
 const  App = ()=>{
   return (
@@ -38,6 +39,7 @@ const  App = ()=>{
           <Route path="/franchise/own" element={<Franchise/>}/>
           <Route path="/OffersSection" element={<OffersSection/>}/>
           <Route path="/Sub" element={<SubscriptionSection/>}/>
+          <Route path="/static/data" element={<GetRidingAccessories/>}/>
         </Route>
 
         {/* PROTECTED ROUTES */}

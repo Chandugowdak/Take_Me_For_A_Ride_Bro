@@ -6,6 +6,7 @@ const DB = require('./config/DB');
 // Handle routes
 const userrouter = require('./router/UserRoute');
 const rentrouter = require('./router/RentRout');
+const Staticrouter = require('./router/StaticRoute');
 //MIDDLE WARES
 const app = express();
 app.use(cors());
@@ -20,6 +21,8 @@ app.use('/api', userrouter);
 
 // RENTEL API
 app.use('/api', rentrouter);
+// STATIC DATA ROUTE
+app.use('/api', Staticrouter);
 
 DB()
 .then(()=>{

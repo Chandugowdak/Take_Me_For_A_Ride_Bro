@@ -3,6 +3,11 @@ import "./SubscriptionSection.css";
 
 const SubscriptionSection = () => {
  const bikes = [
+     {
+    name: "Bullet 350",
+    price: 9999,
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDYVbDAal0CY7xGYSJIiXo5zrgMVotmee6lQ&s",
+  },
   {
     name: "TVS Ntorq 125 (BS6)",
     price: 5459,
@@ -28,6 +33,7 @@ const SubscriptionSection = () => {
     price: 5999,
     image: "https://imgd.aeplcdn.com/664x374/n/cw/ec/147925/450x-right-front-three-quarter.jpeg?isig=0&q=80",
   },
+
 ];
 
   const faqs = [

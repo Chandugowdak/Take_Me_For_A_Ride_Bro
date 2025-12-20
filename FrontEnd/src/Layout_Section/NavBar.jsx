@@ -40,6 +40,12 @@ const NavBar = () => {
                 Offers
               </Link>
             </div>
+            {/* NEW SECTION */}
+                <div className="nav-item">
+              <Link to="/static/data" className="nav-link">
+                Get  Riding Accessories
+              </Link>
+            </div>
 
             <div className="nav-item dropdown">
               <span
@@ -109,6 +115,16 @@ const NavBar = () => {
               onClick={() => setOpen(false)}
             >
               Offers
+            </Link>
+          </div>
+          {/* NEW SECTION */}
+           <div className="mobile-item">
+            <Link
+              to="/static/data"
+              className="nav-link"
+              onClick={() => setOpen(false)}
+            >
+              Get  Riding Accessories
             </Link>
           </div>
 
