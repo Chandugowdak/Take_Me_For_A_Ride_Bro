@@ -3,7 +3,7 @@ const rentrouter = express.Router();
 
 const {Add_Vehical , Get_Vehicals , Update_Vehical , Delete_Vehical, Get_All_Vehicals,Get_User_Data } = require('../controllers/rent');
 const Verify_User = require('../Middleware/Auth');
-const upload = require('../Middleware/upload');   // <-- You forgot this
+
 
 rentrouter.post(
     '/add/vehical',
