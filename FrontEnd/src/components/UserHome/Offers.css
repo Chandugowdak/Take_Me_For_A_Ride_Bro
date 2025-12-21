@@ -1,6 +1,6 @@
 .offers-wrapper {
   min-height: 100vh;
-   background: linear-gradient(135deg, #fffaf0, #ffffff);
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
 }
 
 /* Heading */
@@ -8,11 +8,27 @@
   font-size: 3rem;
   font-weight: 800;
   color: #0d1b2a;
+  animation: fadeDown 0.9s ease forwards;
 }
 
 .offers-subheading {
   font-size: 1.2rem;
   color: #555;
+  animation: fadeDown 1.1s ease forwards;
+}
+
+/* =====================
+   ENTRY ANIMATION
+===================== */
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Offer Card */
@@ -24,29 +40,44 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-  transition: all 0.35s ease;
   position: relative;
   overflow: hidden;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+
+  animation: cardEnter 0.7s ease forwards;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+  will-change: transform;
 }
 
+/* Light shine overlay */
 .offer-box::after {
   content: "";
   position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
+  top: -60%;
+  right: -60%;
+  width: 220%;
+  height: 220%;
   background: rgba(255,255,255,0.08);
   transform: rotate(25deg);
+  transition: opacity 0.3s ease;
 }
 
-/* Hover */
+/* =====================
+   HOVER MICRO-INTERACTION
+===================== */
 .offer-box:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+  transform: translateY(-10px) scale(1.025);
+  box-shadow: 0 28px 65px rgba(0,0,0,0.25);
 }
 
+.offer-box:hover::after {
+  opacity: 0.15;
+}
+
+/* Text */
 .offer-box h3 {
   font-size: 2rem;
   font-weight: 800;
@@ -57,27 +88,86 @@
   opacity: 0.95;
 }
 
-/* Code */
+/* =====================
+   OFFER CODE (GLOW)
+===================== */
 .code {
   align-self: flex-start;
-  background: rgba(255,255,255,0.2);
-  padding: 6px 16px;
+  background: rgba(255,255,255,0.22);
+  padding: 6px 18px;
   border-radius: 20px;
   font-weight: 700;
   letter-spacing: 1px;
+  position: relative;
+  animation: codeGlow 2.4s ease-in-out infinite;
 }
 
-/* Color Themes */
-.blue { background: linear-gradient(135deg, #2196f3, #1e88e5); }
-.green { background: linear-gradient(135deg, #43a047, #2e7d32); }
+/* Glow Animation */
+@keyframes codeGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(255,255,255,0.0);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(255,255,255,0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(255,255,255,0.0);
+  }
+}
+
+/* =====================
+   BADGE PULSE (SUBTLE)
+===================== */
+.offer-box h3 {
+  animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+/* =====================
+   COLOR THEMES
+===================== */
+.blue   { background: linear-gradient(135deg, #2196f3, #1e88e5); }
+.green  { background: linear-gradient(135deg, #43a047, #2e7d32); }
 .purple { background: linear-gradient(135deg, #8e24aa, #6a1b9a); }
 .orange { background: linear-gradient(135deg, #fb8c00, #ef6c00); }
-.dark { background: linear-gradient(135deg, #263238, #000); }
-.red { background: linear-gradient(135deg, #e53935, #b71c1c); }
+.dark   { background: linear-gradient(135deg, #263238, #000); }
+.red    { background: linear-gradient(135deg, #e53935, #b71c1c); }
 
-/* Responsive */
+/* =====================
+   MOBILE SAFE
+===================== */
 @media (max-width: 768px) {
   .offers-heading {
     font-size: 2.2rem;
+  }
+
+  .offer-box {
+    animation-duration: 0.55s;
+  }
+
+  .offer-box:hover {
+    transform: translateY(-6px) scale(1.015);
+  }
+}
+
+/* =====================
+   FADE DOWN (HEADERS)
+===================== */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./UserData.css";
 
 const User_Data = () => {
   const [user, setUser] = useState(null);
@@ -11,8 +12,8 @@ const User_Data = () => {
 
         const res = await axios.get("http://localhost:3000/api/current/user", {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         setUser(res.data.userData);
@@ -29,20 +30,28 @@ const User_Data = () => {
   }
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6 col-lg-4">
-          <div className="card shadow-lg rounded-4 text-center p-4">
-            
-            <i className="bi bi-person-circle display-1 text-primary"></i>
+    <div className="user-data-wrapper">
+      <div className="container mt-5">
+        <div className="row justify-content-center">
+          <div className="col-md-6 col-lg-4">
+            <div className="user-card">
 
-            <h4 className="mt-3">{user.name}</h4>
-            <p className="text-muted">{user.email}</p>
+              <i className="bi bi-person-circle user-icon-big"></i>
 
-            <hr />
+              <h4 className="user-name">{user.name}</h4>
+              <p className="user-email">{user.email}</p>
 
-            <p><strong>User Type:</strong> {user.role}</p>
-            <p><strong>Joined:</strong> {new Date(user.createdAt).toDateString()}</p>
+              <hr />
+
+              <p className="user-info">
+                <strong>User Type:</strong> {user.role}
+              </p>
+              <p className="user-info">
+                <strong>Joined:</strong>{" "}
+                {new Date(user.createdAt).toDateString()}
+              </p>
+
+            </div>
           </div>
         </div>
       </div>

@@ -1,19 +1,21 @@
-/* Full background */
+/* ================= MAIN BACKGROUND ================= */
 .earn-main {
   width: 100%;
-   background: linear-gradient(135deg, #fffaf0, #ffffff);
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
   padding-bottom: 60px;
   min-height: 100vh;
+  animation: pageFade 0.8s ease;
 }
 
-/* Hero Section */
+/* ================= HERO SECTION ================= */
 .earn-hero {
   text-align: center;
   padding: 80px 20px;
-  margin-top: 10px;
+  margin-top: 15px;
   background: linear-gradient(135deg, #ffffff, #f0f8ff);
   border-radius: 25px;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.12);
+  animation: heroSlide 1s ease;
 }
 
 .earn-heading {
@@ -28,49 +30,54 @@
   margin-top: 15px;
 }
 
-/* Main CTA Button */
+/* ================= CTA BUTTON ================= */
 .earn-btn-primary {
   margin-top: 25px;
-  padding: 14px 35px;
+  padding: 14px 38px;
   font-size: 1.2rem;
   font-weight: 700;
-  background: #ff6f61;
+  background: linear-gradient(135deg, #ff6f61, #ff8a65);
   color: white;
-  border-radius: 12px;
+  border-radius: 14px;
   border: none;
-  transition: 0.4s ease;
-  box-shadow: 0px 5px 15px rgba(255,111,97,0.4);
+  transition: all 0.4s ease;
+  box-shadow: 0px 8px 20px rgba(255, 111, 97, 0.4);
 }
 
 .earn-btn-primary:hover {
-  background: #e65550;
-  transform: translateY(-4px);
-  box-shadow: 0px 8px 20px rgba(230,85,80,0.5);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0px 14px 30px rgba(230, 85, 80, 0.5);
 }
 
-/* Features Section */
+/* ================= FEATURES ================= */
 .feature-box {
   background: #ffffff;
   padding: 35px 30px;
-  border-radius: 20px;
+  border-radius: 22px;
   text-align: center;
-  transition: 0.4s ease-in-out;
-  box-shadow: 0px 5px 15px rgba(0,0,0,0.08);
+  transition: all 0.45s ease;
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+  animation: fadeUp 0.9s ease;
 }
 
 .feature-box:hover {
-  transform: translateY(-10px);
-  box-shadow: 0px 12px 30px rgba(0,0,0,0.15);
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0px 18px 40px rgba(0,0,0,0.18);
 }
 
 .feature-icon {
-  font-size: 50px;
-  margin-bottom: 20px;
+  font-size: 55px;
+  margin-bottom: 18px;
   color: #ff6f61;
+  transition: transform 0.4s ease;
+}
+
+.feature-box:hover .feature-icon {
+  transform: rotate(-6deg) scale(1.15);
 }
 
 .feature-box h3 {
-  font-size: 1.5rem;
+  font-size: 1.55rem;
   font-weight: 700;
   color: #0d3b66;
   margin-bottom: 10px;
@@ -81,12 +88,17 @@
   color: #555;
 }
 
-/* Modal Styling */
+/* ================= MODAL ================= */
+.modal.fade.show {
+  animation: modalFade 0.5s ease;
+}
+
 .modal-content {
   background: linear-gradient(135deg, #ffffff, #f7fbff);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0px 15px 40px rgba(0,0,0,0.2);
+  border-radius: 22px;
+  padding: 35px;
+  box-shadow: 0px 18px 45px rgba(0,0,0,0.25);
+  animation: modalSlide 0.6s ease;
 }
 
 .modal-content h4 {
@@ -98,31 +110,69 @@
 
 .modal-content .form-control,
 .modal-content .form-select {
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 12px 15px;
   font-size: 1rem;
-  border: 1px solid #ccc;
 }
 
 .modal-content .btn-primary {
-  background: #ff6f61;
+  background: linear-gradient(135deg, #ff6f61, #ff8a65);
   border: none;
+  transition: 0.3s;
 }
 
 .modal-content .btn-primary:hover {
-  background: #e65550;
+  transform: translateY(-3px);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .earn-hero {
-    padding: 60px 15px;
+/* ================= ANIMATIONS ================= */
+@keyframes heroSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlide {
+  from {
+    transform: translateY(50px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pageFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
   .earn-heading {
     font-size: 2.4rem;
-  }
-  .feature-box {
-    padding: 25px 20px;
   }
 }
 
@@ -132,11 +182,5 @@
   }
   .earn-text {
     font-size: 1.1rem;
-  }
-  .feature-icon {
-    font-size: 40px;
-  }
-  .feature-box h3 {
-    font-size: 1.3rem;
   }
 }

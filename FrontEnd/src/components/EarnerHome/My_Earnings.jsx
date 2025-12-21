@@ -18,29 +18,34 @@ const My_Earnings = () => {
           My Earnings
         </h2>
 
-        <div className="row g-4">
-          {earnings.map((item, index) => (
-            <div key={index} className="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div className="earning-card animate-card">
+      <div className="row g-4">
+  {earnings.map((item, index) => (
+    <div
+      key={index}
+      className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
+      style={{ animationDelay: `${index * 0.12}s` }}
+    >
+      <div className="earning-card animate-card">
 
-                <h5 className="earning-month">{item.month}</h5>
+        <h5 className="earning-month">{item.month}</h5>
 
-                <p className="earning-rides">
-                  {item.rides} rides completed
-                </p>
+        <p className="earning-rides">
+          {item.rides} rides completed
+        </p>
 
-                <h3 className="earning-amount">
-                  ₹ {item.amount.toLocaleString()}
-                </h3>
+        <h3 className="earning-amount">
+          ₹ {item.amount.toLocaleString()}
+        </h3>
 
-                <p className="earning-bonus">
-                  Bonus Earned: ₹ {item.bonus}
-                </p>
+        <p className="earning-bonus">
+          Bonus Earned: ₹ {item.bonus}
+        </p>
 
-              </div>
-            </div>
-          ))}
-        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
       </div>
     </div>
   );

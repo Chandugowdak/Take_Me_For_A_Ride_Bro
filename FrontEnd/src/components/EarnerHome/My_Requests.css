@@ -1,10 +1,11 @@
-/* Page Background */
+/* ================= PAGE BACKGROUND ================= */
 .my-requests {
   background: linear-gradient(135deg, #fffaf0, #ffffff);
   min-height: 100vh;
+  animation: pageFade 0.8s ease forwards;
 }
 
-/* Card */
+/* ================= REQUEST CARD ================= */
 .request-card {
   background: #ffffff;
   border-radius: 18px;
@@ -13,49 +14,48 @@
   position: relative;
   border: 1px solid #e6e9ef;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  opacity: 0;
 }
 
-/* Hover Effect */
+/* ================= HOVER EFFECT ================= */
 .request-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 18px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* Entry Animation */
+/* ================= ENTRY ANIMATION ================= */
 .animate-card {
   animation: fadeUp 0.6s ease forwards;
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* User Name */
+/* ================= USER NAME ================= */
 .user-name {
   font-weight: 600;
   color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Vehicle */
+/* ================= VEHICLE ================= */
 .vehicle-name {
   color: #0d6efd;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Duration */
+/* ================= DURATION ================= */
 .duration {
   font-size: 0.95rem;
   color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* Status Badge */
+/* ================= STATUS BADGE ================= */
 .status-badge {
   padding: 6px 14px;
   border-radius: 20px;
@@ -63,30 +63,61 @@
   font-size: 0.75rem;
   color: #fff;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-/* Status Colors */
+/* ================= STATUS COLORS ================= */
 .status-badge.pending {
-  background: #ff9800;
+  background: linear-gradient(135deg, #ff9800, #f57c00);
 }
 
 .status-badge.accepted {
-  background: #2e7d32;
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
 }
 
 .status-badge.rejected {
-  background: #d32f2f;
+  background: linear-gradient(135deg, #d32f2f, #b71c1c);
 }
 
-/* Date */
+/* ================= REQUEST DATE ================= */
 .request-date {
   font-size: 0.85rem;
   color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* Responsive */
+/* ================= ANIMATIONS ================= */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .request-card {
     padding: 16px;
+  }
+
+  .user-name {
+    font-size: 1rem;
   }
 }

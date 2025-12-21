@@ -1,23 +1,25 @@
-/* PAGE WRAPPER */
+/* ================= PAGE WRAPPER ================= */
 .earner-page {
   padding: 40px 0;
-   background: linear-gradient(135deg, #fffaf0, #ffffff);
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+  animation: fadePage 0.8s ease forwards;
 }
 
-/* TITLE */
+/* ================= TITLE ================= */
 .earner-title {
   font-weight: 700;
   font-size: 2.2rem;
   color: #0a2a43;
 }
 
-/* VEHICAL CARD */
+/* ================= VEHICAL CARD ================= */
 .vehical-card {
-   background: linear-gradient(135deg, #fffaf0, #ffffff);
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  transition: all 0.35s ease;
+  animation: cardFadeUp 0.7s ease forwards;
 }
 
 .vehical-card:hover {
@@ -25,20 +27,32 @@
   box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* IMAGE SECTION */
+/* ================= IMAGE SECTION (FIXED) ================= */
 .vehical-img {
   position: relative;
   height: 180px;
+  background: #f4f6f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
 .vehical-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;   /* 🔥 NO CROPPING */
+  transition: transform 0.4s ease;
 }
 
-/* TYPE BADGE */
+/* Safe zoom */
+.vehical-card:hover .vehical-img img {
+  transform: scale(1.05);
+}
+
+/* ================= TYPE BADGE ================= */
 .vehical-type {
   position: absolute;
   top: 12px;
@@ -48,9 +62,10 @@
   padding: 4px 10px;
   font-size: 0.75rem;
   border-radius: 20px;
+  font-weight: 600;
 }
 
-/* BODY */
+/* ================= BODY ================= */
 .vehical-body {
   padding: 18px;
 }
@@ -62,14 +77,14 @@
   margin-bottom: 10px;
 }
 
-/* META INFO */
+/* ================= META INFO ================= */
 .vehical-meta p {
   font-size: 0.85rem;
   margin: 0;
   color: #555;
 }
 
-/* PRICE */
+/* ================= PRICE ================= */
 .vehical-price {
   margin: 12px 0;
   font-size: 1.3rem;
@@ -77,14 +92,37 @@
   color: #198754;
 }
 
-/* ACTION BUTTONS */
+/* ================= ACTION BUTTONS ================= */
 .vehical-actions {
   display: flex;
   justify-content: space-between;
   gap: 10px;
 }
 
-/* RESPONSIVE */
+/* ================= ANIMATIONS ================= */
+@keyframes fadePage {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 576px) {
   .earner-title {
     font-size: 1.8rem;
