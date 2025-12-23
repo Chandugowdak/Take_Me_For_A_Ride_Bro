@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { GlobelValue } from "../../context/GlobelVariable";
 import "./User_Home.css";
+import TopCities from "../../Footer_Section/TopCities";
 
 const User_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
@@ -104,6 +105,7 @@ const User_Home = () => {
 
         </div>
       </section>
+      <TopCities/>
 
       {/* HOW IT WORKS */}
       <section className="how-works container mt-5">

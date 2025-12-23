@@ -79,6 +79,29 @@ const Accessories_Data =
   ]
 }
 
+
+const Top_City = [
+  { name: "Bengaluru", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_bangalore.png&w=256&q=75" },
+  { name: "Chennai", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_chennai.png&w=256&q=75" },
+  { name: "Hyderabad", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_hyderabad.png&w=256&q=75" },
+  { name: "Mumbai", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_mumbai.png&w=256&q=75" },
+  { name: "Gokarna", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_gokarna.png&w=256&q=75" },
+  { name: "Goa", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_goa.png&w=256&q=75" },
+  { name: "Pondicherry", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_pondicherry.png&w=256&q=75" },
+  { name: "Pune", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_pune.png&w=256&q=75" },
+  { name: "Delhi", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_delhi.png&w=256&q=75" },
+  { name: "Manali", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_manali.png&w=256&q=75" },
+  { name: "Guwahati", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_guwahati.png&w=256&q=75" },
+  { name: "Coimbatore", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_coimbatore.png&w=256&q=75" },
+  { name: "Vizag", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_vizag.png&w=256&q=75" },
+  { name: "Dehradun", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_dehradun.png&w=256&q=75" },
+  { name: "Mangalore", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_mangalore.png&w=256&q=75" },
+  { name: "Raipur", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_raipur.png&w=256&q=75" },
+  { name: "Leh", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_leh.png&w=256&q=75" },
+  { name: "Bhubaneswar", image: "https://sukuto.com/_next/image/?url=https%3A%2F%2Fsukuto.com%2Fimages%2Fcity_bhubneshwer.png&w=256&q=75" }
+];
+
+
 const Get_Accesseries = (req,res)=>{
     try{
         res.status(200).json({message:"Accessories Data Fetched Successfully",data:Accessories_Data});
@@ -89,5 +112,14 @@ const Get_Accesseries = (req,res)=>{
 }
 
 
-module.exports = Get_Accesseries;
+const Get_Top_City = (req,res)=>{
+try{
+    res.status(200).json({message:"Top Cities Data Fetched Successfully",data:Top_City});
+}
+catch(err){
+    res.status(500).json({message:"Server Error",error:err.message});
+}
+}
+
+module.exports = {Get_Accesseries , Get_Top_City};
 

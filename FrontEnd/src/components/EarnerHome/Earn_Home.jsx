@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { GlobelValue } from "../../context/GlobelVariable";
 import axios from "axios";
 import "./Earn_Home.css";
+import TopCities from "../../Footer_Section/TopCities";
 
 const Earn_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
@@ -50,6 +51,8 @@ const Earn_Home = () => {
         </button>
       </section>
 
+    
+
       {/* FEATURES SECTION */}
       <section className="earn-features container mt-5">
         <div className="row justify-content-center gy-4">
@@ -76,6 +79,8 @@ const Earn_Home = () => {
           </div>
         </div>
       </section>
+        {/* CITY SECTION */}
+      <TopCities/>
 
       {/* Add Vehicle Modal */}
       {showModal && (
