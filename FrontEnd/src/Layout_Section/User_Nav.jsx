@@ -51,8 +51,10 @@ const User_Nav = () => {
 
           {/* LEFT */}
           <div className="nav-left d-flex align-items-center gap-2">
+            <Link to='/userhome'>
             <img src={Logo} className="brand-logo" alt="Logo" />
-            <span className="fw-bold">Take_Me_For_A_Ride</span>
+            </Link>
+            <Link to="/userhome" className="brand-name fw-bold ms-2 text-dark text-decoration-none">Take_Me_For_A_Ride</Link>
           </div>
 
           {/* CENTER (DESKTOP ONLY) */}
@@ -65,18 +67,7 @@ const User_Nav = () => {
 
           {/* RIGHT (DESKTOP ONLY) */}
           <div className="nav-right d-none d-lg-flex align-items-center gap-3 position-relative">
-           
-
-            {/* LOGOUT */}
-            <button
-              className="btn bg-danger text-white"
-              onClick={Handel_Logout}
-            >
-              Logout
-            </button>
-
-
-             {/* USER ICON */}
+            {/* USER ICON */}
             <div
               className="user-icon"
               onClick={() => setShowProfile(!showProfile)}
@@ -118,6 +109,17 @@ const User_Nav = () => {
                 <small className="text-secondary">
                   Role: {user.Type_of_User}
                 </small>
+
+                {/* LOGOUT BUTTON INSIDE PROFILE */}
+                <button
+                  className="btn bg-danger text-white w-100 mt-3"
+                  onClick={() => {
+                    Handel_Logout();
+                    setShowProfile(false);
+                  }}
+                >
+                  Logout
+                </button>
               </div>
             </div>
           )}
@@ -127,7 +129,6 @@ const User_Nav = () => {
       {/* ================= MOBILE SIDE MENU ================= */}
       <div className={`side-menu ${open ? "open" : ""}`}>
         <div className="side-menu-content p-3">
-
           <div className="text-end">
             <button className="btn-close" onClick={() => setOpen(false)}></button>
           </div>
@@ -136,17 +137,6 @@ const User_Nav = () => {
           <Link to="/user/booking" className="mobile-item nav-link" onClick={() => setOpen(false)}>My Bookings</Link>
           <Link to="/user/offers" className="mobile-item nav-link" onClick={() => setOpen(false)}>Offers</Link>
           <Link to="/user/support" className="mobile-item nav-link" onClick={() => setOpen(false)}>Support</Link>
-
-          {/* LOGOUT (MOBILE SIDE MENU ONLY) */}
-          <button
-            className="btn bg-danger text-white w-100 mt-4"
-            onClick={() => {
-              Handel_Logout();
-              setOpen(false);
-            }}
-          >
-            Logout
-          </button>
         </div>
       </div>
     </>
