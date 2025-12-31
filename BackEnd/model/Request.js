@@ -8,14 +8,7 @@ const Request_Schema = new mongoose.Schema({
         required: true
     },
 
-    // Earner (owner of the rental) who will accept/reject
-    earnerId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
-        required: true
-    },
-
-    // Rental being requested
+    // Rental being requested (this already knows the Earner)
     rentalId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'rentels',
