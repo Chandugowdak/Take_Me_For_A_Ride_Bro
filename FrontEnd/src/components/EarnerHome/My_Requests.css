@@ -1,94 +1,112 @@
-/* ================= PAGE BACKGROUND ================= */
+/* ================= PAGE ================= */
 .my-requests {
   background: linear-gradient(135deg, #fffaf0, #ffffff);
   min-height: 100vh;
-  animation: pageFade 0.8s ease forwards;
 }
 
-/* ================= REQUEST CARD ================= */
-.request-card {
+/* ================= CARD ================= */
+.request-card-new {
   background: #ffffff;
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 20px;
-  transition: all 0.35s ease;
-  position: relative;
   border: 1px solid #e6e9ef;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
-  opacity: 0;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.35s ease;
 }
 
-/* ================= HOVER EFFECT ================= */
-.request-card:hover {
+.request-card-new:hover {
   transform: translateY(-8px);
-  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* ================= ENTRY ANIMATION ================= */
+/* ================= TOP ================= */
+.request-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.status-pill {
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.status-pill.pending {
+  background: linear-gradient(135deg, #ff9800, #f57c00);
+}
+
+/* ================= VEHICLE ================= */
+.vehicle-box {
+  background: linear-gradient(135deg, #eef5ff, #ffffff);
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.vehicle-icon {
+  font-size: 26px;
+  color: #0d6efd;
+  margin-bottom: 6px;
+}
+
+.vehicle-box h5 {
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* ================= DETAILS ================= */
+.request-details p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #475569;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+/* ================= ACTIONS ================= */
+.request-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.accept-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  color: #fff;
+  border-radius: 14px;
+  font-weight: 600;
+  border: none;
+}
+
+.reject-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #d32f2f, #b71c1c);
+  color: #fff;
+  border-radius: 14px;
+  font-weight: 600;
+  border: none;
+}
+
+.accept-btn:hover,
+.reject-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ================= ANIMATION ================= */
 .animate-card {
   animation: fadeUp 0.6s ease forwards;
 }
 
-/* ================= USER NAME ================= */
-.user-name {
-  font-weight: 600;
-  color: #1e293b;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* ================= VEHICLE ================= */
-.vehicle-name {
-  color: #0d6efd;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* ================= DURATION ================= */
-.duration {
-  font-size: 0.95rem;
-  color: #475569;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* ================= STATUS BADGE ================= */
-.status-badge {
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 0.75rem;
-  color: #fff;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-/* ================= STATUS COLORS ================= */
-.status-badge.pending {
-  background: linear-gradient(135deg, #ff9800, #f57c00);
-}
-
-.status-badge.accepted {
-  background: linear-gradient(135deg, #2e7d32, #1b5e20);
-}
-
-.status-badge.rejected {
-  background: linear-gradient(135deg, #d32f2f, #b71c1c);
-}
-
-/* ================= REQUEST DATE ================= */
-.request-date {
-  font-size: 0.85rem;
-  color: #64748b;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ================= ANIMATIONS ================= */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -100,24 +118,9 @@
   }
 }
 
-@keyframes pageFade {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
-  .request-card {
+  .request-card-new {
     padding: 16px;
-  }
-
-  .user-name {
-    font-size: 1rem;
   }
 }

@@ -1,91 +1,152 @@
-import React from "react";
-import { FaUser, FaMotorcycle, FaCalendarAlt, FaClock } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import {
+  FaUser,
+  FaMotorcycle,
+  FaCalendarAlt,
+  FaClock,
+} from "react-icons/fa";
 import "./My_Requests.css";
 
 const My_Requests = () => {
-  const requests = [
-    {
-      user: "Amit Sharma",
-      vehicle: "Royal Enfield Classic 350",
-      date: "18 Dec 2025",
-      duration: "3 Days",
-      status: "Pending",
-    },
-    {
-      user: "Neha Verma",
-      vehicle: "Honda Activa 6G",
-      date: "17 Dec 2025",
-      duration: "2 Days",
-      status: "Accepted",
-    },
-    {
-      user: "Rahul Mehta",
-      vehicle: "KTM Duke 250",
-      date: "15 Dec 2025",
-      duration: "5 Days",
-      status: "Rejected",
-    },
-    {
-      user: "Pooja Singh",
-      vehicle: "Suzuki Swift",
-      date: "14 Dec 2025",
-      duration: "1 Day",
-      status: "Pending",
-    },
-    {
-      user: "Arjun Rao",
-      vehicle: "Yamaha R15",
-      date: "13 Dec 2025",
-      duration: "4 Days",
-      status: "Accepted",
-    },
-    {
-      user: "Sneha Kulkarni",
-      vehicle: "Bajaj Pulsar 150",
-      date: "12 Dec 2025",
-      duration: "2 Days",
-      status: "Pending",
-    },
-  ];
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const token = localStorage.getItem("JWT_Token");
+
+  const fetchRequests = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:3000/api/req/pending",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setRequests(res.data);
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRequests();
+  }, []);
+
+  const handleStatusUpdate = async (id, status) => {
+    try {
+      await axios.patch(
+        `http://localhost:3000/api/req/update/${id}`,
+        { status },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setRequests((prev) => prev.filter((r) => r._id !== id));
+    } catch (err) {
+      alert("Action failed");
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="my-requests text-center py-5">
+        <h5>Loading requests...</h5>
+      </div>
+    );
+  }
 
   return (
     <div className="my-requests container-fluid py-5">
       <div className="container">
-        <h2 className="text-center mb-5 fw-bold">
-          My Rental Requests
+        <h2 className="text-center fw-bold mb-5">
+          Rental Requests
         </h2>
 
         <div className="row g-4">
-          {requests.map((req, index) => (
-            <div key={index} className="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-              <div className="request-card animate-card">
+          {requests.length === 0 ? (
+            <p className="text-center">No pending requests</p>
+          ) : (
+            requests.map((req) => {
+              const rental = req.rentalId;
 
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                  {/* ✅ FIXED CLASSNAME BUG */}
-                  <span className={`status-badge ${req.status.toLowerCase()}`}>
-                    {req.status}
-                  </span>
+              const days =
+                Math.ceil(
+                  (new Date(rental.Return_Date) -
+                    new Date(rental.Rentel_Date)) /
+                    (1000 * 60 * 60 * 24)
+                ) || 1;
 
-                  <span className="request-date">
-                    <FaCalendarAlt /> {req.date}
-                  </span>
+              return (
+                <div
+                  key={req._id}
+                  className="col-xl-4 col-lg-6 col-md-6"
+                >
+                  <div className="request-card-new animate-card">
+
+                    {/* TOP */}
+                    <div className="request-top">
+                      <span className="status-pill pending">
+                        Pending
+                      </span>
+
+                      <span className="request-date">
+                        <FaCalendarAlt />{" "}
+                        {new Date(req.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+
+                    {/* VEHICLE */}
+                    <div className="vehicle-box">
+                      <FaMotorcycle className="vehicle-icon" />
+                      <h5>{rental.Vehical_Name}</h5>
+                    </div>
+
+                    {/* DETAILS */}
+                    <div className="request-details">
+                      <p>
+                        <FaUser /> Requested by:{" "}
+                        <strong>{req.userId?.name}</strong>
+                      </p>
+
+                      <p>
+                        <FaClock /> Duration:{" "}
+                        <strong>{days} Days</strong>
+                      </p>
+                    </div>
+
+                    {/* ACTIONS */}
+                    <div className="request-actions">
+                      <button
+                        className="btn accept-btn"
+                        onClick={() =>
+                          handleStatusUpdate(req._id, "accepted")
+                        }
+                      >
+                        Accept
+                      </button>
+
+                      <button
+                        className="btn reject-btn"
+                        onClick={() =>
+                          handleStatusUpdate(req._id, "declined")
+                        }
+                      >
+                        Reject
+                      </button>
+                    </div>
+
+                  </div>
                 </div>
-
-                <h5 className="user-name mb-2">
-                  <FaUser /> {req.user}
-                </h5>
-
-                <p className="vehicle-name mb-1">
-                  <FaMotorcycle /> {req.vehicle}
-                </p>
-
-                <p className="duration">
-                  <FaClock /> {req.duration}
-                </p>
-
-              </div>
-            </div>
-          ))}
+              );
+            })
+          )}
         </div>
       </div>
     </div>

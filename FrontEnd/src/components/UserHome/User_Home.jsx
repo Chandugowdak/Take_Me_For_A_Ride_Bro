@@ -6,14 +6,23 @@ import TopCities from "../../Footer_Section/TopCities";
 
 const User_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
+
   const [vehicals, setVehicals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Fetch Vehicles
+  // 🔹 NEW STATES (for request handling)
+  const [sendingId, setSendingId] = useState(null);
+  const [requestedIds, setRequestedIds] = useState([]);
+
+  /* ========================= */
+  /* FETCH VEHICLES */
+  /* ========================= */
   const fetchVehicals = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/vehicals/all");
+      const res = await axios.get(
+        "http://localhost:3000/api/vehicals/all"
+      );
 
       setVehicals(Array.isArray(res.data.Vehicals) ? res.data.Vehicals : []);
       setLoading(false);
@@ -26,6 +35,41 @@ const User_Home = () => {
   useEffect(() => {
     fetchVehicals();
   }, []);
+
+  /* ========================= */
+  /* SEND REQUEST */
+  /* ========================= */
+  const handleSendRequest = async (rentalId) => {
+    try {
+      if (!JWT_Token) {
+        alert("Please login to send request");
+        return;
+      }
+
+      setSendingId(rentalId);
+
+      await axios.post(
+        "http://localhost:3000/api/req/send",
+        { rentalId },
+        {
+          headers: {
+            Authorization: `Bearer ${JWT_Token}`,
+          },
+        }
+      );
+
+      alert("Request sent successfully ✅");
+
+      // Disable button after request
+      setRequestedIds((prev) => [...prev, rentalId]);
+    } catch (error) {
+      alert(
+        error?.response?.data?.message || "Failed to send request"
+      );
+    } finally {
+      setSendingId(null);
+    }
+  };
 
   /* ========================= */
   /* SEARCH LOGIC */
@@ -42,7 +86,6 @@ const User_Home = () => {
 
   return (
     <div className="user-home-container">
-
       {/* HERO SECTION */}
       <section className="user-hero container">
         <h1 className="user-title">Find Your Perfect Ride</h1>
@@ -64,12 +107,11 @@ const User_Home = () => {
         </div>
       </section>
 
-      {/* POPULAR RENTAL OPTIONS */}
+      {/* VEHICLES SECTION */}
       <section className="popular-bikes container mt-5">
         <h2 className="section-heading text-center">Popular Vehicles</h2>
 
         <div className="row mt-4 gy-4 justify-content-center">
-
           {loading ? (
             <p className="text-center">Loading vehicles...</p>
           ) : filteredVehicals.length === 0 ? (
@@ -78,8 +120,7 @@ const User_Home = () => {
             filteredVehicals.map((item) => (
               <div className="col-12 col-sm-6 col-md-4" key={item._id}>
                 <div className="bike-card shadow-sm">
-
-                  {/* Vehicle Image */}
+                  {/* IMAGE */}
                   <div
                     className="bike-image"
                     style={{
@@ -89,23 +130,35 @@ const User_Home = () => {
                     }}
                   ></div>
 
-                  {/* Vehicle Details */}
+                  {/* DETAILS */}
                   <h4 className="bike-name">{item.Vehical_Name}</h4>
                   <p className="bike-price">
                     ₹{item.Total_Amount} / day
                   </p>
 
-                  <button className="btn btn-outline-primary rent-btn">
-                    Rent Now
+                  {/* 🔥 RENT BUTTON */}
+                  <button
+                    className="btn btn-outline-primary rent-btn"
+                    disabled={
+                      sendingId === item._id ||
+                      requestedIds.includes(item._id)
+                    }
+                    onClick={() => handleSendRequest(item._id)}
+                  >
+                    {sendingId === item._id
+                      ? "Sending..."
+                      : requestedIds.includes(item._id)
+                      ? "Requested"
+                      : "Rent Now"}
                   </button>
                 </div>
               </div>
             ))
           )}
-
         </div>
       </section>
-      <TopCities/>
+
+      <TopCities />
 
       {/* HOW IT WORKS */}
       <section className="how-works container mt-5">
@@ -137,7 +190,6 @@ const User_Home = () => {
           </div>
         </div>
       </section>
-
     </div>
   );
 };
