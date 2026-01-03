@@ -63,6 +63,7 @@ const User_Nav = () => {
             <Link to="/user/booking" className="nav-link">My Bookings</Link>
             <Link to="/user/offers" className="nav-link">Offers</Link>
             <Link to="/user/support" className="nav-link">Support</Link>
+            <Link to="/user/history" className="nav-link">History</Link>
           </div>
 
           {/* RIGHT (DESKTOP ONLY) */}
@@ -137,6 +138,7 @@ const User_Nav = () => {
           <Link to="/user/booking" className="mobile-item nav-link" onClick={() => setOpen(false)}>My Bookings</Link>
           <Link to="/user/offers" className="mobile-item nav-link" onClick={() => setOpen(false)}>Offers</Link>
           <Link to="/user/support" className="mobile-item nav-link" onClick={() => setOpen(false)}>Support</Link>
+           <Link to="/user/history" className="mobile-item nav-link" onClick={() => setOpen(false)}>History</Link>
         </div>
       </div>
     </>

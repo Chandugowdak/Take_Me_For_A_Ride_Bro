@@ -25,6 +25,7 @@ const My_Requests = () => {
         }
       );
       setRequests(res.data);
+      console.log(res.data)
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -102,11 +103,16 @@ const My_Requests = () => {
                       </span>
                     </div>
 
-                    {/* VEHICLE */}
-                    <div className="vehicle-box">
-                      <FaMotorcycle className="vehicle-icon" />
-                      <h5>{rental.Vehical_Name}</h5>
-                    </div>
+                 {/* VEHICLE */}
+<div className="vehicle-box">
+  <img
+    src={rental.Image_URL}
+    alt="Vehicle_Image"
+    className="vehicle-img"
+  />
+  <h5>{rental.Vehical_Name}</h5>
+</div>
+
 
                     {/* DETAILS */}
                     <div className="request-details">

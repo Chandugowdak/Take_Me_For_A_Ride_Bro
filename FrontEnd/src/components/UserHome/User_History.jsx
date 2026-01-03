@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./My_Earnings.css";
+import "./User_History.css";
 
-const My_Earnings = () => {
-  const [earnings, setEarnings] = useState([]);
+const User_History = () => {
+  const [trips, setTrips] = useState([]);
   const [totalTrips, setTotalTrips] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchEarnings();
+    fetchUserHistory();
   }, []);
 
-  const fetchEarnings = async () => {
+  const fetchUserHistory = async () => {
     try {
       const token = localStorage.getItem("JWT_Token");
-     console.log(token);
+
       const res = await axios.get(
-        "http://localhost:3000/api/req/earner/earnings",
+        "http://localhost:3000/api/req/user/history",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ const My_Earnings = () => {
         }
       );
 
-      setEarnings(res.data.earnings);
+      setTrips(res.data.vehicles);
       setTotalTrips(res.data.totalTrips);
       setLoading(false);
     } catch (err) {
@@ -35,55 +35,55 @@ const My_Earnings = () => {
 
   if (loading) {
     return (
-      <div className="my-earnings text-center py-5">
-        <h5>Loading earnings...</h5>
+      <div className="user-history text-center py-5">
+        <h5>Loading ride history...</h5>
       </div>
     );
   }
 
   return (
-    <div className="my-earnings container-fluid py-5">
+    <div className="user-history container-fluid py-5">
       <div className="container">
 
         {/* HEADER */}
-        <h2 className="text-center fw-bold mb-1">My Earnings</h2>
+        <h2 className="text-center fw-bold mb-1">My Ride History</h2>
         <p className="text-center text-muted mb-5">
           {totalTrips} trips completed
         </p>
 
         <div className="row g-4">
-          {earnings.length === 0 ? (
+          {trips.length === 0 ? (
             <p className="text-center text-muted">
-              No earnings yet
+              No ride history found
             </p>
           ) : (
-            earnings.map((item, index) => (
+            trips.map((item, index) => (
               <div
                 key={item._id}
                 className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
                 style={{ animationDelay: `${index * 0.12}s` }}
               >
-                <div className="earning-card animate-card">
+                <div className="history-card animate-card">
 
                   <img
                     src={item.rentalId.Image_URL}
                     alt="vehicle"
-                    className="earning-vehicle-img"
+                    className="history-vehicle-img"
                   />
 
-                  <h5 className="earning-vehicle">
+                  <h5 className="history-vehicle">
                     {item.rentalId.Vehical_Name}
                   </h5>
 
-                  <p className="earning-user">
-                    Booked by <strong>{item.userId.name}</strong>
+                  <p className="history-owner">
+                    Owner: <strong>{item.rentalId.userId.name}</strong>
                   </p>
 
-                  <p className="earning-date">
+                  <p className="history-date">
                     {new Date(item.createdAt).toDateString()}
                   </p>
 
-                  <span className="earning-status accepted">
+                  <span className="history-status accepted">
                     {item.status}
                   </span>
 
@@ -98,4 +98,4 @@ const My_Earnings = () => {
   );
 };
 
-export default My_Earnings;
+export default User_History;

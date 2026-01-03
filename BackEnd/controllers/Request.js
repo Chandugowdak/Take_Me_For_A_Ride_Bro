@@ -1,20 +1,37 @@
 const Request_Model = require('../model/Request');
 
 
+
 // Send a new request
 const sendRequest = async (req, res) => {
   try {
     const userId = req.user.id; // logged-in user
     const { rentalId } = req.body;
 
-    // prevent duplicate request
+    // ❌ BLOCK if vehicle already accepted earlier by this user
+    const alreadyAccepted = await Request_Model.findOne({
+      userId,
+      rentalId,
+      status: "accepted"
+    });
+
+    if (alreadyAccepted) {
+      return res.status(400).json({
+        message: "You have already used this vehicle"
+      });
+    }
+
+    // ❌ prevent duplicate pending request
     const alreadyRequested = await Request_Model.findOne({
       userId,
-      rentalId
+      rentalId,
+      status: "pending"
     });
 
     if (alreadyRequested) {
-      return res.status(400).json({ message: "Request already sent" });
+      return res.status(400).json({
+        message: "Request already sent"
+      });
     }
 
     const request = await Request_Model.create({
@@ -26,10 +43,12 @@ const sendRequest = async (req, res) => {
       message: "Request sent successfully",
       request
     });
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 
 // Get pending requests for the logged-in user (Earner)
@@ -135,10 +154,73 @@ const cancelRequest = async (req, res) => {
 
 
 
+// Get all accepted requests / earnings of the logged-in earner
+const getEarnerEarnings = async (req, res) => {
+  try {
+    const earnerId = req.user.id;
+
+    const requests = await Request_Model.find({ status: 'accepted' })
+      .populate({
+        path: 'rentalId',
+        match: { userId: earnerId }, // only earner's vehicles
+        select: 'Vehical_Name price Image_URL',
+      })
+      .populate('userId', 'name email'); // renter details
+
+    // Remove null rentals (important)
+    const earnings = requests.filter(r => r.rentalId !== null);
+
+    // OPTIONAL: calculate total earnings
+    const totalEarnings = earnings.reduce((sum, r) => {
+      return sum + (r.rentalId.price || 0);
+    }, 0);
+
+    res.json({
+      totalEarnings,
+      totalTrips: earnings.length,
+      earnings
+    });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Get all accepted & used vehicles by the logged-in user (Renter)
+const getUserAcceptedVehicles = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const requests = await Request_Model.find({
+      userId,
+      status: 'accepted'
+    })
+      .populate({
+        path: 'rentalId',
+        select: 'Vehical_Name price Image_URL userId',
+        populate: {
+          path: 'userId',
+          select: 'name email'
+        }
+      });
+
+    res.json({
+      totalTrips: requests.length,
+      vehicles: requests
+    });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 module.exports = {
     sendRequest,
     getPendingRequests,
     updateRequestStatus,
     getUserRequests,
-    cancelRequest
+    cancelRequest,
+    getEarnerEarnings,
+    getUserAcceptedVehicles
 };

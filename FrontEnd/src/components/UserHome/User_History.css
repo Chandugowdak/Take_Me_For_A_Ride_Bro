@@ -1,0 +1,147 @@
+/* ================= PAGE ================= */
+.user-history {
+  background: radial-gradient(circle at top left, #e0f2fe, #ffffff 60%);
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+/* ================= CARD ================= */
+.history-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 26px;
+  padding: 28px 24px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 20px 40px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glow effect */
+.history-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(56, 189, 248, 0.25),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.history-card:hover::before {
+  opacity: 1;
+}
+
+.history-card:hover {
+  transform: translateY(-14px) scale(1.03);
+  box-shadow:
+    0 35px 70px rgba(15, 23, 42, 0.22),
+    0 0 0 1px rgba(56, 189, 248, 0.25);
+}
+
+/* ================= IMAGE ================= */
+.history-vehicle-img {
+  width: 104px;
+  height: 104px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 16px;
+  border: 4px solid #ffffff;
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.25),
+    0 0 0 6px rgba(56, 189, 248, 0.15);
+  transition: all 0.45s ease;
+}
+
+.history-card:hover .history-vehicle-img {
+  transform: scale(1.12) rotate(1.5deg);
+  box-shadow:
+    0 20px 45px rgba(15, 23, 42, 0.35),
+    0 0 0 8px rgba(56, 189, 248, 0.22);
+}
+
+/* ================= TEXT ================= */
+.history-vehicle {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+
+.history-owner {
+  font-size: 0.95rem;
+  color: #475569;
+  margin-bottom: 4px;
+}
+
+.history-date {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-bottom: 18px;
+}
+
+/* ================= STATUS ================= */
+.history-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 20px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.history-status::before {
+  content: "✔";
+  font-size: 0.65rem;
+}
+
+.history-status.accepted {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ecfdf5;
+  box-shadow:
+    0 10px 20px rgba(34, 197, 94, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* ================= ANIMATION ================= */
+.animate-card {
+  animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .history-vehicle-img {
+    width: 88px;
+    height: 88px;
+  }
+
+  .history-vehicle {
+    font-size: 1.2rem;
+  }
+}
