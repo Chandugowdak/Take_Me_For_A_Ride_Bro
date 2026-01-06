@@ -64,6 +64,7 @@ const Earn_Nav = () => {
             <Link to="/Earner/Data" className="nav-link">My Vehicles</Link>
             <Link to="/earner/requests" className="nav-link">Requests</Link>
             <Link to="/earner/earnings" className="nav-link">My Earnings</Link>
+            <Link to="/earner/history" className="nav-link">History</Link>
           </div>
 
           {/* RIGHT (DESKTOP ONLY) */}
@@ -154,6 +155,9 @@ const Earn_Nav = () => {
 
           <Link className="mobile-item nav-link" to="/earner/earnings" onClick={() => setOpen(false)}>
             My Earnings
+          </Link>
+           <Link className="mobile-item nav-link" to="/earner/history" onClick={() => setOpen(false)}>
+           History
           </Link>
         </div>
       </div>

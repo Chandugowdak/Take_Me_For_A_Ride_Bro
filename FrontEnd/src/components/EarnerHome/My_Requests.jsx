@@ -25,7 +25,7 @@ const My_Requests = () => {
         }
       );
       setRequests(res.data);
-      console.log(res.data)
+      console.log(res.data);
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -125,6 +125,11 @@ const My_Requests = () => {
                         <FaClock /> Duration:{" "}
                         <strong>{days} Days</strong>
                       </p>
+
+                       <p>
+                        <FaClock /> Price:{" "}
+                        <strong>{rental.Total_Amount} Rs</strong>
+                      </p>
                     </div>
 
                     {/* ACTIONS */}
@@ -144,6 +149,7 @@ const My_Requests = () => {
                           handleStatusUpdate(req._id, "declined")
                         }
                       >
+                        
                         Reject
                       </button>
                     </div>

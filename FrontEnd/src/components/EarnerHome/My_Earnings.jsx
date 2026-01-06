@@ -14,7 +14,7 @@ const My_Earnings = () => {
   const fetchEarnings = async () => {
     try {
       const token = localStorage.getItem("JWT_Token");
-     console.log(token);
+    //  console.log(token);
       const res = await axios.get(
         "http://localhost:3000/api/req/earner/earnings",
         {
@@ -25,6 +25,7 @@ const My_Earnings = () => {
       );
 
       setEarnings(res.data.earnings);
+      // console.log(res.data.earnings);
       setTotalTrips(res.data.totalTrips);
       setLoading(false);
     } catch (err) {
@@ -79,6 +80,9 @@ const My_Earnings = () => {
                     Booked by <strong>{item.userId.name}</strong>
                   </p>
 
+                  <p className="earning-user">
+                    Amount <strong>{item.rentalId.Total_Amount}</strong>
+                  </p>
                   <p className="earning-date">
                     {new Date(item.createdAt).toDateString()}
                   </p>

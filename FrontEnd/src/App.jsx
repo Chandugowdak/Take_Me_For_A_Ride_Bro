@@ -24,6 +24,7 @@ import OffersSection from './Entry_Pages/OffersSection';
 import SubscriptionSection from './Entry_Pages/SubscriptionSection'; 
 import GetRidingAccessories from './Entry_Pages/GetRidingAccessories'; 
 import User_History from './components/UserHome/User_History';
+import Earner_History from './components/EarnerHome/Earner_History';
 
 const  App = ()=>{
   return (
@@ -57,6 +58,7 @@ const  App = ()=>{
           <Route path="/user/support" element={<Support/>}/>
           <Route path="/user/offers" element={<Offers/>}/>
           <Route path="/user/history" element={<User_History/>}/>
+          <Route path="/earner/history" element={<Earner_History/>}/>
         </Route>
 
 </Route>

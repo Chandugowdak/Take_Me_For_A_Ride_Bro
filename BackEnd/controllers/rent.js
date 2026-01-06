@@ -48,7 +48,7 @@ const Add_Vehical = async (req, res) => {
 };
 
 
-//GET THE VEHICALS ADDED BY USER
+//GET THE VEHICALS ADDED BY EARNER
 
 const Get_Vehicals = async (req, res) => {
     try {
@@ -117,8 +117,6 @@ const Update_Vehical = async (req, res) => {
         });
     }
 };
-
-
 
 
 //DELETE API CALL

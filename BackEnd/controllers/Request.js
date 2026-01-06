@@ -5,7 +5,7 @@ const Request_Model = require('../model/Request');
 // Send a new request
 const sendRequest = async (req, res) => {
   try {
-    const userId = req.user.id; // logged-in user
+    const userId = req.user.id;
     const { rentalId } = req.body;
 
     // ❌ BLOCK if vehicle already accepted earlier by this user
@@ -18,6 +18,19 @@ const sendRequest = async (req, res) => {
     if (alreadyAccepted) {
       return res.status(400).json({
         message: "You have already used this vehicle"
+      });
+    }
+
+    // ❌ RATE LIMIT: max 3 rejections per vehicle
+    const rejectedCount = await Request_Model.countDocuments({
+      userId,
+      rentalId,
+      status: "rejected"
+    });
+
+    if (rejectedCount > 3) {
+      return res.status(403).json({
+        message: "Request limit exceeded. You cannot request this vehicle again."
       });
     }
 
@@ -34,12 +47,13 @@ const sendRequest = async (req, res) => {
       });
     }
 
+    // ✅ create new request
     const request = await Request_Model.create({
       userId,
       rentalId
     });
 
-    res.status(201).json({
+    res.status(200).json({
       message: "Request sent successfully",
       request
     });
@@ -48,6 +62,7 @@ const sendRequest = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 
 
@@ -163,7 +178,7 @@ const getEarnerEarnings = async (req, res) => {
       .populate({
         path: 'rentalId',
         match: { userId: earnerId }, // only earner's vehicles
-        select: 'Vehical_Name price Image_URL',
+        select: 'Vehical_Name Total_Amount Image_URL',
       })
       .populate('userId', 'name email'); // renter details
 
@@ -215,6 +230,47 @@ const getUserAcceptedVehicles = async (req, res) => {
 };
 
 
+
+// Get ALL requests (pending / accepted / rejected) for logged-in Earner
+const getAllEarnerRequests = async (req, res) => {
+  try {
+    const earnerId = req.user.id;
+
+    const requests = await Request_Model.find({})
+      .populate({
+        path: 'rentalId',
+        match: { userId: earnerId }, // ONLY earner vehicles
+        select: 'Vehical_Name Image_URL Total_Amount',
+      })
+      .populate('userId', 'name email'); // renter details
+
+    // Remove requests not related to this earner
+    const earnerRequests = requests.filter(r => r.rentalId !== null);
+
+    // Group by status
+    const pending = earnerRequests.filter(r => r.status === 'pending');
+    const accepted = earnerRequests.filter(r => r.status === 'accepted');
+    const rejected = earnerRequests.filter(r => r.status === 'rejected');
+
+    res.json({
+      totalRequests: earnerRequests.length,
+      counts: {
+        pending: pending.length,
+        accepted: accepted.length,
+        rejected: rejected.length
+      },
+      pending,
+      accepted,
+      rejected
+    });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
+
 module.exports = {
     sendRequest,
     getPendingRequests,
@@ -222,5 +278,6 @@ module.exports = {
     getUserRequests,
     cancelRequest,
     getEarnerEarnings,
-    getUserAcceptedVehicles
+    getUserAcceptedVehicles,
+    getAllEarnerRequests
 };
