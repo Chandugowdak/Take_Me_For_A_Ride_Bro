@@ -6,6 +6,7 @@ const My_Bookings = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetch pending requests
   const fetchMyBookings = async () => {
     try {
       const token = localStorage.getItem("JWT_Token");
@@ -13,20 +14,19 @@ const My_Bookings = () => {
       const res = await axios.get(
         "http://localhost:3000/api/req/user",
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      setRequests(res.data);
+      setRequests(res.data.pendingRequests); // backend returns only pending
       setLoading(false);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       setLoading(false);
     }
   };
 
+  // Cancel a pending request
   const cancelRequest = async (id) => {
     try {
       const token = localStorage.getItem("JWT_Token");
@@ -34,13 +34,11 @@ const My_Bookings = () => {
       await axios.delete(
         `http://localhost:3000/api/req/cancel/${id}`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      fetchMyBookings();
+      fetchMyBookings(); // refresh after cancel
     } catch (err) {
       console.error(err);
     }
@@ -60,10 +58,10 @@ const My_Bookings = () => {
 
   return (
     <div className="my-requests container py-4">
-      <h3 className="mb-4 fw-bold text-center">🚗 My Bookings</h3>
+      <h3 className="mb-4 fw-bold text-center">🚗 My Pending Bookings</h3>
 
       {requests.length === 0 ? (
-        <p className="text-center text-muted">No bookings found</p>
+        <p className="text-center text-muted">No pending bookings</p>
       ) : (
         <div className="row g-4">
           {requests.map((req) => (
@@ -72,38 +70,30 @@ const My_Bookings = () => {
 
                 {/* HEADER */}
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <span className={`status-badge ${req.status}`}>
-                    {req.status}
-                  </span>
+                  <span className="status-badge pending">Pending</span>
                   <span className="request-date">
                     {new Date(req.createdAt).toLocaleDateString()}
                   </span>
                 </div>
 
-                {/* IMAGE */}
-                <div className="vehicle-img-wrapper">
+                {/* VEHICLE IMAGE */}
+                <div className="vehicle-img-wrapper mb-2">
                   <img
                     src={req.rentalId?.Image_URL}
                     alt={req.rentalId?.Vehical_Name || "Vehicle"}
                     className="vehicle-img"
-                    onError={(e) => {
-                      e.target.src = "/no-image.png";
-                    }}
+                    onError={(e) => { e.target.src = "/no-image.png"; }}
                   />
                 </div>
 
                 {/* OWNER */}
-                <p className="user-name mb-2">
-                  👤 Owner:{" "}
-                  <span>
-                    {req.rentalId?.userId?.name || "Not Available"}
-                  </span>
+                <p className="user-name mb-1">
+                  👤 Owner: <span>{req.rentalId?.userId?.name || "N/A"}</span>
                 </p>
 
                 {/* VEHICLE */}
-                <p className="vehicle-name mb-2">
-                  🚘 Vehicle:{" "}
-                  <span>{req.rentalId?.Vehical_Name || "Vehicle"}</span>
+                <p className="vehicle-name mb-1">
+                  🚘 Vehicle: <span>{req.rentalId?.Vehical_Name || "N/A"}</span>
                 </p>
 
                 {/* PRICE */}
@@ -111,22 +101,13 @@ const My_Bookings = () => {
                   💰 Price / Day: ₹{req.rentalId?.Total_Amount || "--"}
                 </p>
 
-                {/* ACTION */}
-                {req.status === "pending" ? (
-                  <button
-                    className="btn btn-outline-danger w-100 btn-sm"
-                    onClick={() => cancelRequest(req._id)}
-                  >
-                    Cancel Request
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-outline-secondary w-100 btn-sm"
-                    disabled
-                  >
-                    Request {req.status}
-                  </button>
-                )}
+                {/* CANCEL BUTTON */}
+                <button
+                  className="btn btn-outline-danger w-100 btn-sm"
+                  onClick={() => cancelRequest(req._id)}
+                >
+                  Cancel Request
+                </button>
 
               </div>
             </div>

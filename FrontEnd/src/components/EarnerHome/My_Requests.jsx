@@ -25,7 +25,7 @@ const My_Requests = () => {
         }
       );
       setRequests(res.data);
-      console.log(res.data);
+      
       setLoading(false);
     } catch (err) {
       console.error(err);

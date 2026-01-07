@@ -25,7 +25,7 @@ const sendRequest = async (req, res) => {
     const rejectedCount = await Request_Model.countDocuments({
       userId,
       rentalId,
-      status: "rejected"
+      status: "declined"
     });
 
     if (rejectedCount > 3) {
@@ -121,25 +121,36 @@ const updateRequestStatus = async (req, res) => {
   }
 };
 
-// Get all requests made by the logged-in user
-const getUserRequests = async (req, res) => {
+// Get ONLY PENDING requests made by the logged-in user (Renter)
+const getUserPendingRequests = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const requests = await Request_Model.find({ userId })
+    // Find only pending requests for this user
+    const pendingRequests = await Request_Model.find({
+      userId,
+      status: 'pending' // matches enum in schema
+    })
       .populate({
         path: 'rentalId',
+        select: 'Vehical_Name Image_URL Total_Amount userId', // include Total_Amount
         populate: {
-          path: 'userId',
+          path: 'userId', // vehicle owner (earner)
           select: 'name email'
         }
       });
 
-    res.json(requests);
+    // Return a clean response
+    res.status(200).json({
+      totalPending: pendingRequests.length,
+      pendingRequests
+    });
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 // Cancel a request
 const cancelRequest = async (req, res) => {
@@ -201,33 +212,48 @@ const getEarnerEarnings = async (req, res) => {
   }
 };
 
-// Get all accepted & used vehicles by the logged-in user (Renter)
-const getUserAcceptedVehicles = async (req, res) => {
+// Get all requests (pending, accepted, rejected) made by the logged-in user (Renter)
+const getUserAllRequests = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const requests = await Request_Model.find({
-      userId,
-      status: 'accepted'
-    })
+    // Fetch all requests for this user
+    const requests = await Request_Model.find({ userId })
       .populate({
         path: 'rentalId',
-        select: 'Vehical_Name price Image_URL userId',
+        select: 'Vehical_Name Image_URL Total_Amount userId',
         populate: {
-          path: 'userId',
+          path: 'userId', // vehicle owner (earner)
           select: 'name email'
         }
       });
 
-    res.json({
-      totalTrips: requests.length,
-      vehicles: requests
+    // Filter out requests where rentalId was deleted
+    const validRequests = requests.filter(r => r.rentalId !== null);
+
+    // Group by status
+    const pending = validRequests.filter(r => r.status === 'pending');
+    const accepted = validRequests.filter(r => r.status === 'accepted');
+    const rejected = validRequests.filter(r => r.status === 'declined');
+
+    // Send response
+    res.status(200).json({
+      totalRequests: validRequests.length,
+      counts: {
+        pending: pending.length,
+        accepted: accepted.length,
+        rejected: rejected.length
+      },
+      pending,
+      accepted,
+      rejected
     });
 
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 
 
@@ -250,7 +276,7 @@ const getAllEarnerRequests = async (req, res) => {
     // Group by status
     const pending = earnerRequests.filter(r => r.status === 'pending');
     const accepted = earnerRequests.filter(r => r.status === 'accepted');
-    const rejected = earnerRequests.filter(r => r.status === 'rejected');
+    const rejected = earnerRequests.filter(r => r.status === 'declined');
 
     res.json({
       totalRequests: earnerRequests.length,
@@ -275,9 +301,9 @@ module.exports = {
     sendRequest,
     getPendingRequests,
     updateRequestStatus,
-    getUserRequests,
+    getUserPendingRequests,
     cancelRequest,
     getEarnerEarnings,
-    getUserAcceptedVehicles,
+    getUserAllRequests,
     getAllEarnerRequests
 };
