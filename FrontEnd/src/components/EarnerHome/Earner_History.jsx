@@ -7,7 +7,7 @@ const Earner_History = () => {
   const [data, setData] = useState({
     pending: [],
     accepted: [],
-    rejected: [],
+    declined: [],
     counts: {}
   });
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,21 @@ const Earner_History = () => {
         }
       );
 
-      setData(res.data);
+     setData({
+  pending: res.data.pending || [],
+  accepted: res.data.accepted || [],
+  declined: res.data.declined || res.data.rejected || [],
+  counts: {
+    pending: res.data.counts?.pending || 0,
+    accepted: res.data.counts?.accepted || 0,
+    declined:
+      res.data.counts?.declined ??
+      res.data.counts?.rejected ??
+      0
+  },
+  totalRequests: res.data.totalRequests || 0
+});
+
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -40,8 +54,8 @@ const Earner_History = () => {
   const getVisibleData = () => {
     if (activeTab === "pending") return data.pending;
     if (activeTab === "accepted") return data.accepted;
-    if (activeTab === "rejected") return data.rejected;
-    return [...data.pending, ...data.accepted, ...data.rejected];
+    if (activeTab === "declined") return data.declined;
+    return [...data.pending, ...data.accepted, ...data.declined];
   };
 
   if (loading) {
@@ -80,10 +94,10 @@ const Earner_History = () => {
             Accepted ({data?.counts?.accepted || 0})
           </button>
           <button
-            className={activeTab === "rejected" ? "active" : ""}
-            onClick={() => setActiveTab("rejected")}
+            className={activeTab === "declined" ? "active" : ""}
+            onClick={() => setActiveTab("declined")}
           >
-            Rejected ({data?.counts?.rejected || 0})
+            declined ({data?.counts?.declined || 0})
           </button>
         </div>
 

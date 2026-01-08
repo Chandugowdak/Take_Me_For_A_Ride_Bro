@@ -284,7 +284,7 @@ const getAllEarnerRequests = async (req, res) => {
         pending: pending.length,
         accepted: accepted.length,
         rejected: rejected.length
-      },
+      },  
       pending,
       accepted,
       rejected
