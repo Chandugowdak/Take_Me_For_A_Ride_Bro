@@ -25,6 +25,7 @@ import SubscriptionSection from './Entry_Pages/SubscriptionSection';
 import GetRidingAccessories from './Entry_Pages/GetRidingAccessories'; 
 import User_History from './components/UserHome/User_History';
 import Earner_History from './components/EarnerHome/Earner_History';
+import Footer from './Footer_Section/Footer';
 
 const  App = ()=>{
   return (
@@ -59,6 +60,7 @@ const  App = ()=>{
           <Route path="/user/offers" element={<Offers/>}/>
           <Route path="/user/history" element={<User_History/>}/>
           <Route path="/earner/history" element={<Earner_History/>}/>
+          <Route path="/footer" element={<Footer/>}/>
         </Route>
 
 </Route>
