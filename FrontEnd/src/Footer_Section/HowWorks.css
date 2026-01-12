@@ -1,0 +1,138 @@
+/* ---------------- PAGE SETUP ---------------- */
+.how-page {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fffaf0, #ffffff); /* Soft premium gradient */
+  min-height: 100vh;
+  color: #050000;
+  padding-bottom: 50px;
+  overflow-x: hidden;
+}
+
+/* ---------------- HERO SECTION ---------------- */
+.hero-section {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(rgba(255,250,240,0.8), rgba(255,250,240,0.8)),
+              url('https://images.unsplash.com/photo-1598032891461-f742b785e8c7?auto=format&fit=crop&w=1470&q=80') no-repeat center center;
+  background-size: cover;
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
+  position: relative;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ff7a00;
+  margin-bottom: 15px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  color: #000000; /* Hero description in black for readability */
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ---------------- SECTION TITLES ---------------- */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff7a00;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* ---------------- STEP CARDS ---------------- */
+.step-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 25px;
+  padding: 30px 20px;
+  color: #000; /* Make all card text black */
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover effect */
+.step-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* Floating glow effect */
+.step-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, #ffb347, #ff7a00, #ffb347);
+  opacity: 0.1;
+  filter: blur(50px);
+  transition: all 0.5s ease;
+  z-index: 0;
+}
+
+.step-card:hover::before {
+  opacity: 0.2;
+  transform: rotate(10deg);
+}
+
+/* Keep content above glow */
+.step-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------------- ICON & TEXT ---------------- */
+.step-icon {
+  font-size: 2.8rem;
+  color: #ff7a00;
+  margin-bottom: 15px;
+}
+
+.step-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #000000; /* Titles black */
+}
+
+.step-content {
+  font-size: 0.95rem;
+  color: #000000; /* Step content black */
+  line-height: 1.6;
+}
+
+/* ---------------- ANIMATIONS ---------------- */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 1024px) {
+  .step-card {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.2rem;
+  }
+  .hero-section p {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section h1 {
+    font-size: 1.8rem;
+  }
+  .hero-section p {
+    font-size: 0.95rem;
+  }
+}

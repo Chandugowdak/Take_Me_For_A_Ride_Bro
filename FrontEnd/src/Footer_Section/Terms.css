@@ -1,0 +1,153 @@
+/* ---------------- PAGE SETUP ---------------- */
+.terms-page {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fffaf0, #ffffff); /* Soft light gradient */
+  min-height: 100vh;
+  color: #333;
+  padding-bottom: 50px;
+}
+
+/* ---------------- HERO SECTION ---------------- */
+.hero-section {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(rgba(255, 250, 240, 0.8), rgba(255, 250, 240, 0.8)),
+              url('https://images.unsplash.com/photo-1600070792776-f195f97d2b6a?auto=format&fit=crop&w=1470&q=80') no-repeat center center;
+  background-size: cover;
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ff7a00; /* Warm premium accent */
+  margin-bottom: 15px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  color: #555; /* Soft dark for readability */
+}
+
+/* ---------------- TERMS CARDS ---------------- */
+.terms-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin: 50px 20px 20px 20px;
+}
+
+.term-card {
+  background: rgba(255, 255, 255, 0.85); /* Light glass effect */
+  border-radius: 20px;
+  padding: 30px 25px;
+  width: 320px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.term-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.term-icon {
+  font-size: 2.5rem;
+  color: #ff7a00; /* Warm accent */
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.term-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.term-content {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+  text-align: center;
+}
+
+/* ---------------- ACCEPT SECTION ---------------- */
+.accept-section {
+  text-align: center;
+  margin-top: 60px;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #ffecd2, #fcb69f); /* Soft warm CTA gradient */
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+}
+
+.accept-section p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: 500;
+}
+
+.btn-accept {
+  background: linear-gradient(135deg, #ff7a00, #ffb347); /* Warm gradient button */
+  border: none;
+  padding: 15px 40px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-accept:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 1024px) {
+  .terms-container {
+    gap: 20px;
+  }
+
+  .term-card {
+    width: 280px;
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+
+  .term-card {
+    width: 90%;
+  }
+
+  .terms-container {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-section p {
+    font-size: 0.95rem;
+  }
+
+
+}

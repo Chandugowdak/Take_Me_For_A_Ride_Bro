@@ -26,6 +26,9 @@ import GetRidingAccessories from './Entry_Pages/GetRidingAccessories';
 import User_History from './components/UserHome/User_History';
 import Earner_History from './components/EarnerHome/Earner_History';
 import Footer from './Footer_Section/Footer';
+import Terms from './Footer_Section/Trems';
+import PrivatecyPolicy from './Footer_Section/PrivacyPolicy';
+import HowWorks from './Footer_Section/HowWorks';
 
 const  App = ()=>{
   return (
@@ -43,6 +46,9 @@ const  App = ()=>{
           <Route path="/OffersSection" element={<OffersSection/>}/>
           <Route path="/Sub" element={<SubscriptionSection/>}/>
           <Route path="/static/data" element={<GetRidingAccessories/>}/>
+          <Route path="/terms" element={<Terms/>}/>
+          <Route path="/privacy" element={<PrivatecyPolicy/>}/>
+          <Route path="/how-it-works" element={<HowWorks/>}/>
         </Route>
 
         {/* PROTECTED ROUTES */}
