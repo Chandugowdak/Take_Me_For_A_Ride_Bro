@@ -1,0 +1,121 @@
+/* PAGE SETUP */
+.about-page {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+  color: #000;
+}
+
+/* HERO */
+.about-hero {
+  padding: 90px 20px;
+  background: linear-gradient(rgba(255,250,240,0.85), rgba(255,250,240,0.85)),
+    url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d") center/cover no-repeat;
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  color: #ff7a00;
+  font-weight: 700;
+}
+
+.about-hero p {
+  max-width: 700px;
+  margin: auto;
+  font-size: 1.2rem;
+}
+
+/* ABOUT CONTENT */
+.about-content h2 {
+  color: #ff7a00;
+  font-weight: 700;
+}
+
+.about-image {
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* SECTION TITLE */
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff7a00;
+  margin-bottom: 40px;
+}
+
+/* ACHIEVEMENTS */
+.achievement-section {
+  padding: 60px 0;
+}
+
+.achievement-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.achievement-card svg {
+  font-size: 2.5rem;
+  color: #ff7a00;
+}
+
+.achievement-card h3 {
+  margin: 10px 0;
+  font-weight: 700;
+}
+
+/* CONTRIBUTION */
+.contribution-section {
+  padding: 60px 0;
+}
+
+/* FRANCHISE */
+.franchise-section {
+  padding: 60px 0;
+  background: linear-gradient(135deg, #ffecd2, #fcb69f);
+}
+
+.big-icon {
+  font-size: 6rem;
+  color: #ff7a00;
+}
+
+/* INVESTORS */
+.investor-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.investor-card svg {
+  font-size: 2.5rem;
+  color: #ff7a00;
+  margin-bottom: 10px;
+}
+
+/* GROWTH */
+.growth-section {
+  padding: 70px 0;
+}
+
+.growth-icon {
+  font-size: 4rem;
+  color: #ff7a00;
+  margin-bottom: 15px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .section-title {
+    font-size: 1.7rem;
+  }
+}

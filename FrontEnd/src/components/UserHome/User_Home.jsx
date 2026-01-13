@@ -169,7 +169,7 @@ const User_Home = () => {
             <div className="step-card shadow-sm">
               <div className="step-icon">📍</div>
               <h5>1. Search</h5>
-              <p>Find bikes available near your area.</p>
+              <p className="text-dark">Find bikes available near your area.</p>
             </div>
           </div>
 
@@ -177,7 +177,7 @@ const User_Home = () => {
             <div className="step-card shadow-sm">
               <div className="step-icon">📄</div>
               <h5>2. Book</h5>
-              <p>Select a bike and confirm your booking instantly.</p>
+              <p className="text-dark">Select a bike and confirm your booking instantly.</p>
             </div>
           </div>
 
@@ -185,7 +185,7 @@ const User_Home = () => {
             <div className="step-card shadow-sm">
               <div className="step-icon">🏍️</div>
               <h5>3. Ride</h5>
-              <p>Pick up the bike and enjoy your ride.</p>
+              <p className="text-dark">Pick up the bike and enjoy your ride.</p>
             </div>
           </div>
         </div>

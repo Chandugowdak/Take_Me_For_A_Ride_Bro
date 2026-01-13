@@ -29,6 +29,8 @@ import Footer from './Footer_Section/Footer';
 import Terms from './Footer_Section/Trems';
 import PrivatecyPolicy from './Footer_Section/PrivacyPolicy';
 import HowWorks from './Footer_Section/HowWorks';
+import About from './Footer_Section/About';
+import HelpCenter from './Footer_Section/HelpCenter';
 
 const  App = ()=>{
   return (
@@ -46,9 +48,9 @@ const  App = ()=>{
           <Route path="/OffersSection" element={<OffersSection/>}/>
           <Route path="/Sub" element={<SubscriptionSection/>}/>
           <Route path="/static/data" element={<GetRidingAccessories/>}/>
-          <Route path="/terms" element={<Terms/>}/>
-          <Route path="/privacy" element={<PrivatecyPolicy/>}/>
-          <Route path="/how-it-works" element={<HowWorks/>}/>
+           
+          
+          
         </Route>
 
         {/* PROTECTED ROUTES */}
@@ -67,7 +69,13 @@ const  App = ()=>{
           <Route path="/user/history" element={<User_History/>}/>
           <Route path="/earner/history" element={<Earner_History/>}/>
           <Route path="/footer" element={<Footer/>}/>
+         
         </Route>
+         <Route path="/how-it-works" element={<HowWorks/>}/>
+          <Route path="/terms" element={<Terms/>}/>
+          <Route path="/privacy" element={<PrivatecyPolicy/>}/>
+          <Route path="/about" element={<About/>}/>
+          <Route path="/help-center" element={<HelpCenter/>}/>
 
 </Route>
 
