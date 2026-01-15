@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import Logo from "../assets/Logo.png";
 import "../CssFolder/NavBar.css";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import { GlobelValue } from "../context/GlobelVariable";
 import axios from "axios";
 
@@ -9,6 +9,8 @@ const User_Nav = () => {
   const [open, setOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [user, setUser] = useState(null);
+  //USE USE NAVIGATE TO MOVE TO DIFFERENT ROUTE
+  const navigate = useNavigate();
 
   const { User_Login, Set_User_Login, setJWT_Token, setUser_Type } =
     useContext(GlobelValue);
@@ -41,6 +43,7 @@ const User_Nav = () => {
     setJWT_Token(null);
     Set_User_Login(false);
     setUser_Type(null);
+    navigate('/');
   };
 
   return (

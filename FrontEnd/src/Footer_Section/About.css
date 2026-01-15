@@ -1,17 +1,22 @@
-/* PAGE SETUP */
+/* ================= PAGE SETUP ================= */
 .about-page {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #fffaf0, #ffffff);
   color: #000;
+  overflow-x: hidden;
 }
 
-/* HERO */
+/* ================= HERO ================= */
 .about-hero {
-  padding: 90px 20px;
-  background: linear-gradient(rgba(255,250,240,0.85), rgba(255,250,240,0.85)),
-    url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d") center/cover no-repeat;
-  border-bottom-left-radius: 50% 20%;
-  border-bottom-right-radius: 50% 20%;
+  padding: 80px 20px;
+  background: linear-gradient(
+      rgba(255, 250, 240, 0.88),
+      rgba(255, 250, 240, 0.88)
+    ),
+    url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d")
+      center/cover no-repeat;
+  border-bottom-left-radius: 50% 18%;
+  border-bottom-right-radius: 50% 18%;
 }
 
 .about-hero h1 {
@@ -21,23 +26,53 @@
 }
 
 .about-hero p {
-  max-width: 700px;
-  margin: auto;
-  font-size: 1.2rem;
+  max-width: 750px;
+  margin: 20px auto 0;
+  font-size: 1.15rem;
+  line-height: 1.7;
 }
 
-/* ABOUT CONTENT */
+/* ================= ABOUT CONTENT ================= */
+.about-content {
+  padding: 70px 0;
+}
+
 .about-content h2 {
   color: #ff7a00;
   font-weight: 700;
+  margin-bottom: 15px;
 }
 
+.about-content p {
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* About bullet list */
+.about-list {
+  padding-left: 0;
+  margin-top: 15px;
+}
+
+.about-list li {
+  list-style: none;
+  padding: 8px 0;
+  font-weight: 500;
+  color: #333;
+}
+
+/* About image */
 .about-image {
-  border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  border-radius: 22px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  transition: transform 0.4s ease;
 }
 
-/* SECTION TITLE */
+.about-image:hover {
+  transform: scale(1.03);
+}
+
+/* ================= SECTION TITLE ================= */
 .section-title {
   text-align: center;
   font-size: 2rem;
@@ -46,76 +81,142 @@
   margin-bottom: 40px;
 }
 
-/* ACHIEVEMENTS */
+/* ================= ACHIEVEMENTS ================= */
 .achievement-section {
-  padding: 60px 0;
+  padding: 25px 0;
 }
 
 .achievement-card {
-  background: #fff;
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 28px 20px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  transition: all 0.35s ease;
+}
+
+.achievement-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(255, 122, 0, 0.25);
 }
 
 .achievement-card svg {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   color: #ff7a00;
 }
 
 .achievement-card h3 {
-  margin: 10px 0;
+  margin: 12px 0 5px;
   font-weight: 700;
 }
 
-/* CONTRIBUTION */
-.contribution-section {
-  padding: 60px 0;
+.achievement-card p {
+  font-size: 0.95rem;
+  color: #555;
 }
 
-/* FRANCHISE */
+/* ================= CONTRIBUTION ================= */
+.contribution-section {
+  padding: 25px 0;
+}
+
+.contribution-section p {
+  max-width: 750px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+.contribution-icon {
+  font-size: 2.6rem;
+  color: #ff7a00;
+  margin-bottom: 10px;
+}
+
+/* ================= FRANCHISE ================= */
 .franchise-section {
-  padding: 60px 0;
-  background: linear-gradient(135deg, #ffecd2, #fcb69f);
+  padding: 15px 0;
+  background: linear-gradient(135deg, #ffecd2, #fcb69fc0);
+  border-radius: 20px;
+  margin:10px;
+}
+
+.franchise-section p {
+  line-height: 1.7;
+  font-weight: 500;
 }
 
 .big-icon {
-  font-size: 6rem;
+  font-size: 6.5rem;
   color: #ff7a00;
+  opacity: 0.9;
 }
 
-/* INVESTORS */
+/* ================= INVESTORS ================= */
+.investor-section {
+  padding: 25px 0;
+}
+
 .investor-card {
-  background: #fff;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  background: #ffffff;
+  padding: 30px 20px;
+  border-radius: 22px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  transition: all 0.35s ease;
+}
+
+.investor-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 38px rgba(255, 122, 0, 0.22);
 }
 
 .investor-card svg {
   font-size: 2.5rem;
   color: #ff7a00;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
-/* GROWTH */
+.investor-card h4 {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.investor-card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* ================= GROWTH ================= */
 .growth-section {
-  padding: 70px 0;
+  padding: 25px 0;
+  background: #fffaf0;
 }
 
 .growth-icon {
-  font-size: 4rem;
+  font-size: 4.2rem;
   color: #ff7a00;
   margin-bottom: 15px;
 }
 
-/* RESPONSIVE */
+.growth-section p {
+  max-width: 720px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .about-hero h1 {
     font-size: 2.2rem;
   }
 
+  .about-hero p {
+    font-size: 1rem;
+  }
+
   .section-title {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
+  }
+
+  .big-icon {
+    font-size: 5rem;
   }
 }

@@ -5,7 +5,7 @@ import Login from './Pages/Login';
 import Register from './Pages/Registration';
 import User_Home from './components/UserHome/User_Home';
 import Earn_Home from './components/EarnerHome/Earn_Home';
-
+//GLOBEL CONTEXT
 import GlobelContext from './context/GlobelContext';
 
 // // Import Routes
@@ -31,6 +31,7 @@ import PrivatecyPolicy from './Footer_Section/PrivacyPolicy';
 import HowWorks from './Footer_Section/HowWorks';
 import About from './Footer_Section/About';
 import HelpCenter from './Footer_Section/HelpCenter';
+import Contect from './Footer_Section/Contect';
 
 const  App = ()=>{
   return (
@@ -47,9 +48,7 @@ const  App = ()=>{
           <Route path="/franchise/own" element={<Franchise/>}/>
           <Route path="/OffersSection" element={<OffersSection/>}/>
           <Route path="/Sub" element={<SubscriptionSection/>}/>
-          <Route path="/static/data" element={<GetRidingAccessories/>}/>
-           
-          
+          <Route path="/static/data" element={<GetRidingAccessories/>}/>      
           
         </Route>
 
@@ -76,6 +75,7 @@ const  App = ()=>{
           <Route path="/privacy" element={<PrivatecyPolicy/>}/>
           <Route path="/about" element={<About/>}/>
           <Route path="/help-center" element={<HelpCenter/>}/>
+          <Route path="/contact" element={<Contect/>}/>
 
 </Route>
 
