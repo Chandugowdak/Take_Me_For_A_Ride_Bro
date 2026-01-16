@@ -1,0 +1,76 @@
+.feature-box {
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+  border-radius: 24px;
+  padding: 40px;
+}
+
+/* Image */
+.feature-img {
+  width: 100%;
+  max-width: 420px;
+  animation: fadeSlide 0.8s ease;
+}
+
+/* Text */
+.small-title {
+  color: #8b4513;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.feature-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.feature-desc {
+  font-size: 16px;
+  color: #555;
+  max-width: 420px;
+}
+
+/* Dots */
+.dots {
+  margin-top: 20px;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: #8b4513;
+  width: 22px;
+  border-radius: 20px;
+}
+
+/* Animation */
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .feature-title {
+    font-size: 28px;
+  }
+
+  .feature-box {
+    padding: 25px;
+  }
+}
