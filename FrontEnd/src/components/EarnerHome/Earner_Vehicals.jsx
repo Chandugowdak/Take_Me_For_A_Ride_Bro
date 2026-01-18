@@ -17,7 +17,10 @@ const Earner_Vehical = () => {
     Image_URL: "",
     Rentel_Date: "",
     Return_Date: "",
-    Total_Amount: ""
+    Total_Amount: "",
+    vehicleNumber: "",
+    rcBookNumber: "",
+    insuranceEndingDate: ""
   });
 
   // Fetch vehicles
@@ -61,7 +64,10 @@ const Earner_Vehical = () => {
       Image_URL: v.Image_URL,
       Rentel_Date: v.Rentel_Date?.split("T")[0] || "",
       Return_Date: v.Return_Date?.split("T")[0] || "",
-      Total_Amount: v.Total_Amount
+      Total_Amount: v.Total_Amount,
+      vehicleNumber: v.vehicleNumber,
+      rcBookNumber: v.rcBookNumber,
+      insuranceEndingDate: v.insuranceEndingDate?.split("T")[0] || ""
     });
     setEditModal(true);
   };
@@ -77,7 +83,10 @@ const Earner_Vehical = () => {
           Image_URL: editForm.Image_URL,
           Rentel_Date: editForm.Rentel_Date,
           Return_Date: editForm.Return_Date,
-          Total_Amount: editForm.Total_Amount
+          Total_Amount: editForm.Total_Amount,
+          vehicleNumber: editForm.vehicleNumber,
+          rcBookNumber: editForm.rcBookNumber,
+          insuranceEndingDate: editForm.insuranceEndingDate
         },
         { headers: { Authorization: `Bearer ${JWT_Token}` } }
       );
@@ -214,10 +223,36 @@ const Earner_Vehical = () => {
               </div>
 
               <input
-                className="form-control mb-3"
+                className="form-control mb-2"
                 name="Total_Amount"
                 placeholder="Total Amount"
                 value={editForm.Total_Amount}
+                onChange={handleChange}
+              />
+
+              {/* ✅ Added new fields */}
+              <input
+                className="form-control mb-2"
+                name="vehicleNumber"
+                placeholder="Vehicle Number"
+                value={editForm.vehicleNumber}
+                onChange={handleChange}
+              />
+
+              <input
+                className="form-control mb-2"
+                name="rcBookNumber"
+                placeholder="RC Book Number"
+                value={editForm.rcBookNumber}
+                onChange={handleChange}
+              />
+
+              <input
+                type="date"
+                className="form-control mb-3"
+                name="insuranceEndingDate"
+                placeholder="Insurance Ending Date"
+                value={editForm.insuranceEndingDate}
                 onChange={handleChange}
               />
 

@@ -11,12 +11,16 @@ const Add_Vehical = async (req, res) => {
         Image_URL,   // ✅ URL from frontend
         Rentel_Date,
         Return_Date,
-        Total_Amount
+        Total_Amount,
+        vehicleNumber,
+        rcBookNumber,
+        insuranceEndingDate
+
     } = req.body;
 
     try {
         if (!Vehical_Name || !Type_of_Vehical || !Image_URL ||
-            !Rentel_Date || !Return_Date || !Total_Amount) {
+            !Rentel_Date || !Return_Date || !Total_Amount || !vehicleNumber || !rcBookNumber || !insuranceEndingDate) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
@@ -29,7 +33,10 @@ const Add_Vehical = async (req, res) => {
             Image_URL,
             Rentel_Date,
             Return_Date,
-            Total_Amount
+            Total_Amount,
+            vehicleNumber,
+            rcBookNumber,
+            insuranceEndingDate
         });
 
         await newRentel.save();
@@ -93,7 +100,10 @@ const Update_Vehical = async (req, res) => {
             Image_URL,
             Rentel_Date,
             Return_Date,
-            Total_Amount
+            Total_Amount,
+            vehicleNumber,
+            rcBookNumber,
+            insuranceEndingDate
         } = req.body;
 
         if (Vehical_Name) vehical.Vehical_Name = Vehical_Name;
@@ -102,6 +112,9 @@ const Update_Vehical = async (req, res) => {
         if (Rentel_Date) vehical.Rentel_Date = Rentel_Date;
         if (Return_Date) vehical.Return_Date = Return_Date;
         if (Total_Amount) vehical.Total_Amount = Total_Amount;
+        if (vehicleNumber) vehical.vehicleNumber = vehicleNumber;
+        if (rcBookNumber) vehical.rcBookNumber = rcBookNumber;
+        if (insuranceEndingDate) vehical.insuranceEndingDate = insuranceEndingDate;
 
         await vehical.save();
 

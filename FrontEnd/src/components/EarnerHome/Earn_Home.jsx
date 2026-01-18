@@ -5,7 +5,6 @@ import "./Earn_Home.css";
 import TopCities from "../../Footer_Section/TopCities";
 import AutoScrollCarousel from "../../Common_Component/AutoScrollCarousel";
 
-
 const Earn_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +14,10 @@ const Earn_Home = () => {
     Image_URL: "",
     Rentel_Date: "",
     Return_Date: "",
-    Total_Amount: ""
+    Total_Amount: "",
+    vehicleNumber: "",
+    rcBookNumber: "",
+    insuranceEndingDate: ""
   });
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -33,7 +35,10 @@ const Earn_Home = () => {
         Image_URL: "",
         Rentel_Date: "",
         Return_Date: "",
-        Total_Amount: ""
+        Total_Amount: "",
+        vehicleNumber: "",
+        rcBookNumber: "",
+        insuranceEndingDate: ""
       });
     } catch (err) {
       alert(err.response?.data?.message || "Error adding vehicle");
@@ -53,7 +58,7 @@ const Earn_Home = () => {
         </button>
       </section>
 
-  <AutoScrollCarousel/>
+      <AutoScrollCarousel />
 
       {/* FEATURES SECTION */}
       <section className="earn-features container mt-5">
@@ -81,14 +86,15 @@ const Earn_Home = () => {
           </div>
         </div>
       </section>
-        {/* CITY SECTION */}
-      <TopCities/>
+
+      {/* CITY SECTION */}
+      <TopCities />
 
       {/* Add Vehicle Modal */}
       {showModal && (
         <div className="modal fade show d-block" style={{ background: "#000000aa" }}>
           <div className="modal-dialog modal-lg modal-dialog-centered">
-            <div className="modal-content rounded-4">
+            <div className="modal-content rounded-4 p-4">
               <h4>Add Your Vehicle</h4>
 
               <input
@@ -140,10 +146,36 @@ const Earn_Home = () => {
               </div>
 
               <input
-                className="form-control mb-3"
+                className="form-control mb-2"
                 name="Total_Amount"
                 placeholder="Total Amount"
                 value={form.Total_Amount}
+                onChange={handleChange}
+              />
+
+              {/* ✅ Added new fields */}
+              <input
+                className="form-control mb-2"
+                name="vehicleNumber"
+                placeholder="Vehicle Number"
+                value={form.vehicleNumber}
+                onChange={handleChange}
+              />
+
+              <input
+                className="form-control mb-2"
+                name="rcBookNumber"
+                placeholder="RC Book Number"
+                value={form.rcBookNumber}
+                onChange={handleChange}
+              />
+
+              <input
+                type="date"
+                className="form-control mb-3"
+                name="insuranceEndingDate"
+                placeholder="Insurance Ending Date"
+                value={form.insuranceEndingDate}
                 onChange={handleChange}
               />
 

@@ -21,9 +21,7 @@ const User_Home = () => {
   /* ========================= */
   const fetchVehicals = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:3000/api/vehicals/all"
-      );
+      const res = await axios.get("http://localhost:3000/api/vehicals/all");
 
       setVehicals(Array.isArray(res.data.Vehicals) ? res.data.Vehicals : []);
       setLoading(false);
@@ -64,9 +62,7 @@ const User_Home = () => {
       // Disable button after request
       setRequestedIds((prev) => [...prev, rentalId]);
     } catch (error) {
-      alert(
-        error?.response?.data?.message || "Failed to send request"
-      );
+      alert(error?.response?.data?.message || "Failed to send request");
     } finally {
       setSendingId(null);
     }
@@ -87,6 +83,9 @@ const User_Home = () => {
 
   return (
     <div className="user-home-container">
+      {/* FEATURE CAROUSEL */}
+      <AutoScrollCarousel />
+
       {/* HERO SECTION */}
       <section className="user-hero container">
         <h1 className="user-title">Find Your Perfect Ride</h1>
@@ -102,9 +101,7 @@ const User_Home = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button className="btn btn-primary search-btn">
-            Search
-          </button>
+          <button className="btn btn-primary search-btn">Search</button>
         </div>
       </section>
 
@@ -133,24 +130,21 @@ const User_Home = () => {
 
                   {/* DETAILS */}
                   <h4 className="bike-name">{item.Vehical_Name}</h4>
-                  <p className="bike-price">
-                    ₹{item.Total_Amount} / day
-                  </p>
+                  <p className="bike-price">₹{item.Total_Amount} / day</p>
 
                   {/* 🔥 RENT BUTTON */}
                   <button
                     className="btn btn-outline-primary rent-btn"
                     disabled={
-                      sendingId === item._id ||
-                      requestedIds.includes(item._id)
+                      sendingId === item._id || requestedIds.includes(item._id)
                     }
                     onClick={() => handleSendRequest(item._id)}
                   >
                     {sendingId === item._id
                       ? "Sending..."
                       : requestedIds.includes(item._id)
-                      ? "Requested"
-                      : "Rent Now"}
+                        ? "Requested"
+                        : "Rent Now"}
                   </button>
                 </div>
               </div>
@@ -158,9 +152,6 @@ const User_Home = () => {
           )}
         </div>
       </section>
-      {/* FEATURE CAROUSEL */}
-      <AutoScrollCarousel/>
-      
 
       <TopCities />
 
@@ -181,7 +172,9 @@ const User_Home = () => {
             <div className="step-card shadow-sm">
               <div className="step-icon">📄</div>
               <h5>2. Book</h5>
-              <p className="text-dark">Select a bike and confirm your booking instantly.</p>
+              <p className="text-dark">
+                Select a bike and confirm your booking instantly.
+              </p>
             </div>
           </div>
 

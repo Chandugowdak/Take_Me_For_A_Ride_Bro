@@ -37,7 +37,24 @@ const Rentel_Schema = new mongoose.Schema(
     Total_Amount: {
         type: Number,
         required: true
+    },
+
+    // ✅ New Fields
+    vehicleNumber: {
+        type: String,
+        required: true
+    },
+
+    rcBookNumber: {
+        type: String,
+        required: true
+    },
+
+    insuranceEndingDate: {
+        type: Date,
+        required: true
     }
+
 },
 {
     timestamps: true // ✅ REQUIRED for sorting
