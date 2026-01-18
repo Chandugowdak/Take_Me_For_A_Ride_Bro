@@ -3,6 +3,7 @@ import axios from "axios";
 import { GlobelValue } from "../../context/GlobelVariable";
 import "./User_Home.css";
 import TopCities from "../../Footer_Section/TopCities";
+import AutoScrollCarousel from "../../Common_Component/AutoScrollCarousel";
 
 const User_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
@@ -157,6 +158,9 @@ const User_Home = () => {
           )}
         </div>
       </section>
+      {/* FEATURE CAROUSEL */}
+      <AutoScrollCarousel/>
+      
 
       <TopCities />
 
