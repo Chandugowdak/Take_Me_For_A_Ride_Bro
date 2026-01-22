@@ -3,7 +3,7 @@ import { GlobelValue } from "../../context/GlobelVariable";
 import axios from "axios";
 import "./Earn_Home.css";
 import TopCities from "../../Footer_Section/TopCities";
-import AutoScrollCarousel from "../../Common_Component/AutoScrollCarousel";
+
 
 const Earn_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
@@ -58,7 +58,7 @@ const Earn_Home = () => {
         </button>
       </section>
 
-      <AutoScrollCarousel />
+      
 
       {/* FEATURES SECTION */}
       <section className="earn-features container mt-5">
