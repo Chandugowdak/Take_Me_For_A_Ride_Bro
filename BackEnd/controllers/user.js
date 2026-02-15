@@ -62,5 +62,22 @@ const Get_Data = async(req,res)=>{
     }
 }
 
+//UPDATE THE USER DATA
+const Update_Data = async(req,res)=>{
+    const {id} = req.params;
+    const {name , email,} = req.body;
+    try{
+        const updateUser = await UserModel.findOneAndUpdate({_id:id},{name:name,email:email},{new:true});
+        if(!updateUser){
+            return res.status(400).json({message:"User Not Found"});
+        }else{
+            return res.status(200).json({message:"User Profile Updated Successfully", user: updateUser});
+        }
+    }
+    catch(err){
+        return res.status(500).json({message:"Server Error User Profile Not Updated"})
+    }
+}
 
-module.exports = {userRegistration , LoginUser, Get_Data };
+
+module.exports = {userRegistration , LoginUser, Get_Data ,Update_Data };

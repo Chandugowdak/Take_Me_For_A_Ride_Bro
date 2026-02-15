@@ -1,0 +1,79 @@
+.user-icon {
+  cursor: pointer;
+}
+
+/* PROFILE CARD */
+.profile-card {
+  position: absolute;
+  top: 58px;
+  right: 0;
+  width: 260px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 14px;
+  z-index: 1000;
+  animation: fadeUp 0.4s ease;
+}
+
+.close-btn {
+  cursor: pointer;
+}
+
+/* BACKDROP */
+.custom-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 2000;
+}
+
+/* MODAL */
+.custom-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.modal-box {
+  width: 90%;
+  max-width: 420px;
+  background: linear-gradient(135deg, #ffffff, #f7fbff);
+  padding: 30px;
+  margin-top:500px;
+  border-radius: 20px;
+  box-shadow: 0px 18px 45px rgba(0,0,0,0.25);
+  animation: modalSlide 0.5s ease;
+}
+
+.modal-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0d3b66;
+  margin-bottom: 20px;
+}
+
+/* ANIMATIONS */
+@keyframes modalSlide {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
