@@ -1,106 +1,112 @@
+import React, { useState, useRef, useEffect } from "react";
+import "./Support.css";
 
-import React from 'react';
-import './Support.css';
+const supportData = [
+  {
+    id: 1,
+    icon: "🚗",
+    title: "Vehicle Not Visible",
+    short: "Vehicles may already be booked for selected dates.",
+    details:
+      "If vehicles are not visible, it usually means they are already reserved for your chosen time slot. You can modify pickup dates, try nearby locations, or refresh availability. Our inventory updates in real-time."
+  },
+  {
+    id: 2,
+    icon: "💳",
+    title: "Payment Issues",
+    short: "Payment completed but booking not confirmed.",
+    details:
+      "If payment was deducted but booking is not confirmed, do not worry. Sometimes bank processing delays occur. Refunds are auto-processed within 3–5 working days if booking fails."
+  },
+  {
+    id: 3,
+    icon: "📅",
+    title: "Cancellation Policy",
+    short: "Bookings cancellable before pickup time.",
+    details:
+      "You can cancel bookings before the scheduled pickup time. Refund eligibility depends on cancellation timing. Late cancellations may result in partial or no refund."
+  },
+  {
+    id: 4,
+    icon: "🛠",
+    title: "Vehicle Breakdown",
+    short: "Vehicle stops working during trip.",
+    details:
+      "In case of breakdown, use the emergency support button inside the app. Our roadside assistance team will respond immediately and arrange replacement if required."
+  },
+  {
+    id: 5,
+    icon: "🧾",
+    title: "Extra Charges",
+    short: "Late return or damages.",
+    details:
+      "Extra charges may apply for late return, traffic fines, fuel shortage, or damages. All additional costs are transparently displayed in your invoice section."
+  },
+  {
+    id: 6,
+    icon: "🔐",
+    title: "Account Information",
+    short: "Password reset not available.",
+    details:
+      "Currently password reset feature is unavailable. Ensure correct details during registration. For account issues, contact support immediately."
+  }
+];
 
 const Support = () => {
+  const [activeCard, setActiveCard] = useState(null);
+  const modalRef = useRef();
+
+  // Close when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setActiveCard(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <div className="support-wrapper container py-5">
-      {/* Header */}
-      <div className="support-header text-center mb-5">
+      <div className="text-center mb-5">
         <h2>Help & Support</h2>
-        <p>
-          Facing issues while renting a vehicle? Below are the most common problems and how you can resolve them quickly.
-        </p>
+        <p>Click on a topic to view detailed information.</p>
       </div>
 
-      {/* Support Items */}
       <div className="row">
-        <div className="col-md-6 col-lg-4 mb-4">
-          <div className="support-box">
-            <span className="icon">🚗</span>
-            <h5>Vehicle Not Visible</h5>
-            <p>
-              If vehicles are not appearing, they may already be booked for your selected dates.
-            </p>
-            <p className="solution">✔ Try selecting different dates or nearby locations.</p>
+        {supportData.map((item) => (
+          <div className="col-md-6 col-lg-4 mb-4" key={item.id}>
+            <div
+              className="support-card"
+              onClick={() => setActiveCard(item)}
+            >
+              <span className="icon">{item.icon}</span>
+              <h5>{item.title}</h5>
+              <p>{item.short}</p>
+            </div>
           </div>
-        </div>
-
-        <div className="col-md-6 col-lg-4 mb-4">
-          <div className="support-box">
-            <span className="icon">💳</span>
-            <h5>Payment Issues</h5>
-            <p>
-              Payment completed but booking not confirmed.
-            </p>
-            <p className="solution">✔ Refunds are auto-processed within 3–5 working days.</p>
-          </div>
-        </div>
-
-        <div className="col-md-6 col-lg-4 mb-4">
-          <div className="support-box">
-            <span className="icon">📅</span>
-            <h5>Cancellation Policy</h5>
-            <p>
-              Bookings can be cancelled only before the pickup time.
-            </p>
-            <p className="solution">✔ Late cancellations may not be eligible for refund.</p>
-          </div>
-        </div>
-
-        <div className="col-md-6 col-lg-4 mb-4">
-          <div className="support-box">
-            <span className="icon">🛠</span>
-            <h5>Vehicle Breakdown</h5>
-            <p>
-              If the rented vehicle breaks down during usage.
-            </p>
-            <p className="solution">✔ Contact emergency support via the app immediately.</p>
-          </div>
-        </div>
-
-        <div className="col-md-6 col-lg-4 mb-4">
-          <div className="support-box">
-            <span className="icon">🧾</span>
-            <h5>Extra Charges</h5>
-            <p>
-              Additional charges may apply for late returns or damages.
-            </p>
-            <p className="solution">✔ All charges are transparently shown in your invoice.</p>
-          </div>
-        </div>
-
-        <div className="col-md-6 col-lg-4 mb-4">
-          <div className="support-box">
-            <span className="icon">🔐</span>
-            <h5>Account Information</h5>
-            <p>
-              Users cannot change or reset passwords once registered.
-            </p>
-            <p className="solution">✔ Ensure correct details during registration.</p>
-          </div>
-        </div>
+        ))}
       </div>
 
-      {/* Info Note */}
-      <div className="support-note mt-5">
-        <h6>Important Instructions</h6>
-        <ul>
-          <li>Password change or reset is not available in this application.</li>
-          <li>Carry valid ID proof at the time of vehicle pickup.</li>
-          <li>Late return may result in extra charges.</li>
-          <li>Fuel policy must be followed as mentioned during booking.</li>
-        </ul>
-      </div>
-
-      {/* Contact */}
-      <div className="support-contact text-center mt-4">
-        <p><b>Email:</b> support@rentelapp.com</p>
-        <p><b>Phone:</b> +91 98765 43210</p>
-      </div>
+      {/* MODAL */}
+      {activeCard && (
+        <div className="support-overlay">
+          <div className="support-modal" ref={modalRef}>
+            <span
+              className="close-btn"
+              onClick={() => setActiveCard(null)}
+            >
+              ✖
+            </span>
+            <div className="modal-icon">{activeCard.icon}</div>
+            <h4>{activeCard.title}</h4>
+            <p>{activeCard.details}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Support;
-
