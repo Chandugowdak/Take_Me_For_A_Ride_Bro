@@ -126,3 +126,72 @@
     font-size: 1.15rem;
   }
 }
+
+/* ===============================
+   TOTAL EARNINGS SUMMARY SECTION
+=================================*/
+
+.earnings-summary {
+  background: linear-gradient(135deg, #f8f9ff, #eef1ff);
+  padding: 40px;
+  border-radius: 18px;
+  margin-top: 60px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.summary-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: #2c2c2c;
+}
+
+.summary-subtitle {
+  color: #6c757d;
+  font-size: 0.95rem;
+  max-width: 500px;
+}
+
+.summary-amount-box {
+  background: #ffffff;
+  display: inline-block;
+  padding: 20px 35px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+}
+
+.summary-amount-box:hover {
+  transform: translateY(-4px);
+}
+
+.currency {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #28a745;
+  margin-right: 5px;
+}
+
+.amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #28a745;
+}
+
+.trip-count {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -23,7 +23,7 @@ const My_Earnings = () => {
 
       setEarnings(res.data.earnings);
       setTotalTrips(res.data.totalTrips);
-      console.log(res.data.totalEarnings);
+      setTotal_Earinig_Amount(res.data.totalEarnings);
 
       setLoading(false);
     } catch (err) {
@@ -32,21 +32,9 @@ const My_Earnings = () => {
     }
   };
 
-
-
   useEffect(() => {
     fetchEarnings();
- 
   }, []);
-
-
-  // TO HANDEL TOATL AMOUNT EARNED
-  useEffect(()=>{
-    const Toatl = earnings.reduce((acc,curr)=>{
-      return acc + (curr.rentalId.Total_Amount || 0);
-    },0);
-    setTotal_Earinig_Amount(Toatl);
-  },[earnings])
 
   if (loading) {
     return (
@@ -55,8 +43,6 @@ const My_Earnings = () => {
       </div>
     );
   }
-
-  console.log(Total_Earinig_Amount)
 
   return (
     <div className="my-earnings container-fluid py-5">
@@ -106,6 +92,32 @@ const My_Earnings = () => {
           )}
         </div>
       </div>
+      {/* ================= TOTAL SUMMARY SECTION (BOTTOM) ================= */}
+<div className="earnings-summary mt-5">
+  <div className="row align-items-center">
+    
+    <div className="col-md-6">
+      <h4 className="summary-title">
+        Total Earnings Till Now
+      </h4>
+      <p className="summary-subtitle">
+        This includes all completed trips and successful rentals.
+        Keep growing your performance and increase your income 🚀
+      </p>
+    </div>
+
+    <div className="col-md-6 text-md-end text-start mt-4 mt-md-0">
+      <div className="summary-amount-box">
+        <span className="currency">₹</span>
+        <span className="amount">{Total_Earinig_Amount}</span>
+        <p className="trip-count mt-2">
+          {totalTrips} Trips Completed
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
     </div>
   );
 };

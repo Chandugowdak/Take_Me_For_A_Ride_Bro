@@ -198,7 +198,7 @@ const getEarnerEarnings = async (req, res) => {
 
     // OPTIONAL: calculate total earnings
     const totalEarnings = earnings.reduce((sum, r) => {
-      return sum + (r.rentalId.price || 0);
+      return sum + (r.rentalId.Total_Amount || 0);
     }, 0);
 
     res.json({
