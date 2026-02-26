@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   const User_Type = localStorage.getItem("User_Type");
-  console.log(User_Type);
+  
   return (
     <div className="footer-container">
       <div className="container">

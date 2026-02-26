@@ -23,6 +23,7 @@ const My_Earnings = () => {
 
       setEarnings(res.data.earnings);
       setTotalTrips(res.data.totalTrips);
+      console.log(res.data.totalEarnings);
 
       setLoading(false);
     } catch (err) {
