@@ -1,5 +1,6 @@
 .user-icon {
   cursor: pointer;
+  
 }
 
 /* PROFILE CARD */
@@ -17,6 +18,7 @@
 
 .close-btn {
   cursor: pointer;
+  background-color:rgba(79, 77, 77, 0.684)
 }
 
 /* BACKDROP */

@@ -12,7 +12,6 @@ const User_Nav = () => {
       {/* ================= NAVBAR ================= */}
       <nav className="custom-navbar shadow-sm sticky-top px-3">
         <div className="nav-flex">
-
           {/* LEFT */}
           <div className="nav-left d-flex align-items-center gap-2">
             <Link to="/userhome">
@@ -28,26 +27,27 @@ const User_Nav = () => {
 
           {/* CENTER (DESKTOP ONLY) */}
           <div className="nav-center d-none d-lg-flex">
-            <Link to="/userhome" className="nav-link">Home</Link>
-            <Link to="/user/booking" className="nav-link">My Bookings</Link>
-            <Link to="/user/offers" className="nav-link">Offers</Link>
-            <Link to="/user/support" className="nav-link">Support</Link>
-            <Link to="/user/history" className="nav-link">History</Link>
+            <Link to="/userhome" className="nav-link">
+              Home
+            </Link>
+            <Link to="/user/booking" className="nav-link">
+              My Bookings
+            </Link>
+            <Link to="/user/offers" className="nav-link">
+              Offers
+            </Link>
+            <Link to="/user/support" className="nav-link">
+              Support
+            </Link>
+            <Link to="/user/history" className="nav-link">
+              History
+            </Link>
           </div>
 
-          {/* RIGHT (DESKTOP ONLY) */}
-          <div className="nav-right d-none d-lg-flex align-items-center gap-3 position-relative">
-            <CurrentUser /> {/* ✅ USER PROFILE */}
-          </div>
+          <div className="nav-right d-flex align-items-center gap-3 position-relative">
+            <CurrentUser />
 
-          {/* RIGHT (MOBILE ONLY) */}
-          <div className="d-lg-none d-flex align-items-center gap-3 position-relative">
-            <CurrentUser /> {/* ✅ USER PROFILE */}
-
-            <button
-              className="menu-btn"
-              onClick={() => setOpen(true)}
-            >
+            <button className="menu-btn" onClick={() => setOpen(true)}>
               ☰
             </button>
           </div>

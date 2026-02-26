@@ -35,22 +35,16 @@ const Earn_Nav = () => {
             <Link to="/earner/history" className="nav-link">History</Link>
           </div>
 
-          {/* RIGHT (DESKTOP ONLY) */}
-          <div className="nav-right d-none d-lg-flex align-items-center gap-3 position-relative">
-            <CurrentUser /> {/* ✅ USER PROFILE */}
-          </div>
+       <div className="nav-right d-flex align-items-center gap-3 position-relative">
+  <CurrentUser />
 
-          {/* RIGHT (MOBILE ONLY) */}
-          <div className="d-lg-none d-flex align-items-center gap-3 position-relative">
-            <CurrentUser /> {/* ✅ USER PROFILE */}
-
-            <button
-              className="menu-btn"
-              onClick={() => setOpen(true)}
-            >
-              ☰
-            </button>
-          </div>
+  <button
+    className="menu-btn"
+    onClick={() => setOpen(true)}
+  >
+    ☰
+  </button>
+</div>
         </div>
       </nav>
 
