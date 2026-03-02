@@ -3,6 +3,7 @@ import { GlobelValue } from "../../context/GlobelVariable";
 import axios from "axios";
 import "./Earn_Home.css";
 import TopCities from "../../Footer_Section/TopCities";
+import Testimonials from "../../Common_Component/Testimonials";
 
 
 const Earn_Home = () => {
@@ -87,8 +88,7 @@ const Earn_Home = () => {
         </div>
       </section>
 
-      {/* CITY SECTION */}
-      <TopCities />
+      
 
       {/* Add Vehicle Modal */}
       {showModal && (
@@ -191,6 +191,9 @@ const Earn_Home = () => {
           </div>
         </div>
       )}
+      {/* CITY SECTION */}
+      <TopCities />
+      <Testimonials/>
     </div>
   );
 };

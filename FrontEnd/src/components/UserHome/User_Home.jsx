@@ -4,6 +4,7 @@ import { GlobelValue } from "../../context/GlobelVariable";
 import "./User_Home.css";
 import TopCities from "../../Footer_Section/TopCities";
 import AutoScrollCarousel from "../../Common_Component/AutoScrollCarousel";
+import Testimonials from "../../Common_Component/Testimonials";
 
 const User_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
@@ -153,10 +154,8 @@ const User_Home = () => {
         </div>
       </section>
 
-      <TopCities />
-
-      {/* HOW IT WORKS */}
-      <section className="how-works container mt-5">
+         {/* HOW IT WORKS */}
+      <section className="how-works container mt-5 mb-5 ">
         <h2 className="section-heading text-center">How Renting Works</h2>
 
         <div className="row mt-4 gy-4 justify-content-center">
@@ -187,6 +186,12 @@ const User_Home = () => {
           </div>
         </div>
       </section>
+
+      <TopCities />
+
+   
+
+      <Testimonials/>
     </div>
   );
 };

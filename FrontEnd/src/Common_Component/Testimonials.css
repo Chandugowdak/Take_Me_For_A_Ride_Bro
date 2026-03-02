@@ -1,0 +1,134 @@
+/* ===============================
+   SECTION BACKGROUND
+================================ */
+.testimonials-section {
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+  overflow: hidden; /* Important */
+}
+
+/* ===============================
+   HEADINGS
+================================ */
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #1f2937;
+}
+
+.section-subtitle {
+  color: #0a0c10;
+  font-size: 1rem;
+}
+
+/* ===============================
+   WRAPPER
+================================ */
+.testimonial-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ===============================
+   MOVING TRACK
+================================ */
+.testimonial-track {
+  display: flex;
+  gap: 30px;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+
+/* Pause on hover */
+.testimonial-wrapper:hover .testimonial-track {
+  animation-play-state: paused;
+}
+
+/* ===============================
+   CARD BASE STYLE
+================================ */
+.testimonial-card {
+  min-width: 320px;
+  max-width: 320px;
+  background: #e0cbcb48;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  border: 1px solid #e5e7eb;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* ===============================
+   PROFILE SECTION
+================================ */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.profile img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #111827;
+}
+
+.profile span {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* ===============================
+   TEXT
+================================ */
+.testimonial-card p {
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.6;
+}
+
+/* ===============================
+   USER & EARNER STYLE DIFFERENCE
+================================ */
+.user {
+  border-left: 2px solid ;
+}
+
+.earner {
+  border-left: 2px solid;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .testimonial-card {
+    min-width: 260px;
+  }
+}
+
+/* ===============================
+   ANIMATION
+================================ */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
