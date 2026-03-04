@@ -101,16 +101,6 @@
   line-height: 1.6;
 }
 
-/* ===============================
-   USER & EARNER STYLE DIFFERENCE
-================================ */
-.user {
-  border-left: 2px solid ;
-}
-
-.earner {
-  border-left: 2px solid;
-}
 
 /* ===============================
    RESPONSIVE

@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Earn_Home.css";
 import TopCities from "../../Footer_Section/TopCities";
 import Testimonials from "../../Common_Component/Testimonials";
+import EarnFeatures from "./EarnFeatures";
 
 
 const Earn_Home = () => {
@@ -62,31 +63,7 @@ const Earn_Home = () => {
       
 
       {/* FEATURES SECTION */}
-      <section className="earn-features container mt-5">
-        <div className="row justify-content-center gy-4">
-          <div className="col-md-4">
-            <div className="feature-box shadow-sm">
-              <div className="feature-icon">🏍️</div>
-              <h3>Add Your Vehicle</h3>
-              <p>Upload your vehicle details and get verified quickly.</p>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="feature-box shadow-sm">
-              <div className="feature-icon">📅</div>
-              <h3>Get Bookings</h3>
-              <p>Users nearby will book your vehicle instantly.</p>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <div className="feature-box shadow-sm">
-              <div className="feature-icon">💸</div>
-              <h3>Earn Money</h3>
-              <p>Earn for every successful rental and withdraw anytime.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+     <EarnFeatures/>
 
       
 
