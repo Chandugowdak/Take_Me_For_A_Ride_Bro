@@ -1,0 +1,114 @@
+/* ============================= */
+/* SECTION */
+/* ============================= */
+
+.how-heading {
+  font-weight: 700;
+  color: #0a2a43;
+  margin-bottom: 10px;
+}
+
+/* ============================= */
+/* CARD */
+/* ============================= */
+
+.step-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  height: 100%;
+  transition: all 0.35s ease;
+  animation: fadeUp 0.7s ease;
+  
+  
+}
+
+.step-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.step-icon {
+  font-size: 42px;
+  color: #0d6efd;
+  margin-bottom: 10px;
+  transition: transform 0.4s;
+}
+
+.step-card:hover .step-icon {
+  transform: scale(1.2);
+}
+
+/* ============================= */
+/* MODAL */
+/* ============================= */
+
+.custom-modal .modal-content {
+  border-radius: 15px;
+  padding: 10px;
+  animation: modalEnter 0.35s ease;
+}
+
+.modal-description {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.modal-list {
+  padding-left: 18px;
+}
+
+.modal-list li {
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+/* ============================= */
+/* ANIMATIONS */
+/* ============================= */
+
+@keyframes fadeUp {
+
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+@keyframes modalEnter {
+
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 576px) {
+
+  .step-card {
+    padding: 18px;
+  }
+
+  .step-icon {
+    font-size: 34px;
+  }
+
+}

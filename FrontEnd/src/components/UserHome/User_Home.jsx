@@ -5,6 +5,7 @@ import "./User_Home.css";
 import TopCities from "../../Footer_Section/TopCities";
 import AutoScrollCarousel from "../../Common_Component/AutoScrollCarousel";
 import Testimonials from "../../Common_Component/Testimonials";
+import HowRentingWorks from "./HowRentingWorks";
 
 const User_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
@@ -55,7 +56,7 @@ const User_Home = () => {
           headers: {
             Authorization: `Bearer ${JWT_Token}`,
           },
-        }
+        },
       );
 
       alert("Request sent successfully ✅");
@@ -154,44 +155,14 @@ const User_Home = () => {
         </div>
       </section>
 
-         {/* HOW IT WORKS */}
-      <section className="how-works container mt-5 mb-5 ">
-        <h2 className="section-heading text-center">How Renting Works</h2>
+      {/* HOW IT WORKS */}
+      <HowRentingWorks />
 
-        <div className="row mt-4 gy-4 justify-content-center">
-          <div className="col-md-3">
-            <div className="step-card shadow-sm">
-              <div className="step-icon">📍</div>
-              <h5>1. Search</h5>
-              <p className="text-dark">Find bikes available near your area.</p>
-            </div>
-          </div>
-
-          <div className="col-md-3">
-            <div className="step-card shadow-sm">
-              <div className="step-icon">📄</div>
-              <h5>2. Book</h5>
-              <p className="text-dark">
-                Select a bike and confirm your booking instantly.
-              </p>
-            </div>
-          </div>
-
-          <div className="col-md-3">
-            <div className="step-card shadow-sm">
-              <div className="step-icon">🏍️</div>
-              <h5>3. Ride</h5>
-              <p className="text-dark">Pick up the bike and enjoy your ride.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      {/* TOP CITIES */}
       <TopCities />
 
-   
-
-      <Testimonials/>
+      {/* TESTIMONIALS Section  */}
+      <Testimonials />
     </div>
   );
 };

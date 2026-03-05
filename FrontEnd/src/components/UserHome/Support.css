@@ -149,6 +149,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  background-color: white;;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,7 +157,7 @@
 }
 
 .close-btn:hover {
-  background: #05495836;
+ 
   transform: rotate(90deg);
 }
 

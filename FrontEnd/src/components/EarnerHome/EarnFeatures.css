@@ -1,0 +1,134 @@
+/* ================= FEATURES ================= */
+
+.earn-features {
+  margin-top: 60px;
+}
+
+.feature-box {
+  background: linear-gradient(135deg, #ffffff, #f8fbff);
+  padding: 35px 25px;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.08);
+  height: 100%;
+}
+
+.feature-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+.feature-box h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0d3b66;
+  margin-bottom: 10px;
+}
+
+.feature-box p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* ================= MODAL ================= */
+
+/* 🔥 THIS IS THE REAL CENTER FIX */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;              /* FULL VIEW HEIGHT */
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+   margin-bottom: 100px;;
+  display: grid;              /* GRID CENTER METHOD */
+  place-items: center;        /* PERFECT CENTER */
+
+  z-index: 99999;
+  padding: 20px;
+}
+
+.modal-box {
+  background: #ffffff;
+  width: 100%;
+  max-width: 450px;
+  padding: 40px 30px;
+  border-radius: 20px;
+  position: absolute;
+  margin-bottom:500px;
+  text-align: center;
+  box-shadow: 0px 30px 80px rgba(0, 0, 0, 0.3);
+  animation: popup 0.3s ease;
+}
+
+.modal-box h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0d3b66;
+}
+
+.modal-divider {
+  width: 60px;
+  height: 4px;
+  background: #ff6f61;
+  margin: 15px auto 20px auto;
+  border-radius: 5px;
+}
+
+.modal-box p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* Close Button */
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  background: #ff6f61;
+  border: none;
+  color: white;
+  font-size: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.modal-close:hover {
+  background: #e05550;
+  transform: rotate(90deg);
+}
+
+/* Animation */
+@keyframes popup {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal-box {
+    padding: 30px 20px;
+  }
+
+  .modal-box h2 {
+    font-size: 1.3rem;
+  }
+}
