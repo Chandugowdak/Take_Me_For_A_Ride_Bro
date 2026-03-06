@@ -18,7 +18,8 @@
 
 .close-btn {
   cursor: pointer;
-  background-color:rgba(79, 77, 77, 0.684)
+  color:red !important;
+
 }
 
 /* BACKDROP */
