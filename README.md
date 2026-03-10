@@ -39,31 +39,3 @@ Responsive design for mobile and desktop
 
 Fast loading UI with React
 
-🛠️ Tech Stack
-Frontend
-
-React.js
-
-CSS
-
-Bootstrap
-
-Backend
-
-Node.js
-
-Express.js
-
-Database
-
-MongoDB
-
-Other Tools
-
-Axios
-
-
-
-React Router DOM
-
-Git & GitHub
