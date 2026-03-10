@@ -48,7 +48,7 @@
   width: 96px;                /* ⬅️ bigger */
   height: 96px;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 20%;
   border: 3px solid #e5e7eb;
   margin-bottom: 14px;
   box-shadow:

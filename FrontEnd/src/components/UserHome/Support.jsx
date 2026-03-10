@@ -67,6 +67,18 @@ const Support = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+  if (activeCard) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+
+  return () => {
+    document.body.style.overflow = "auto";
+  };
+}, [activeCard]);
+
   return (
     <div className="support-wrapper container py-5">
       <div className="text-center mb-5">

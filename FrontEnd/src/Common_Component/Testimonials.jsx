@@ -34,7 +34,7 @@ const Testimonials = () => {
       <div className="container">
 
         <div className="text-center mb-5">
-          <h2 className="section-title">Trusted By Our Community</h2>
+          <h2 className="section-title">Trusted By Our <span className="section-span">Community</span></h2>
           <p className="section-subtitle">
             Hear from our Users and Earners who grow with us
           </p>
