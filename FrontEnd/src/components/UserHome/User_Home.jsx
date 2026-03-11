@@ -14,7 +14,7 @@ const User_Home = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // 🔹 NEW STATES (for request handling)
+  // 🔹 Request states
   const [sendingId, setSendingId] = useState(null);
   const [requestedIds, setRequestedIds] = useState([]);
 
@@ -26,15 +26,46 @@ const User_Home = () => {
       const res = await axios.get("http://localhost:3000/api/vehicals/all");
 
       setVehicals(Array.isArray(res.data.Vehicals) ? res.data.Vehicals : []);
-      setLoading(false);
     } catch (error) {
-      console.error("Error fetching vehicals", error);
+      console.error("Error fetching vehicles", error);
+    } finally {
       setLoading(false);
     }
   };
 
+  /* ========================= */
+  /* FETCH USER REQUESTS */
+  /* ========================= */
+  const fetchRequestedVehicles = async () => {
+    try {
+      if (!JWT_Token) return;
+
+      const res = await axios.get(
+        "http://localhost:3000/api/req/user",
+        {
+          headers: {
+            Authorization: `Bearer ${JWT_Token}`,
+          },
+        }
+      );
+
+      const ids = res.data.pendingRequests.map(
+        (req) => req.rentalId?._id
+      );
+
+      setRequestedIds(ids);
+
+    } catch (error) {
+      console.error("Error fetching requests", error);
+    }
+  };
+
+  /* ========================= */
+  /* INITIAL LOAD */
+  /* ========================= */
   useEffect(() => {
     fetchVehicals();
+    fetchRequestedVehicles();
   }, []);
 
   /* ========================= */
@@ -47,6 +78,10 @@ const User_Home = () => {
         return;
       }
 
+      if (requestedIds.includes(rentalId)) {
+        return;
+      }
+
       setSendingId(rentalId);
 
       await axios.post(
@@ -56,13 +91,14 @@ const User_Home = () => {
           headers: {
             Authorization: `Bearer ${JWT_Token}`,
           },
-        },
+        }
       );
 
       alert("Request sent successfully ✅");
 
-      // Disable button after request
+      // Update UI instantly
       setRequestedIds((prev) => [...prev, rentalId]);
+
     } catch (error) {
       alert(error?.response?.data?.message || "Failed to send request");
     } finally {
@@ -85,6 +121,7 @@ const User_Home = () => {
 
   return (
     <div className="user-home-container">
+
       {/* FEATURE CAROUSEL */}
       <AutoScrollCarousel />
 
@@ -103,54 +140,70 @@ const User_Home = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button className="btn btn-primary search-btn">Search</button>
+          <button className="btn btn-primary search-btn">
+            Search
+          </button>
         </div>
       </section>
 
       {/* VEHICLES SECTION */}
       <section className="popular-bikes container mt-5">
-        <h2 className="section-heading text-center">Popular Vehicles</h2>
+        <h2 className="section-heading text-center">
+          Popular Vehicles
+        </h2>
 
         <div className="row mt-4 gy-4 justify-content-center">
           {loading ? (
             <p className="text-center">Loading vehicles...</p>
           ) : filteredVehicals.length === 0 ? (
-            <p className="text-center">No matching vehicles found</p>
+            <p className="text-center">
+              No matching vehicles found
+            </p>
           ) : (
-            filteredVehicals.map((item) => (
-              <div className="col-12 col-sm-6 col-md-4" key={item._id}>
-                <div className="bike-card shadow-sm">
-                  {/* IMAGE */}
-                  <div
-                    className="bike-image"
-                    style={{
-                      backgroundImage: `url(${item.Image_URL})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
-                  ></div>
+            filteredVehicals.map((item) => {
 
-                  {/* DETAILS */}
-                  <h4 className="bike-name">{item.Vehical_Name}</h4>
-                  <p className="bike-price">₹{item.Total_Amount} / day</p>
+              const isRequested = requestedIds.includes(item._id);
 
-                  {/* 🔥 RENT BUTTON */}
-                  <button
-                    className="btn btn-outline-primary rent-btn"
-                    disabled={
-                      sendingId === item._id || requestedIds.includes(item._id)
-                    }
-                    onClick={() => handleSendRequest(item._id)}
-                  >
-                    {sendingId === item._id
-                      ? "Sending..."
-                      : requestedIds.includes(item._id)
+              return (
+                <div className="col-12 col-sm-6 col-md-4" key={item._id}>
+                  <div className="bike-card shadow-sm">
+
+                    {/* IMAGE */}
+                    <div
+                      className="bike-image"
+                      style={{
+                        backgroundImage: `url(${item.Image_URL})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    ></div>
+
+                    {/* DETAILS */}
+                    <h4 className="bike-name">
+                      {item.Vehical_Name}
+                    </h4>
+
+                    <p className="bike-price">
+                      ₹{item.Total_Amount} / day
+                    </p>
+
+                    {/* RENT BUTTON */}
+                    <button
+                      className="btn btn-outline-primary rent-btn"
+                      disabled={sendingId === item._id || isRequested}
+                      onClick={() => handleSendRequest(item._id)}
+                    >
+                      {sendingId === item._id
+                        ? "Sending..."
+                        : isRequested
                         ? "Requested"
                         : "Rent Now"}
-                  </button>
+                    </button>
+
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       </section>
@@ -161,8 +214,9 @@ const User_Home = () => {
       {/* TOP CITIES */}
       <TopCities />
 
-      {/* TESTIMONIALS Section  */}
+      {/* TESTIMONIALS */}
       <Testimonials />
+
     </div>
   );
 };

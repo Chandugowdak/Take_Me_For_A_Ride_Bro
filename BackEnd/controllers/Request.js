@@ -8,18 +8,18 @@ const sendRequest = async (req, res) => {
     const userId = req.user.id;
     const { rentalId } = req.body;
 
-    // ❌ BLOCK if vehicle already accepted earlier by this user
-    const alreadyAccepted = await Request_Model.findOne({
-      userId,
-      rentalId,
-      status: "accepted"
-    });
+    // // ❌ BLOCK if vehicle already accepted earlier by this user
+    // const alreadyAccepted = await Request_Model.findOne({
+    //   userId,
+    //   rentalId,
+    //   status: "accepted"
+    // });
 
-    if (alreadyAccepted) {
-      return res.status(400).json({
-        message: "You have already used this vehicle"
-      });
-    }
+    // if (alreadyAccepted) {
+    //   return res.status(400).json({
+    //     message: "You have already used this vehicle"
+    //   });
+    // }
 
     // ❌ RATE LIMIT: max 3 rejections per vehicle
     const rejectedCount = await Request_Model.countDocuments({
