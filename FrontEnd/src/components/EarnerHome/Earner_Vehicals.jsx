@@ -121,7 +121,8 @@ const Earner_Vehical = () => {
   }
 
   return (
-    <section className="earner-page container">
+    <section className="earner-page ">
+      <div className="container">
       <h2 className="earner-title text-center mb-4">Your Listed Vehicles</h2>
 
       <div className="row g-4">
@@ -271,6 +272,7 @@ const Earner_Vehical = () => {
           </div>
         </div>
       )}
+      </div>
     </section>
   );
 };

@@ -57,7 +57,8 @@ const My_Bookings = () => {
   }
 
   return (
-    <div className="my-requests container py-4">
+    <div className="my-requests  py-4">
+      <div className="container">
       <h3 className="mb-4 fw-bold text-center">🚗 My Pending Bookings</h3>
 
       {requests.length === 0 ? (
@@ -114,6 +115,7 @@ const My_Bookings = () => {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 };

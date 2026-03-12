@@ -80,7 +80,8 @@ const Support = () => {
 }, [activeCard]);
 
   return (
-    <div className="support-wrapper container py-5">
+    <div className="support-wrapper py-5">
+      <div className="container ">
       <div className="text-center mb-5">
         <h2>Help & Support</h2>
         <p>Click on a topic to view detailed information.</p>
@@ -117,6 +118,7 @@ const Support = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };
