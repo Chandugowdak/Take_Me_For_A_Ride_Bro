@@ -7,7 +7,7 @@ const User_History = () => {
   const [requests, setRequests] = useState({
     pending: [],
     accepted: [],
-    rejected: []
+    rejected: [],
   });
   const [totalRequests, setTotalRequests] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -26,13 +26,13 @@ const User_History = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       setRequests({
         pending: res.data.pending,
         accepted: res.data.accepted,
-        rejected: res.data.rejected
+        rejected: res.data.rejected,
       });
       setTotalRequests(res.data.totalRequests);
       setLoading(false);
@@ -45,12 +45,9 @@ const User_History = () => {
   const cancelRequest = async (id) => {
     try {
       const token = localStorage.getItem("JWT_Token");
-      await axios.delete(
-        `http://localhost:3000/api/req/cancel/${id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.delete(`http://localhost:3000/api/req/cancel/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       fetchUserRequests(); // refresh after cancel
     } catch (err) {
       console.error(err);
@@ -75,10 +72,11 @@ const User_History = () => {
   return (
     <div className="user-history container-fluid py-5">
       <div className="container">
-
         {/* HEADER */}
         <h2 className="text-center fw-bold mb-4">My Ride History</h2>
-        <p className="text-center text-muted mb-4">{totalRequests} trips total</p>
+        <p className="text-center text-muted mb-4">
+          {totalRequests} trips total
+        </p>
 
         {/* TABS */}
         <div className="status-tabs mb-4">
@@ -140,15 +138,6 @@ const User_History = () => {
                 <span className={`request-status ${item.status}`}>
                   {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
                 </span>
-
-                {item.status === "pending" && (
-                  <button
-                    className="btn btn-outline-danger w-100 btn-sm mt-2"
-                    onClick={() => cancelRequest(item._id)}
-                  >
-                    Cancel Request
-                  </button>
-                )}
               </div>
             ))
           )}
