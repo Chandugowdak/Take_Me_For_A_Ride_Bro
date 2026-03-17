@@ -125,7 +125,7 @@ const Earn_Home = () => {
               <input
                 className="form-control mb-2"
                 name="Total_Amount"
-                placeholder="Total Amount"
+                placeholder="Total Amount Per Day (in INR)"
                 value={form.Total_Amount}
                 onChange={handleChange}
               />
