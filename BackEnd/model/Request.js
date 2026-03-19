@@ -8,11 +8,32 @@ const Request_Schema = new mongoose.Schema({
         required: true
     },
 
-    // Rental being requested (this already knows the Earner)
+    // Vehicle
     rentalId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'rentels',
         required: true
+    },
+
+    // ✅ NEW: number of days user wants
+    numberOfDays: {
+        type: Number,
+        required: true
+    },
+
+    // ✅ NEW: total amount (calculated when accepted)
+    totalAmount: {
+        type: Number,
+        default: 0
+    },
+
+    // ✅ OPTIONAL BUT VERY IMPORTANT (real apps use this)
+    startDate: {
+        type: Date
+    },
+
+    endDate: {
+        type: Date
     },
 
     // Request status
@@ -21,6 +42,7 @@ const Request_Schema = new mongoose.Schema({
         enum: ['pending', 'accepted', 'declined'],
         default: 'pending'
     }
+
 }, { timestamps: true });
 
 const Request_Model = mongoose.model('requests', Request_Schema);

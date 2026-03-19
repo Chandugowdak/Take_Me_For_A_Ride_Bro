@@ -14,9 +14,14 @@ const User_Home = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // 🔹 Request states
   const [sendingId, setSendingId] = useState(null);
   const [requestedIds, setRequestedIds] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [totalAmount, setTotalAmount] = useState(0);
 
   /* ========================= */
   /* FETCH VEHICLES */
@@ -24,8 +29,7 @@ const User_Home = () => {
   const fetchVehicals = async () => {
     try {
       const res = await axios.get("http://localhost:3000/api/vehicals/all");
-
-      setVehicals(Array.isArray(res.data.Vehicals) ? res.data.Vehicals : []);
+      setVehicals(res.data?.Vehicals || []);
     } catch (error) {
       console.error("Error fetching vehicles", error);
     } finally {
@@ -49,44 +53,84 @@ const User_Home = () => {
         }
       );
 
-      const ids = res.data.pendingRequests.map(
-        (req) => req.rentalId?._id
-      );
+      const ids =
+        res.data?.pendingRequests
+          ?.filter((req) => req.rentalId)
+          .map((req) => req.rentalId._id) || [];
 
       setRequestedIds(ids);
-
     } catch (error) {
       console.error("Error fetching requests", error);
     }
   };
 
   /* ========================= */
-  /* INITIAL LOAD */
+  /* EFFECTS */
   /* ========================= */
   useEffect(() => {
     fetchVehicals();
-    fetchRequestedVehicles();
   }, []);
+
+  useEffect(() => {
+    fetchRequestedVehicles();
+  }, [JWT_Token]);
+
+  /* ========================= */
+  /* DATE CALCULATION */
+  /* ========================= */
+  useEffect(() => {
+    if (startDate && endDate && selectedVehicle) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+
+      const days =
+        Math.ceil((end - start) / (1000 * 60 * 60 * 24)) || 1;
+
+      setTotalAmount(days > 0 ? days * selectedVehicle.pricePerDay : 0);
+    }
+  }, [startDate, endDate, selectedVehicle]);
+
+  /* ========================= */
+  /* OPEN MODAL */
+  /* ========================= */
+  const openBooking = (vehicle) => {
+    setSelectedVehicle(vehicle);
+    setShowModal(true);
+    setStartDate("");
+    setEndDate("");
+    setTotalAmount(0);
+  };
 
   /* ========================= */
   /* SEND REQUEST */
   /* ========================= */
-  const handleSendRequest = async (rentalId) => {
+  const handleSendRequest = async () => {
     try {
       if (!JWT_Token) {
-        alert("Please login to send request");
+        alert("Please login first");
         return;
       }
 
-      if (requestedIds.includes(rentalId)) {
+      const days =
+        Math.ceil(
+          (new Date(endDate) - new Date(startDate)) /
+            (1000 * 60 * 60 * 24)
+        ) || 1;
+
+      if (days <= 0) {
+        alert("Invalid date selection");
         return;
       }
 
-      setSendingId(rentalId);
+      setSendingId(selectedVehicle._id);
 
       await axios.post(
         "http://localhost:3000/api/req/send",
-        { rentalId },
+        {
+          rentalId: selectedVehicle._id,
+          startDate,
+          endDate,
+        },
         {
           headers: {
             Authorization: `Bearer ${JWT_Token}`,
@@ -96,57 +140,48 @@ const User_Home = () => {
 
       alert("Request sent successfully ✅");
 
-      // Update UI instantly
-      setRequestedIds((prev) => [...prev, rentalId]);
+      setShowModal(false);
+      fetchRequestedVehicles();
 
     } catch (error) {
-      alert(error?.response?.data?.message || "Failed to send request");
+      alert(error?.response?.data?.message || "Something went wrong 🚨");
     } finally {
       setSendingId(null);
     }
   };
 
   /* ========================= */
-  /* SEARCH LOGIC */
+  /* SEARCH */
   /* ========================= */
   const filteredVehicals = vehicals.filter((item) => {
     const keyword = searchTerm.toLowerCase();
-
     return (
       item.Vehical_Name?.toLowerCase().includes(keyword) ||
-      item.Type_of_Vehical?.toLowerCase().includes(keyword) ||
-      item.Location?.toLowerCase().includes(keyword)
+      item.Type_of_Vehical?.toLowerCase().includes(keyword)
     );
   });
+
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <div className="user-home-container">
 
-      {/* FEATURE CAROUSEL */}
       <AutoScrollCarousel />
 
-      {/* HERO SECTION */}
       <section className="user-hero container">
         <h1 className="user-title">Find Your Perfect Ride</h1>
-        <p className="user-desc">
-          Rent a bike anytime, anywhere — fast, affordable & reliable.
-        </p>
 
         <div className="search-box shadow-sm">
           <input
             type="text"
             className="form-control search-input"
-            placeholder="Search Bike, Location..."
+            placeholder="Search Bike..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button className="btn btn-primary search-btn">
-            Search
-          </button>
         </div>
       </section>
 
-      {/* VEHICLES SECTION */}
       <section className="popular-bikes container mt-5">
         <h2 className="section-heading text-center">
           Popular Vehicles
@@ -154,50 +189,32 @@ const User_Home = () => {
 
         <div className="row mt-4 gy-4 justify-content-center">
           {loading ? (
-            <p className="text-center">Loading vehicles...</p>
+            <p className="text-center">Loading...</p>
           ) : filteredVehicals.length === 0 ? (
-            <p className="text-center">
-              No matching vehicles found
-            </p>
+            <p className="text-center">No vehicles found</p>
           ) : (
             filteredVehicals.map((item) => {
-
               const isRequested = requestedIds.includes(item._id);
 
               return (
                 <div className="col-12 col-sm-6 col-md-4" key={item._id}>
                   <div className="bike-card shadow-sm">
 
-                    {/* IMAGE */}
-                    <div
+                    <img
+                      src={item.Image_URL}
+                      alt={item.Vehical_Name}
                       className="bike-image"
-                      style={{
-                        backgroundImage: `url(${item.Image_URL})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
-                    ></div>
+                    />
 
-                    {/* DETAILS */}
-                    <h4 className="bike-name">
-                      {item.Vehical_Name}
-                    </h4>
+                    <h4>{item.Vehical_Name}</h4>
+                    <p>₹{item.pricePerDay}/day</p>
 
-                    <p className="bike-price">
-                      ₹{item.Total_Amount} / day
-                    </p>
-
-                    {/* RENT BUTTON */}
                     <button
-                      className="btn btn-outline-primary rent-btn"
-                      disabled={sendingId === item._id || isRequested}
-                      onClick={() => handleSendRequest(item._id)}
+                      className="btn btn-outline-primary"
+                      disabled={isRequested}
+                      onClick={() => openBooking(item)}
                     >
-                      {sendingId === item._id
-                        ? "Sending..."
-                        : isRequested
-                        ? "Requested"
-                        : "Rent Now"}
+                      {isRequested ? "Requested" : "Rent Now"}
                     </button>
 
                   </div>
@@ -208,13 +225,71 @@ const User_Home = () => {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
+      {/* MODAL */}
+      {showModal && (
+        <div
+          className="modal fade show d-block"
+          style={{ background: "#000000aa" }}
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="modal-dialog modal-dialog-centered"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-content p-4">
+
+              <h4>{selectedVehicle?.Vehical_Name}</h4>
+              <label className="form-label">Start Date</label>
+              <input
+                type="date"
+                min={today}
+                className="form-control mb-2"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+
+              <label className="form-label">End Date</label>
+              <input
+                type="date"
+                min={startDate || today}
+                className="form-control mb-2"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+
+              <h5>Total: ₹{totalAmount}</h5>
+
+              <div className="d-flex justify-content-end gap-2 mt-3">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+
+                <button
+                  className="btn btn-primary"
+                  disabled={
+                    sendingId === selectedVehicle?._id ||
+                    !startDate ||
+                    !endDate ||
+                    totalAmount === 0
+                  }
+                  onClick={handleSendRequest}
+                >
+                  {sendingId === selectedVehicle?._id
+                    ? "Sending..."
+                    : "Book Now"}
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      )}
+
       <HowRentingWorks />
-
-      {/* TOP CITIES */}
       <TopCities />
-
-      {/* TESTIMONIALS */}
       <Testimonials />
 
     </div>

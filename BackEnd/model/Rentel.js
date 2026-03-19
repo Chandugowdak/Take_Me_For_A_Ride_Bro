@@ -24,22 +24,11 @@ const Rentel_Schema = new mongoose.Schema(
         required: true
     },
 
-    Rentel_Date: {
-        type: Date,
-        required: true
-    },
-
-    Return_Date: {
-        type: Date,
-        required: true
-    },
-
-    Total_Amount: {
+    pricePerDay: {
         type: Number,
         required: true
     },
 
-    // ✅ New Fields
     vehicleNumber: {
         type: String,
         required: true
@@ -57,8 +46,11 @@ const Rentel_Schema = new mongoose.Schema(
 
 },
 {
-    timestamps: true // ✅ REQUIRED for sorting
+    timestamps: true
 });
 
+// ✅ CREATE MODEL
 const Rent_Model = mongoose.model('rentels', Rentel_Schema);
+
+// ✅ EXPORT MODEL
 module.exports = Rent_Model;

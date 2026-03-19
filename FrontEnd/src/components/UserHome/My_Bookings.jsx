@@ -17,7 +17,8 @@ const My_Bookings = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
+      
+      console.log("Fetched Requests:", res.data.pendingRequests); // Debug log
       setRequests(res.data.pendingRequests); // backend returns only pending
       setLoading(false);
     } catch (err) {
@@ -99,7 +100,7 @@ const My_Bookings = () => {
 
                 {/* PRICE */}
                 <p className="duration mb-3">
-                  💰 Price / Day: ₹{req.rentalId?.Total_Amount || "--"}
+                  💰 Price / Day: ₹{req.rentalId?.pricePerDay || "--"}
                 </p>
 
                 {/* CANCEL BUTTON */}

@@ -83,8 +83,8 @@
 /* ============================= */
 .bike-card {
   background: white;
-  padding: 20px;
-  border-radius: 16px;
+  
+  border-radius: 10px;
   text-align: center;
   height: 100%;
   animation: cardEnter 0.6s ease forwards;
@@ -99,11 +99,12 @@
 
 .bike-image {
   width: 100%;
-  height: 160px;
-  background: linear-gradient(135deg, #e8f0ff, #d0e2ff);
+  height: 150px;
+  object-fit: cover; /* ✅ IMPORTANT */
   border-radius: 12px;
   margin-bottom: 15px;
-  transition: transform 0.35s ease;
+  display: block; /* ✅ FIX spacing issues */
+  background: none; /* ❌ REMOVE background */
 }
 
 .bike-card:hover .bike-image {

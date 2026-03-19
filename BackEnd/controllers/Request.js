@@ -1,40 +1,63 @@
 const Request_Model = require('../model/Request');
+const Rent_Model = require('../model/Rentel');
 
 
-
-// Send a new request
+// ✅ SEND REQUEST
 const sendRequest = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { rentalId } = req.body;
+    const { rentalId, startDate, endDate } = req.body;
 
-    // // ❌ BLOCK if vehicle already accepted earlier by this user
-    // const alreadyAccepted = await Request_Model.findOne({
-    //   userId,
-    //   rentalId,
-    //   status: "accepted"
-    // });
+    // ✅ VALIDATION
+    if (!rentalId || !startDate || !endDate) {
+      return res.status(400).json({
+        message: "All fields are required"
+      });
+    }
 
-    // if (alreadyAccepted) {
-    //   return res.status(400).json({
-    //     message: "You have already used this vehicle"
-    //   });
-    // }
+    const start = new Date(startDate);
+    const end = new Date(endDate);
 
-    // ❌ RATE LIMIT: max 3 rejections per vehicle
+    if (end <= start) {
+      return res.status(400).json({
+        message: "End date must be after start date"
+      });
+    }
+
+    // ✅ CALCULATE DAYS (🔥 FIX)
+    const numberOfDays = Math.ceil(
+      (end - start) / (1000 * 60 * 60 * 24)
+    );
+
+    // ✅ CHECK VEHICLE EXISTS
+    const rental = await Rent_Model.findById(rentalId);
+    if (!rental) {
+      return res.status(404).json({
+        message: "Vehicle not found"
+      });
+    }
+
+    // ❌ Prevent self rent
+    if (rental.userId.toString() === userId) {
+      return res.status(400).json({
+        message: "You cannot rent your own vehicle"
+      });
+    }
+
+    // ❌ LIMIT: max 3 rejected attempts
     const rejectedCount = await Request_Model.countDocuments({
       userId,
       rentalId,
       status: "declined"
     });
 
-    if (rejectedCount > 3) {
+    if (rejectedCount >= 3) {
       return res.status(403).json({
-        message: "Request limit exceeded. You cannot request this vehicle again."
+        message: "Request limit exceeded"
       });
     }
 
-    // ❌ prevent duplicate pending request
+    // ❌ Prevent duplicate pending
     const alreadyRequested = await Request_Model.findOne({
       userId,
       rentalId,
@@ -47,13 +70,20 @@ const sendRequest = async (req, res) => {
       });
     }
 
-    // ✅ create new request
+    // ✅ OPTIONAL: CALCULATE TOTAL AMOUNT
+    const totalAmount = numberOfDays * rental.pricePerDay;
+
+    // ✅ CREATE REQUEST
     const request = await Request_Model.create({
       userId,
-      rentalId
+      rentalId,
+      startDate: start,
+      endDate: end,
+      numberOfDays,   // ✅ FIXED
+      totalAmount     // ✅ optional but useful
     });
 
-    res.status(200).json({
+    res.status(201).json({
       message: "Request sent successfully",
       request
     });
@@ -65,8 +95,7 @@ const sendRequest = async (req, res) => {
 
 
 
-
-// Get pending requests for the logged-in user (Earner)
+// ✅ GET PENDING REQUESTS (EARNER VIEW - NO PHONE)
 const getPendingRequests = async (req, res) => {
   try {
     const earnerId = req.user.id;
@@ -74,7 +103,8 @@ const getPendingRequests = async (req, res) => {
     const requests = await Request_Model.find({ status: 'pending' })
       .populate({
         path: 'rentalId',
-        match: { userId: earnerId }, // ONLY earner’s vehicles
+        match: { userId: earnerId },
+        select: 'Vehical_Name Image_URL pricePerDay',
         populate: {
           path: 'userId',
           select: 'name email'
@@ -82,16 +112,18 @@ const getPendingRequests = async (req, res) => {
       })
       .populate('userId', 'name email');
 
-    // Remove null rentals
     const filtered = requests.filter(r => r.rentalId !== null);
 
-    res.json(filtered);
+    res.status(200).json(filtered);
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-// Update request status (accept/decline)
+
+
+// ✅ UPDATE REQUEST STATUS
 const updateRequestStatus = async (req, res) => {
   try {
     const earnerId = req.user.id;
@@ -104,43 +136,83 @@ const updateRequestStatus = async (req, res) => {
       return res.status(404).json({ message: "Request not found" });
     }
 
-    // Authorization check
+    // 🔒 Authorization
     if (request.rentalId.userId.toString() !== earnerId) {
       return res.status(403).json({ message: "Not authorized" });
+    }
+
+    // ✅ ACCEPT → calculate amount
+    if (status === "accepted") {
+      const start = new Date(request.startDate);
+      const end = new Date(request.endDate);
+
+      const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+
+      const pricePerDay = request.rentalId.pricePerDay;
+
+      request.totalAmount = days * pricePerDay;
     }
 
     request.status = status;
     await request.save();
 
-    res.json({
+    // ✅ SHOW PHONE ONLY AFTER ACCEPT
+    let populatedRequest;
+
+    if (status === "accepted") {
+      populatedRequest = await Request_Model.findById(request._id)
+        .populate({
+          path: 'rentalId',
+          select: 'Vehical_Name Image_URL pricePerDay',
+          populate: {
+            path: 'userId',
+            select: 'name email phone'
+          }
+        })
+        .populate('userId', 'name email phone');
+    } else {
+      populatedRequest = await Request_Model.findById(request._id)
+        .populate({
+          path: 'rentalId',
+          select: 'Vehical_Name Image_URL pricePerDay',
+          populate: {
+            path: 'userId',
+            select: 'name email'
+          }
+        })
+        .populate('userId', 'name email');
+    }
+
+    res.status(200).json({
       message: `Request ${status}`,
-      request
+      request: populatedRequest
     });
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-// Get ONLY PENDING requests made by the logged-in user (Renter)
+
+
+// ✅ USER PENDING REQUESTS
 const getUserPendingRequests = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    // Find only pending requests for this user
     const pendingRequests = await Request_Model.find({
       userId,
-      status: 'pending' // matches enum in schema
+      status: 'pending'
     })
       .populate({
         path: 'rentalId',
-        select: 'Vehical_Name Image_URL Total_Amount userId', // include Total_Amount
+        select: 'Vehical_Name Image_URL pricePerDay userId',
         populate: {
-          path: 'userId', // vehicle owner (earner)
+          path: 'userId',
           select: 'name email'
         }
       });
 
-    // Return a clean response
     res.status(200).json({
       totalPending: pendingRequests.length,
       pendingRequests
@@ -152,7 +224,8 @@ const getUserPendingRequests = async (req, res) => {
 };
 
 
-// Cancel a request
+
+// ✅ CANCEL REQUEST
 const cancelRequest = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -171,7 +244,10 @@ const cancelRequest = async (req, res) => {
 
     await request.deleteOne();
 
-    res.json({ message: "Request cancelled successfully" });
+    res.status(200).json({
+      message: "Request cancelled successfully"
+    });
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -179,8 +255,7 @@ const cancelRequest = async (req, res) => {
 
 
 
-
-// Get all accepted requests / earnings of the logged-in earner
+// ✅ EARNER EARNINGS
 const getEarnerEarnings = async (req, res) => {
   try {
     const earnerId = req.user.id;
@@ -188,20 +263,17 @@ const getEarnerEarnings = async (req, res) => {
     const requests = await Request_Model.find({ status: 'accepted' })
       .populate({
         path: 'rentalId',
-        match: { userId: earnerId }, // only earner's vehicles
-        select: 'Vehical_Name Total_Amount Image_URL',
-      })
-      .populate('userId', 'name email'); // renter details
+        match: { userId: earnerId },
+        select: 'Vehical_Name Image_URL pricePerDay',
+      });
 
-    // Remove null rentals (important)
     const earnings = requests.filter(r => r.rentalId !== null);
 
-    // OPTIONAL: calculate total earnings
     const totalEarnings = earnings.reduce((sum, r) => {
-      return sum + (r.rentalId.Total_Amount || 0);
+      return sum + (r.totalAmount || 0);
     }, 0);
 
-    res.json({
+    res.status(200).json({
       totalEarnings,
       totalTrips: earnings.length,
       earnings
@@ -212,31 +284,29 @@ const getEarnerEarnings = async (req, res) => {
   }
 };
 
-// Get all requests (pending, accepted, rejected) made by the logged-in user (Renter)
+
+
+// ✅ USER ALL REQUESTS
 const getUserAllRequests = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    // Fetch all requests for this user
     const requests = await Request_Model.find({ userId })
       .populate({
         path: 'rentalId',
-        select: 'Vehical_Name Image_URL Total_Amount userId',
+        select: 'Vehical_Name Image_URL pricePerDay userId',
         populate: {
-          path: 'userId', // vehicle owner (earner)
-          select: 'name email'
+          path: 'userId',
+          select: 'name email phone'
         }
       });
 
-    // Filter out requests where rentalId was deleted
     const validRequests = requests.filter(r => r.rentalId !== null);
 
-    // Group by status
     const pending = validRequests.filter(r => r.status === 'pending');
     const accepted = validRequests.filter(r => r.status === 'accepted');
     const rejected = validRequests.filter(r => r.status === 'declined');
 
-    // Send response
     res.status(200).json({
       totalRequests: validRequests.length,
       counts: {
@@ -256,8 +326,7 @@ const getUserAllRequests = async (req, res) => {
 
 
 
-
-// Get ALL requests (pending / accepted / rejected) for logged-in Earner
+// ✅ EARNER ALL REQUESTS
 const getAllEarnerRequests = async (req, res) => {
   try {
     const earnerId = req.user.id;
@@ -265,26 +334,24 @@ const getAllEarnerRequests = async (req, res) => {
     const requests = await Request_Model.find({})
       .populate({
         path: 'rentalId',
-        match: { userId: earnerId }, // ONLY earner vehicles
-        select: 'Vehical_Name Image_URL Total_Amount',
+        match: { userId: earnerId },
+        select: 'Vehical_Name Image_URL pricePerDay',
       })
-      .populate('userId', 'name email'); // renter details
+      .populate('userId', 'name email phone');
 
-    // Remove requests not related to this earner
     const earnerRequests = requests.filter(r => r.rentalId !== null);
 
-    // Group by status
     const pending = earnerRequests.filter(r => r.status === 'pending');
     const accepted = earnerRequests.filter(r => r.status === 'accepted');
     const rejected = earnerRequests.filter(r => r.status === 'declined');
 
-    res.json({
+    res.status(200).json({
       totalRequests: earnerRequests.length,
       counts: {
         pending: pending.length,
         accepted: accepted.length,
         rejected: rejected.length
-      },  
+      },
       pending,
       accepted,
       rejected
@@ -296,14 +363,13 @@ const getAllEarnerRequests = async (req, res) => {
 };
 
 
-
 module.exports = {
-    sendRequest,
-    getPendingRequests,
-    updateRequestStatus,
-    getUserPendingRequests,
-    cancelRequest,
-    getEarnerEarnings,
-    getUserAllRequests,
-    getAllEarnerRequests
+  sendRequest,
+  getPendingRequests,
+  updateRequestStatus,
+  getUserPendingRequests,
+  cancelRequest,
+  getEarnerEarnings,
+  getUserAllRequests,
+  getAllEarnerRequests
 };

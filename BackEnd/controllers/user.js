@@ -3,81 +3,139 @@ const UserModel = require('../model/User');
 const JWT = require('jsonwebtoken');
 require('dotenv').config();
 
+const SECRET_JWT_CODE = process.env.SECRET_JWT_CODE;
 
-const SECRET_JWT_CODE = process.env.SECRET_JWT_CODE; // Use the same secret code from .env file
 
+// ✅ REGISTER USER
+const userRegistration = async (req, res) => {
 
-const userRegistration = async(req,res,next)=>{
+    const { name, email, password, Type_of_User, phone } = req.body;
 
-    const {name , email , password,Type_of_User} = req.body;
-    try{
+    try {
 
-        const existingUser = await UserModel.findOne({email: email});
-        if(existingUser){
-            return res.status(400).json({message: "User already exists with this email"});
+        // 🔒 Validate fields
+        if (!name || !email || !password || !Type_of_User || !phone) {
+            return res.status(400).json({ message: "All fields are required" });
         }
-        const hashedPassword = await bcrypt.hash(password , 10);
-        const newUser = new  UserModel({
-            name: name, email:email, password:hashedPassword, Type_of_User:Type_of_User
-        })
-        newUser.save();
-        return res.status(201).json({message: "User Registered Successfully", user: newUser});
-        
-    }
-   catch(err){
-    return res.status(500).json({message: "Server Error in Registration"}); 
-   }
 
-}
-
-const LoginUser = async(req,res,next)=>{
-const{email ,password}  =  req.body;
-
-try{
-
-    const existingUser = await UserModel.findOne({email: email});
-    if(!existingUser){
-        return res.status(404).json({message: "User not found with this email"});
-    }
-    const isPasswordCorrect = await bcrypt.compare(password , existingUser.password);
-    if(!isPasswordCorrect){
-        return res.status(400).json({message: "Invalid Credentials"});
-    }else{
-        const Token = await JWT.sign({id:existingUser._id}, SECRET_JWT_CODE,{expiresIn:'1h'}); //GENERATE JWT TOKEN
-    return res.status(200).json({message: "Login Successful", user: existingUser , JWT_Token: Token});
-    }
-}
-catch(err){
-    return res.status(500).json({message: "Server Error in Login"});
-}
-
-}
-
-const Get_Data = async(req,res)=>{
-    try{
-        const users = await UserModel.find({});
-        return res.status(200).json({users: users});
-    }catch(err){
-        return res.status(500).json({message: "Server Error in Fetching Users"});
-    }
-}
-
-//UPDATE THE USER DATA
-const Update_Data = async(req,res)=>{
-    const {id} = req.params;
-    const {name , email,} = req.body;
-    try{
-        const updateUser = await UserModel.findOneAndUpdate({_id:id},{name:name,email:email},{new:true});
-        if(!updateUser){
-            return res.status(400).json({message:"User Not Found"});
-        }else{
-            return res.status(200).json({message:"User Profile Updated Successfully", user: updateUser});
+        const existingUser = await UserModel.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists with this email" });
         }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new UserModel({
+            name,
+            email,
+            password: hashedPassword,
+            Type_of_User,
+            phone // ✅ NEW FIELD
+        });
+
+        await newUser.save();
+
+        // ❌ Don't send password back
+        const userResponse = newUser.toObject();
+        delete userResponse.password;
+
+        return res.status(201).json({
+            message: "User Registered Successfully",
+            user: userResponse
+        });
+
+    } catch (err) {
+        return res.status(500).json({ message: "Server Error in Registration" });
     }
-    catch(err){
-        return res.status(500).json({message:"Server Error User Profile Not Updated"})
-    }
-}
+};
 
 
-module.exports = {userRegistration , LoginUser, Get_Data ,Update_Data };
+
+// ✅ LOGIN USER
+const LoginUser = async (req, res) => {
+
+    const { email, password } = req.body;
+
+    try {
+
+        const existingUser = await UserModel.findOne({ email });
+        if (!existingUser) {
+            return res.status(404).json({ message: "User not found with this email" });
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
+        if (!isPasswordCorrect) {
+            return res.status(400).json({ message: "Invalid Credentials" });
+        }
+
+        const Token = JWT.sign(
+            { id: existingUser._id },
+            SECRET_JWT_CODE,
+            { expiresIn: '1h' }
+        );
+
+        // ❌ Remove password
+        const userResponse = existingUser.toObject();
+        delete userResponse.password;
+
+        return res.status(200).json({
+            message: "Login Successful",
+            user: userResponse,
+            JWT_Token: Token
+        });
+
+    } catch (err) {
+        return res.status(500).json({ message: "Server Error in Login" });
+    }
+};
+
+
+
+// ✅ GET ALL USERS
+const Get_Data = async (req, res) => {
+    try {
+        const users = await UserModel.find().select("-password"); // 🔒 hide password
+        return res.status(200).json({ users });
+    } catch (err) {
+        return res.status(500).json({ message: "Server Error in Fetching Users" });
+    }
+};
+
+
+
+// ✅ UPDATE USER DATA
+const Update_Data = async (req, res) => {
+
+    const { id } = req.params;
+    const { name, email, phone } = req.body;
+
+    try {
+
+        const updateUser = await UserModel.findOneAndUpdate(
+            { _id: id },
+            { name, email, phone }, // ✅ include phone
+            { new: true }
+        ).select("-password"); // 🔒 hide password
+
+        if (!updateUser) {
+            return res.status(400).json({ message: "User Not Found" });
+        }
+
+        return res.status(200).json({
+            message: "User Profile Updated Successfully",
+            user: updateUser
+        });
+
+    } catch (err) {
+        return res.status(500).json({ message: "Server Error User Profile Not Updated" });
+    }
+};
+
+
+
+module.exports = {
+    userRegistration,
+    LoginUser,
+    Get_Data,
+    Update_Data
+};

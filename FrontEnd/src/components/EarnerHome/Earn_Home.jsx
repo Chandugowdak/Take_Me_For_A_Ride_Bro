@@ -6,42 +6,53 @@ import TopCities from "../../Footer_Section/TopCities";
 import Testimonials from "../../Common_Component/Testimonials";
 import EarnFeatures from "./EarnFeatures";
 
-
 const Earn_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
+
   const [showModal, setShowModal] = useState(false);
+
   const [form, setForm] = useState({
     Vehical_Name: "",
     Type_of_Vehical: "Bike",
     Image_URL: "",
-    Rentel_Date: "",
-    Return_Date: "",
-    Total_Amount: "",
+    pricePerDay: "", // ✅ NEW
     vehicleNumber: "",
     rcBookNumber: "",
     insuranceEndingDate: ""
   });
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:3000/api/add/vehical", form, {
-        headers: { Authorization: `Bearer ${JWT_Token}` },
-      });
+
+      if (!form.pricePerDay || form.pricePerDay <= 0) {
+        return alert("Price per day must be greater than 0");
+      }
+
+      await axios.post(
+        "http://localhost:3000/api/add/vehical",
+        form,
+        {
+          headers: { Authorization: `Bearer ${JWT_Token}` },
+        }
+      );
+
       alert("Vehicle added successfully!");
       setShowModal(false);
+
+      // reset form
       setForm({
         Vehical_Name: "",
         Type_of_Vehical: "Bike",
         Image_URL: "",
-        Rentel_Date: "",
-        Return_Date: "",
-        Total_Amount: "",
+        pricePerDay: "",
         vehicleNumber: "",
         rcBookNumber: "",
         insuranceEndingDate: ""
       });
+
     } catch (err) {
       alert(err.response?.data?.message || "Error adding vehicle");
     }
@@ -49,27 +60,32 @@ const Earn_Home = () => {
 
   return (
     <div className="earn-main">
+
       {/* HERO SECTION */}
       <section className="earn-hero container">
-        <h1 className="earn-heading">Earn Money By Renting Your Vehicle</h1>
+        <h1 className="earn-heading">
+          Earn Money By Renting Your Vehicle
+        </h1>
         <p className="earn-text">
           List your vehicle on our platform and start earning instantly.
         </p>
-        <button className="btn earn-btn-primary" onClick={() => setShowModal(true)}>
+        <button
+          className="btn earn-btn-primary"
+          onClick={() => setShowModal(true)}
+        >
           Add Your Vehicle
         </button>
       </section>
 
-      
+      {/* FEATURES */}
+      <EarnFeatures />
 
-      {/* FEATURES SECTION */}
-     <EarnFeatures/>
-
-      
-
-      {/* Add Vehicle Modal */}
+      {/* MODAL */}
       {showModal && (
-        <div className="modal fade show d-block" style={{ background: "#000000aa" }}>
+        <div
+          className="modal fade show d-block"
+          style={{ background: "#000000aa" }}
+        >
           <div className="modal-dialog modal-lg modal-dialog-centered">
             <div className="modal-content rounded-4 p-4">
               <h4>Add Your Vehicle</h4>
@@ -101,36 +117,16 @@ const Earn_Home = () => {
                 onChange={handleChange}
               />
 
-              <div className="row">
-                <div className="col">
-                  <input
-                    type="date"
-                    className="form-control mb-2"
-                    name="Rentel_Date"
-                    value={form.Rentel_Date}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="col">
-                  <input
-                    type="date"
-                    className="form-control mb-2"
-                    name="Return_Date"
-                    value={form.Return_Date}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-
+              {/* ✅ REPLACED TOTAL AMOUNT WITH PRICE PER DAY */}
               <input
                 className="form-control mb-2"
-                name="Total_Amount"
-                placeholder="Total Amount Per Day (in INR)"
-                value={form.Total_Amount}
+                name="pricePerDay"
+                placeholder="Price Per Day (INR)"
+                value={form.pricePerDay}
                 onChange={handleChange}
               />
 
-              {/* ✅ Added new fields */}
+              {/* VEHICLE DETAILS */}
               <input
                 className="form-control mb-2"
                 name="vehicleNumber"
@@ -151,16 +147,22 @@ const Earn_Home = () => {
                 type="date"
                 className="form-control mb-3"
                 name="insuranceEndingDate"
-                placeholder="Insurance Ending Date"
                 value={form.insuranceEndingDate}
                 onChange={handleChange}
               />
 
               <div className="d-flex justify-content-end gap-2">
-                <button className="btn btn-secondary" onClick={() => setShowModal(false)}>
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setShowModal(false)}
+                >
                   Cancel
                 </button>
-                <button className="btn btn-primary" onClick={handleSubmit}>
+
+                <button
+                  className="btn btn-primary"
+                  onClick={handleSubmit}
+                >
                   Add Vehicle
                 </button>
               </div>
@@ -168,9 +170,10 @@ const Earn_Home = () => {
           </div>
         </div>
       )}
-      {/* CITY SECTION */}
+
+      {/* FOOTER */}
       <TopCities />
-      <Testimonials/>
+      <Testimonials />
     </div>
   );
 };

@@ -2,26 +2,26 @@ const express = require('express');
 const Rent_Model = require('../model/Rentel');
 const User_Model = require('../model/User');
 
-//ADD VEHICAL CONTROLLER
+
+// ✅ ADD VEHICLE
 const Add_Vehical = async (req, res) => {
 
     const {
         Vehical_Name,
         Type_of_Vehical,
-        Image_URL,   // ✅ URL from frontend
-        Rentel_Date,
-        Return_Date,
-        Total_Amount,
+        Image_URL,
+        pricePerDay,
         vehicleNumber,
         rcBookNumber,
         insuranceEndingDate
-
     } = req.body;
 
     try {
+        // 🔒 VALIDATION FIXED
         if (!Vehical_Name || !Type_of_Vehical || !Image_URL ||
-            !Rentel_Date || !Return_Date || !Total_Amount || !vehicleNumber || !rcBookNumber || !insuranceEndingDate) {
-            return res.status(400).json({ message: "All fields are required" });
+            !pricePerDay || pricePerDay <= 0 ||
+            !vehicleNumber || !rcBookNumber || !insuranceEndingDate) {
+            return res.status(400).json({ message: "All fields are required and price must be > 0" });
         }
 
         const userId = req.user.id;
@@ -31,9 +31,7 @@ const Add_Vehical = async (req, res) => {
             Vehical_Name,
             Type_of_Vehical,
             Image_URL,
-            Rentel_Date,
-            Return_Date,
-            Total_Amount,
+            pricePerDay,
             vehicleNumber,
             rcBookNumber,
             insuranceEndingDate
@@ -55,18 +53,19 @@ const Add_Vehical = async (req, res) => {
 };
 
 
-//GET THE VEHICALS ADDED BY EARNER
-
+// ✅ GET VEHICLES (OWNER VIEW)
 const Get_Vehicals = async (req, res) => {
     try {
         const userId = req.user.id;
 
         const vehicals = await Rent_Model.find({ userId }).sort({ createdAt: -1 });
-         if (vehicals.length === 0) {
+
+        if (vehicals.length === 0) {
             return res.status(404).json({
                 message: "No Vehicals found for this user"
             });
         }
+
         return res.status(200).json({
             message: "Vehicals fetched successfully",
             count: vehicals.length,
@@ -82,7 +81,7 @@ const Get_Vehicals = async (req, res) => {
 };
 
 
-//UPDATE API CALL
+// ✅ UPDATE VEHICLE
 const Update_Vehical = async (req, res) => {
     try {
         const vehicalId = req.params.id;
@@ -98,9 +97,7 @@ const Update_Vehical = async (req, res) => {
             Vehical_Name,
             Type_of_Vehical,
             Image_URL,
-            Rentel_Date,
-            Return_Date,
-            Total_Amount,
+            pricePerDay,
             vehicleNumber,
             rcBookNumber,
             insuranceEndingDate
@@ -108,10 +105,13 @@ const Update_Vehical = async (req, res) => {
 
         if (Vehical_Name) vehical.Vehical_Name = Vehical_Name;
         if (Type_of_Vehical) vehical.Type_of_Vehical = Type_of_Vehical;
-        if (Image_URL) vehical.Image_URL = Image_URL; 
-        if (Rentel_Date) vehical.Rentel_Date = Rentel_Date;
-        if (Return_Date) vehical.Return_Date = Return_Date;
-        if (Total_Amount) vehical.Total_Amount = Total_Amount;
+        if (Image_URL) vehical.Image_URL = Image_URL;
+
+        // 🔥 FIXED BUG
+        if (pricePerDay !== undefined && pricePerDay > 0) {
+            vehical.pricePerDay = pricePerDay;
+        }
+
         if (vehicleNumber) vehical.vehicleNumber = vehicleNumber;
         if (rcBookNumber) vehical.rcBookNumber = rcBookNumber;
         if (insuranceEndingDate) vehical.insuranceEndingDate = insuranceEndingDate;
@@ -132,7 +132,7 @@ const Update_Vehical = async (req, res) => {
 };
 
 
-//DELETE API CALL
+// ✅ DELETE VEHICLE
 const Delete_Vehical = async (req, res) => {
     try {
         const vehicalId = req.params.id;
@@ -159,33 +159,37 @@ const Delete_Vehical = async (req, res) => {
     }
 };
 
-//GET ALL THE VEHICAL DATA
-const Get_All_Vehicals = async(req,res)=>{
-  try{
-    const Vehicals = await Rent_Model.find().sort({ createdAt: -1 });
-    if(Vehicals.length === 0 ){
-        return res.status(404).json({   message: "No Vehicals found" });
-    }else{
+
+// ✅ GET ALL VEHICLES (PUBLIC VIEW 🔒)
+const Get_All_Vehicals = async (req, res) => {
+    try {
+        const Vehicals = await Rent_Model.find()
+            .select('-vehicleNumber -rcBookNumber') // 🔒 hide sensitive data
+            .sort({ createdAt: -1 });
+
+        if (Vehicals.length === 0) {
+            return res.status(404).json({ message: "No Vehicals found" });
+        }
+
         return res.status(200).json({
             message: "All Vehicals fetched successfully",
             count: Vehicals.length,
             Vehicals
         });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: "Server Error in Fetching All Vehicals",
+            error: err.message
+        });
     }
-  }
-  catch(err){
-    return res.status(500).json({
-        message: "Server Error in Fetching All Vehicals",
-        error: err.message  
-    })
-  }
-     
-}
-//GET USER DATA AS PER THE USER LOGIN TOKEN
-const Get_User_Data = async(req,res)=>{
+};
+
+
+// ✅ GET LOGGED-IN USER DATA
+const Get_User_Data = async (req, res) => {
     try {
-        const userId = req.user.id; // or req.user._id
-        
+        const userId = req.user.id;
 
         const userData = await User_Model.findById(userId).select("-password");
 
@@ -197,12 +201,21 @@ const Get_User_Data = async(req,res)=>{
             message: "User Data fetched successfully",
             userData
         });
+
     } catch (err) {
         console.error(err);
         return res.status(500).json({
             message: "Server Error in Fetching User Data"
         });
     }
-}
+};
 
-module.exports = {Add_Vehical , Get_Vehicals , Update_Vehical , Delete_Vehical , Get_All_Vehicals, Get_User_Data };
+
+module.exports = {
+    Add_Vehical,
+    Get_Vehicals,
+    Update_Vehical,
+    Delete_Vehical,
+    Get_All_Vehicals,
+    Get_User_Data
+};
