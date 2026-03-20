@@ -142,14 +142,16 @@ const Earn_Home = () => {
                 value={form.rcBookNumber}
                 onChange={handleChange}
               />
-
+            <label className="form-label">Insurance Ending Date
               <input
                 type="date"
                 className="form-control mb-3"
                 name="insuranceEndingDate"
                 value={form.insuranceEndingDate}
                 onChange={handleChange}
+
               />
+              </label>
 
               <div className="d-flex justify-content-end gap-2">
                 <button
