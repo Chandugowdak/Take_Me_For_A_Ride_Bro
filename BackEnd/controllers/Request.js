@@ -265,10 +265,16 @@ const getEarnerEarnings = async (req, res) => {
         path: 'rentalId',
         match: { userId: earnerId },
         select: 'Vehical_Name Image_URL pricePerDay',
+      })
+      .populate({
+        path: 'userId',   // ✅ ADD THIS
+        select: 'name email phone' // 👈 what you want
       });
 
+    // ✅ Filter only this earner's vehicles
     const earnings = requests.filter(r => r.rentalId !== null);
 
+    // ✅ Calculate earnings
     const totalEarnings = earnings.reduce((sum, r) => {
       return sum + (r.totalAmount || 0);
     }, 0);
@@ -301,14 +307,29 @@ const getUserAllRequests = async (req, res) => {
         }
       });
 
+    // ✅ Remove invalid rentals
     const validRequests = requests.filter(r => r.rentalId !== null);
 
-    const pending = validRequests.filter(r => r.status === 'pending');
-    const accepted = validRequests.filter(r => r.status === 'accepted');
-    const rejected = validRequests.filter(r => r.status === 'declined');
+    // ✅ 🔐 Hide phone for non-accepted requests
+    const safeRequests = validRequests.map((req) => {
+      const obj = req.toObject();
+
+      if (obj.status !== "accepted") {
+        if (obj.rentalId?.userId) {
+          delete obj.rentalId.userId.phone;
+        }
+      }
+
+      return obj;
+    });
+
+    // ✅ Categorize
+    const pending = safeRequests.filter(r => r.status === 'pending');
+    const accepted = safeRequests.filter(r => r.status === 'accepted');
+    const rejected = safeRequests.filter(r => r.status === 'declined');
 
     res.status(200).json({
-      totalRequests: validRequests.length,
+      totalRequests: safeRequests.length,
       counts: {
         pending: pending.length,
         accepted: accepted.length,

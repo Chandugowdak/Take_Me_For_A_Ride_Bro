@@ -115,3 +115,14 @@
     height: 180px;
   }
 }
+.status-badge.pending {
+  background-color: orange;
+}
+
+.status-badge.accepted {
+  background-color: green;
+}
+
+.status-badge.declined {
+  background-color: red;
+}

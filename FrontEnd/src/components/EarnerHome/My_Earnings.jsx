@@ -79,7 +79,7 @@ const My_Earnings = () => {
                   </p>
 
                   <p className="earning-user">
-                    Amount <strong>{item.rentalId.Total_Amount}</strong>
+                    Amount <strong>{item.totalAmount}</strong>
                   </p>
                   <p className="earning-date">
                     {new Date(item.createdAt).toDateString()}
@@ -93,31 +93,25 @@ const My_Earnings = () => {
         </div>
       </div>
       {/* ================= TOTAL SUMMARY SECTION (BOTTOM) ================= */}
-<div className="earnings-summary mt-5">
-  <div className="row align-items-center">
-    
-    <div className="col-md-6">
-      <h4 className="summary-title">
-        Total Earnings Till Now
-      </h4>
-      <p className="summary-subtitle">
-        This includes all completed trips and successful rentals.
-        Keep growing your performance and increase your income 🚀
-      </p>
-    </div>
+      <div className="earnings-summary mt-5">
+        <div className="row align-items-center">
+          <div className="col-md-6">
+            <h4 className="summary-title">Total Earnings Till Now</h4>
+            <p className="summary-subtitle">
+              This includes all completed trips and successful rentals. Keep
+              growing your performance and increase your income 🚀
+            </p>
+          </div>
 
-    <div className="col-md-6 text-md-end text-start mt-4 mt-md-0">
-      <div className="summary-amount-box">
-        <span className="currency">₹</span>
-        <span className="amount">{Total_Earinig_Amount}</span>
-        <p className="trip-count mt-2">
-          {totalTrips} Trips Completed
-        </p>
+          <div className="col-md-6 text-md-end text-start mt-4 mt-md-0">
+            <div className="summary-amount-box">
+              <span className="currency">₹</span>
+              <span className="amount">{Total_Earinig_Amount}</span>
+              <p className="trip-count mt-2">{totalTrips} Trips Completed</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-  </div>
-</div>
     </div>
   );
 };
