@@ -1,10 +1,15 @@
-.user-icon {
-  cursor: pointer;
-  
+/* ================= WRAPPER ================= */
+.cup-wrapper {
+  position: relative;
 }
 
-/* PROFILE CARD */
-.profile-card {
+/* ================= USER ICON ================= */
+.cup-user-icon {
+  cursor: pointer;
+}
+
+/* ================= PROFILE CARD ================= */
+.cup-profile-card {
   position: absolute;
   top: 58px;
   right: 0;
@@ -13,25 +18,25 @@
   padding: 15px;
   border-radius: 14px;
   z-index: 1000;
-  animation: fadeUp 0.4s ease;
+  animation: cupFadeUp 0.4s ease;
 }
 
-.close-btn {
+/* CLOSE BUTTON */
+.cup-close-btn {
   cursor: pointer;
-  color:red !important;
-
+  color: red !important;
 }
 
-/* BACKDROP */
-.custom-backdrop {
+/* ================= BACKDROP ================= */
+.cup-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
   z-index: 2000;
 }
 
-/* MODAL */
-.custom-modal {
+/* ================= MODAL ================= */
+.cup-modal-container {
   position: fixed;
   inset: 0;
   display: flex;
@@ -40,26 +45,27 @@
   z-index: 3000;
 }
 
-.modal-box {
+.cup-modal-box {
   width: 90%;
   max-width: 420px;
   background: linear-gradient(135deg, #ffffff, #f7fbff);
   padding: 30px;
   margin-top:600px;
   border-radius: 20px;
-  box-shadow: 0px 18px 45px rgba(0,0,0,0.25);
-  animation: modalSlide 0.5s ease;
+  box-shadow: 0px 18px 45px rgba(0, 0, 0, 0.25);
+  animation: cupModalSlide 0.5s ease;
 }
 
-.modal-title {
+/* TITLE */
+.cup-modal-title {
   font-size: 1.6rem;
   font-weight: 700;
   color: #0d3b66;
   margin-bottom: 20px;
 }
 
-/* ANIMATIONS */
-@keyframes modalSlide {
+/* ================= ANIMATIONS ================= */
+@keyframes cupModalSlide {
   from {
     opacity: 0;
     transform: translateY(40px) scale(0.95);
@@ -70,7 +76,7 @@
   }
 }
 
-@keyframes fadeUp {
+@keyframes cupFadeUp {
   from {
     opacity: 0;
     transform: translateY(15px);

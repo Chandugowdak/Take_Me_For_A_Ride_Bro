@@ -6,25 +6,23 @@ const My_Bookings = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch ALL requests (pending + accepted)
+  // ✅ NEW STATE FOR MODAL
+  const [showOwnerModal, setShowOwnerModal] = useState(false);
+  const [selectedOwner, setSelectedOwner] = useState(null);
+
+  /* ================= FETCH BOOKINGS ================= */
   const fetchMyBookings = async () => {
     try {
       const token = localStorage.getItem("JWT_Token");
 
       const res = await axios.get(
-        "http://localhost:3000/api/req/user/history", // ✅ UPDATED API
+        "http://localhost:3000/api/req/user/history",
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
 
-      // console.log("All Requests:", res.data);
-
-      // ✅ Combine pending + accepted
-      setRequests([
-        ...res.data.pending,
-        ...res.data.accepted
-      ]);
+      setRequests([...res.data.pending, ...res.data.accepted]);
 
       setLoading(false);
     } catch (err) {
@@ -33,19 +31,16 @@ const My_Bookings = () => {
     }
   };
 
-  // ✅ Cancel only pending request
+  /* ================= CANCEL REQUEST ================= */
   const cancelRequest = async (id) => {
     try {
       const token = localStorage.getItem("JWT_Token");
 
-      await axios.delete(
-        `http://localhost:3000/api/req/cancel/${id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.delete(`http://localhost:3000/api/req/cancel/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-      fetchMyBookings(); // refresh
+      fetchMyBookings();
     } catch (err) {
       console.error(err);
     }
@@ -55,6 +50,7 @@ const My_Bookings = () => {
     fetchMyBookings();
   }, []);
 
+  /* ================= LOADING ================= */
   if (loading) {
     return (
       <div className="text-center mt-5">
@@ -77,7 +73,6 @@ const My_Bookings = () => {
             {requests.map((req) => (
               <div className="col-md-6 col-lg-4" key={req._id}>
                 <div className="request-card animate-card">
-
                   {/* HEADER */}
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <span className={`status-badge ${req.status}`}>
@@ -88,21 +83,17 @@ const My_Bookings = () => {
                     </span>
                   </div>
 
-                  {/* VEHICLE IMAGE */}
+                  {/* IMAGE */}
                   <div className="vehicle-img-wrapper mb-2">
                     <img
                       src={req.rentalId?.Image_URL}
                       alt={req.rentalId?.Vehical_Name || "Vehicle"}
                       className="vehicle-img"
-                      onError={(e) => { e.target.src = "/no-image.png"; }}
+                      onError={(e) => {
+                        e.target.src = "/no-image.png";
+                      }}
                     />
                   </div>
-
-                  {/* OWNER */}
-                  <p className="user-name mb-1">
-                    👤 Owner:{" "}
-                    <span>{req.rentalId?.userId?.name || "N/A"}</span>
-                  </p>
 
                   {/* VEHICLE */}
                   <p className="vehicle-name mb-1">
@@ -115,12 +106,17 @@ const My_Bookings = () => {
                     💰 Price / Day: ₹{req.rentalId?.pricePerDay || "--"}
                   </p>
 
-                  {/* ✅ PHONE ONLY IF ACCEPTED */}
+                  {/* ✅ VIEW OWNER BUTTON */}
                   {req.status === "accepted" && (
-                    <p className="phone mb-2">
-                      📞 Contact:{" "}
-                      <span>{req.rentalId?.userId?.phone || "N/A"}</span>
-                    </p>
+                    <button
+                      className="btn btn-outline-primary w-100 btn-sm mb-2"
+                      onClick={() => {
+                        setSelectedOwner(req.rentalId?.userId);
+                        setShowOwnerModal(true);
+                      }}
+                    >
+                      View Owner Details
+                    </button>
                   )}
 
                   {/* ✅ CANCEL ONLY IF PENDING */}
@@ -132,13 +128,47 @@ const My_Bookings = () => {
                       Cancel Request
                     </button>
                   )}
-
                 </div>
               </div>
             ))}
           </div>
         )}
       </div>
+
+      {/* ================= OWNER MODAL ================= */}
+      {showOwnerModal && selectedOwner && (
+        <>
+          {/* BACKDROP */}
+          <div
+            className="custom-backdrop"
+            onClick={() => setShowOwnerModal(false)}
+          ></div>
+
+          {/* MODAL */}
+          <div className="custom-modal">
+            <div className="modal-box text-center">
+              <h4 className="mb-3">👤 Owner Details</h4>
+
+              <i className="bi bi-person-circle fs-1 text-primary mb-3"></i>
+
+              <p className="mb-2">
+                <strong>Name:</strong> {selectedOwner?.name || "N/A"}
+              </p>
+
+              <p className="mb-3">
+                <strong>Phone:</strong> {selectedOwner?.phone || "N/A"}
+              </p>
+
+              <button
+                className="btn btn-secondary w-100"
+                onClick={() => setShowOwnerModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

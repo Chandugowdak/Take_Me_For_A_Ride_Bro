@@ -94,7 +94,8 @@ const LoginUser = async (req, res) => {
 // ✅ GET ALL USERS
 const Get_Data = async (req, res) => {
     try {
-        const users = await UserModel.find().select("-password"); // 🔒 hide password
+        const users = await UserModel.find();
+        // const DecreptPaassword = 
         return res.status(200).json({ users });
     } catch (err) {
         return res.status(500).json({ message: "Server Error in Fetching Users" });

@@ -12,14 +12,16 @@ const CurrentUserProfile = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    email: ""
+    email: "",
+    phone: "",
+    password: ""
   });
 
   const navigate = useNavigate();
   const { Set_User_Login, setJWT_Token, setUser_Type } =
     useContext(GlobelValue);
 
-  /* ================= FETCH CURRENT USER ================= */
+  /* ================= FETCH USER ================= */
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -36,7 +38,8 @@ const CurrentUserProfile = () => {
         setUser(res.data.userData);
         setFormData({
           name: res.data.userData.name,
-          email: res.data.userData.email
+          email: res.data.userData.email,
+          phone: res.data.userData.phone
         });
       } catch (err) {
         console.error("User fetch error:", err);
@@ -46,7 +49,7 @@ const CurrentUserProfile = () => {
     fetchUser();
   }, []);
 
-  /* ================= BODY SCROLL LOCK ================= */
+  /* ================= BODY LOCK ================= */
   useEffect(() => {
     document.body.style.overflow = showModal ? "hidden" : "auto";
   }, [showModal]);
@@ -71,11 +74,12 @@ const CurrentUserProfile = () => {
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      if(res.status === 200){
+
+      if (res.status === 200) {
         alert("Profile updated successfully!");
-      setUser(res.data.user);
-      setShowModal(false);
-      setShowProfile(false);
+        setUser(res.data.user);
+        setShowModal(false);
+        setShowProfile(false);
       }
     } catch (err) {
       console.error("Update failed:", err);
@@ -85,10 +89,10 @@ const CurrentUserProfile = () => {
   };
 
   return (
-    <div className="position-relative">
+    <div className="cup-wrapper">
       {/* USER ICON */}
       <div
-        className="user-icon"
+        className="cup-user-icon"
         onClick={() => setShowProfile(!showProfile)}
       >
         <i className="bi bi-person-circle fs-3"></i>
@@ -96,10 +100,10 @@ const CurrentUserProfile = () => {
 
       {/* PROFILE CARD */}
       {showProfile && user && (
-        <div className="profile-card shadow">
+        <div className="cup-profile-card shadow">
           <div className="text-end">
             <i
-              className="bi bi-x-lg close-btn"
+              className="bi bi-x-lg cup-close-btn"
               onClick={() => setShowProfile(false)}
             ></i>
           </div>
@@ -129,17 +133,17 @@ const CurrentUserProfile = () => {
         </div>
       )}
 
-      {/* ================= UPDATE MODAL (CUSTOM) ================= */}
+      {/* ================= MODAL ================= */}
       {showModal && user && (
         <>
           <div
-            className="custom-backdrop"
+            className="cup-backdrop"
             onClick={() => setShowModal(false)}
           ></div>
 
-          <div className="custom-modal">
-            <div className="modal-box">
-              <h4 className="modal-title">Edit Profile</h4>
+          <div className="cup-modal-container">
+            <div className="cup-modal-box">
+              <h4 className="cup-modal-title">Edit Profile</h4>
 
               <input
                 className="form-control mb-3"
@@ -156,6 +160,15 @@ const CurrentUserProfile = () => {
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
+                }
+              />
+
+              <input
+                className="form-control mb-3"
+                placeholder="Phone Number"
+                value={formData.phone}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
                 }
               />
 

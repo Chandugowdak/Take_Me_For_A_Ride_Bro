@@ -1,37 +1,60 @@
 /* ================= PAGE WRAPPER ================= */
 .earner-page {
-  padding: 40px 0;
-  background: linear-gradient(135deg, #fffaf0, #ffffff);
-  animation: fadePage 0.8s ease forwards;
+  padding: 50px 0;
+  background: linear-gradient(135deg, #f8fbff, #eef3f9);
+  min-height: 100vh;
 }
 
 /* ================= TITLE ================= */
 .earner-title {
-  font-weight: 700;
-  font-size: 2.2rem;
+  font-weight: 800;
+  font-size: 2.4rem;
   color: #0a2a43;
+  letter-spacing: 0.5px;
 }
 
-/* ================= VEHICAL CARD ================= */
+/* ================= VEHICLE CARD ================= */
 .vehical-card {
-  background: linear-gradient(135deg, #fffaf0, #ffffff);
-  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.08);
-  transition: all 0.35s ease;
-  animation: cardFadeUp 0.7s ease forwards;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+/* Glow border effect */
+.vehical-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  opacity: 0;
+  transition: 0.4s;
+
+  pointer-events: none; /* 🔥 THIS FIXES YOUR ISSUE */
+}
+
+.vehical-card:hover::before {
+  opacity: 1;
 }
 
 .vehical-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
 }
 
-/* ================= IMAGE SECTION (FIXED) ================= */
+/* ================= IMAGE SECTION ================= */
 .vehical-img {
   position: relative;
-  height: 180px;
-  background: #f4f6f8;
+  height: 190px;
+  background: linear-gradient(135deg, #eef4ff, #f5faff);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,77 +64,109 @@
 .vehical-img img {
   max-width: 100%;
   max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;   /* 🔥 NO CROPPING */
-  transition: transform 0.4s ease;
+  object-fit: contain;
+  transition: transform 0.5s ease;
 }
 
-/* Safe zoom */
 .vehical-card:hover .vehical-img img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 /* ================= TYPE BADGE ================= */
 .vehical-type {
   position: absolute;
   top: 12px;
-  right: 12px;
-  background: rgba(13, 110, 253, 0.9);
-  color: white;
-  padding: 4px 10px;
+  left: 12px;
+  background: linear-gradient(135deg, #0d6efd, #00c6ff);
+  color: #fff;
+  padding: 5px 12px;
   font-size: 0.75rem;
   border-radius: 20px;
   font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 /* ================= BODY ================= */
 .vehical-body {
-  padding: 18px;
+  padding: 18px 18px 20px;
 }
 
+/* ================= TITLE ================= */
 .vehical-title {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #0a2a43;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 /* ================= META INFO ================= */
+.vehical-meta {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
 .vehical-meta p {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   margin: 0;
   color: #555;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* ================= PRICE ================= */
 .vehical-price {
-  margin: 12px 0;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #198754;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #16a34a;
+  margin-bottom: 12px;
 }
 
 /* ================= ACTION BUTTONS ================= */
 .vehical-actions {
   display: flex;
-  justify-content: space-between;
   gap: 10px;
 }
 
-/* ================= ANIMATIONS ================= */
-@keyframes fadePage {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Buttons enhanced */
+.vehical-actions .btn {
+  flex: 1;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
 }
 
-@keyframes cardFadeUp {
+/* Edit button */
+/* Scoped button styles (ONLY inside vehicle card) */
+.vehical-card .btn-outline-warning {
+  border: 1px solid #f59e0b;
+  color: #f59e0b;
+}
+
+.vehical-card .btn-outline-warning:hover {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.vehical-card .btn-outline-danger {
+  border: 1px solid #ef4444;
+  color: #ef4444;
+}
+
+.vehical-card .btn-outline-danger:hover {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ================= ANIMATION ================= */
+.vehical-card {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+@keyframes fadeUp {
   from {
     opacity: 0;
     transform: translateY(40px);
@@ -123,12 +178,36 @@
 }
 
 /* ================= RESPONSIVE ================= */
-@media (max-width: 576px) {
+@media (max-width: 992px) {
+  .vehical-img {
+    height: 170px;
+  }
+}
+
+@media (max-width: 768px) {
   .earner-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .vehical-img {
     height: 160px;
+  }
+}
+
+@media (max-width: 576px) {
+  .vehical-card {
+    border-radius: 16px;
+  }
+
+  .vehical-body {
+    padding: 14px;
+  }
+
+  .vehical-title {
+    font-size: 1rem;
+  }
+
+  .vehical-price {
+    font-size: 1.2rem;
   }
 }
