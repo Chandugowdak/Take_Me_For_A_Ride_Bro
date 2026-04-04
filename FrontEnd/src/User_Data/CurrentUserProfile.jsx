@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { GlobelValue } from "../context/GlobelVariable";
@@ -10,6 +10,8 @@ const CurrentUserProfile = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const wrapperRef = useRef(null); // 🔥 important
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,6 +22,30 @@ const CurrentUserProfile = () => {
   const navigate = useNavigate();
   const { Set_User_Login, setJWT_Token, setUser_Type } =
     useContext(GlobelValue);
+
+  /* ================= CLOSE ALL ================= */
+  const closeAll = () => {
+    setShowProfile(false);
+    setShowModal(false);
+  };
+
+  /* ================= OUTSIDE CLICK ================= */
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target)
+      ) {
+        closeAll(); // 🔥 close everything
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   /* ================= FETCH USER ================= */
   useEffect(() => {
@@ -78,8 +104,7 @@ const CurrentUserProfile = () => {
       if (res.status === 200) {
         alert("Profile updated successfully!");
         setUser(res.data.user);
-        setShowModal(false);
-        setShowProfile(false);
+        closeAll();
       }
     } catch (err) {
       console.error("Update failed:", err);
@@ -89,7 +114,7 @@ const CurrentUserProfile = () => {
   };
 
   return (
-    <div className="cup-wrapper">
+    <div className="cup-wrapper" ref={wrapperRef}>
       {/* USER ICON */}
       <div
         className="cup-user-icon"
@@ -104,7 +129,7 @@ const CurrentUserProfile = () => {
           <div className="text-end">
             <i
               className="bi bi-x-lg cup-close-btn"
-              onClick={() => setShowProfile(false)}
+              onClick={closeAll}
             ></i>
           </div>
 
@@ -117,7 +142,10 @@ const CurrentUserProfile = () => {
             <div className="d-flex gap-2 mt-3">
               <button
                 className="btn btn-outline-primary w-50"
-                onClick={() => setShowModal(true)}
+                onClick={() => {
+                  setShowModal(true);
+                  setShowProfile(false); // ✅ close profile
+                }}
               >
                 Edit
               </button>
@@ -133,73 +161,66 @@ const CurrentUserProfile = () => {
         </div>
       )}
 
-      {/* ================= MODAL ================= */}
+      {/* MODAL */}
       {showModal && user && (
-        <>
-          <div
-            className="cup-backdrop"
-            onClick={() => setShowModal(false)}
-          ></div>
+        <div className="cup-modal-container">
+          <div className="cup-modal-box">
+            <h4 className="cup-modal-title">Edit Profile</h4>
 
-          <div className="cup-modal-container">
-            <div className="cup-modal-box">
-              <h4 className="cup-modal-title">Edit Profile</h4>
+            <input
+              className="form-control mb-3"
+              placeholder="Name"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+            />
 
-              <input
-                className="form-control mb-3"
-                placeholder="Name"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-              />
+            <input
+              className="form-control mb-3"
+              placeholder="Email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+            />
 
-              <input
-                className="form-control mb-3"
-                placeholder="Email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-              />
+            <input
+              className="form-control mb-3"
+              placeholder="Phone Number"
+              value={formData.phone}
+              onChange={(e) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
+            />
 
-              <input
-                className="form-control mb-3"
-                placeholder="Phone Number"
-                value={formData.phone}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
-              />
+            <input
+              className="form-control mb-2 bg-light"
+              value={user.Type_of_User}
+              disabled
+            />
+            <small className="text-muted">
+              User role cannot be changed
+            </small>
 
-              <input
-                className="form-control mb-2 bg-light"
-                value={user.Type_of_User}
-                disabled
-              />
-              <small className="text-muted">
-                User role cannot be changed
-              </small>
+            <div className="d-flex justify-content-end gap-2 mt-4">
+              <button
+                className="btn btn-secondary"
+                onClick={closeAll}
+              >
+                Cancel
+              </button>
 
-              <div className="d-flex justify-content-end gap-2 mt-4">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setShowModal(false)}
-                >
-                  Cancel
-                </button>
-
-                <button
-                  className="btn btn-primary"
-                  disabled={loading}
-                  onClick={Handle_Update}
-                >
-                  {loading ? "Updating..." : "Update"}
-                </button>
-              </div>
+              <button
+                className="btn btn-primary"
+                disabled={loading}
+                onClick={Handle_Update}
+              >
+                {loading ? "Updating..." : "Update"}
+              </button>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

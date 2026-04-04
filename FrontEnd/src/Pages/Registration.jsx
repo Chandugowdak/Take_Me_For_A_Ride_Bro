@@ -109,7 +109,7 @@ export default function Register() {
               </Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter phone number"
+                placeholder="Enter phone number . It should have 10 digits"
                 onChange={(e) => setPhone(e.target.value)}
                 required
               />
