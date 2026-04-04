@@ -24,11 +24,6 @@ const sendRequest = async (req, res) => {
       });
     }
 
-    // ✅ CALCULATE DAYS (🔥 FIX)
-    const numberOfDays = Math.ceil(
-      (end - start) / (1000 * 60 * 60 * 24)
-    );
-
     // ✅ CHECK VEHICLE EXISTS
     const rental = await Rent_Model.findById(rentalId);
     if (!rental) {
@@ -41,6 +36,20 @@ const sendRequest = async (req, res) => {
     if (rental.userId.toString() === userId) {
       return res.status(400).json({
         message: "You cannot rent your own vehicle"
+      });
+    }
+
+    // ❌ CHECK AVAILABILITY (🔥 IMPORTANT FIX)
+    const overlappingBooking = await Request_Model.findOne({
+      rentalId,
+      status: "accepted", // only confirmed bookings
+      startDate: { $lte: end },
+      endDate: { $gte: start }
+    });
+
+    if (overlappingBooking) {
+      return res.status(400).json({
+        message: "Vehicle is already booked for selected dates"
       });
     }
 
@@ -70,7 +79,12 @@ const sendRequest = async (req, res) => {
       });
     }
 
-    // ✅ OPTIONAL: CALCULATE TOTAL AMOUNT
+    // ✅ CALCULATE DAYS
+    const numberOfDays = Math.ceil(
+      (end - start) / (1000 * 60 * 60 * 24)
+    );
+
+    // ✅ TOTAL AMOUNT
     const totalAmount = numberOfDays * rental.pricePerDay;
 
     // ✅ CREATE REQUEST
@@ -79,8 +93,8 @@ const sendRequest = async (req, res) => {
       rentalId,
       startDate: start,
       endDate: end,
-      numberOfDays,   // ✅ FIXED
-      totalAmount     // ✅ optional but useful
+      numberOfDays,
+      totalAmount
     });
 
     res.status(201).json({
@@ -92,8 +106,6 @@ const sendRequest = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-
 
 // ✅ GET PENDING REQUESTS (EARNER VIEW - NO PHONE)
 const getPendingRequests = async (req, res) => {

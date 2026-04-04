@@ -9,7 +9,7 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [typeOfUser, setTypeOfUser] = useState("User");
+  const [Type_of_User, setType_of_User] = useState("User");
   const [phone, setPhone] = useState(""); // ✅ NEW
 
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function Register() {
       name,
       email,
       password,
-      Type_of_User: typeOfUser,
+      Type_of_User,
       phone // ✅ SEND PHONE
     };
 
@@ -120,7 +120,7 @@ export default function Register() {
                 Register As :
               </Form.Label>
               <Form.Select
-                onChange={(e) => setTypeOfUser(e.target.value)}
+                onChange={(e) => setType_of_User(e.target.value)}
                 required
               >
                 <option value="User">User</option>
