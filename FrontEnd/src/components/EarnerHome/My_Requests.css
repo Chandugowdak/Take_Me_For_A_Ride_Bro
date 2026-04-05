@@ -169,3 +169,15 @@
     height: 110px;
   }
 }
+
+.cod-warning {
+  background: #fff;
+  border-left: 5px solid #ffc107;
+  color: #333;
+  font-weight: 500;
+  padding: 12px 18px;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}

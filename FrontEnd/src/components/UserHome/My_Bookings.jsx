@@ -65,6 +65,9 @@ const My_Bookings = () => {
         <h3 className="mb-4 fw-bold text-center">
           🚗 My Bookings (Pending & Accepted)
         </h3>
+        <p className="cod-warning text-center">
+          ⚠️ Only Cash on Delivery (COD) is accepted on this platform
+        </p>
 
         {requests.length === 0 ? (
           <p className="text-center text-muted">No bookings found</p>

@@ -22,7 +22,7 @@ const My_Requests = lazy(() => import("./components/EarnerHome/My_Requests"));
 const My_Bookings = lazy(() => import("./components/UserHome/My_Bookings"));
 const Offers = lazy(() => import("./components/UserHome/Offers"));
 const Support = lazy(() => import("./components/UserHome/Support"));
-const User_Data = lazy(() => import("./User_Data/User_Data"));
+
 
 const User_History = lazy(() => import("./components/UserHome/User_History"));
 const Earner_History = lazy(() =>
@@ -80,7 +80,7 @@ const App = () => {
               <Route path="/user/booking" element={<My_Bookings />} />
               <Route path="/user/offers" element={<Offers />} />
               <Route path="/user/support" element={<Support />} />
-              <Route path="/user/data" element={<User_Data />} />
+              
               <Route path="/user/history" element={<User_History />} />
               <Route path="/earner/history" element={<Earner_History />} />
               <Route path="/footer" element={<Footer />} />
