@@ -8,6 +8,7 @@ const userrouter = require('./router/UserRoute');
 const rentrouter = require('./router/RentRout');
 const Staticrouter = require('./router/StaticRoute');
 const requestrouter = require('./router/RequestRout');
+const SupportRouter = require('./router/SupportRout');
 //MIDDLE WARES
 const app = express();
 app.use(cors());
@@ -26,6 +27,8 @@ app.use('/api', rentrouter);
 app.use('/api', requestrouter);
 // STATIC DATA ROUTE
 app.use('/api', Staticrouter);
+//SUPPORT MAIL ROUTE
+app.use('/api' , SupportRouter);
 
 DB()
 .then(()=>{

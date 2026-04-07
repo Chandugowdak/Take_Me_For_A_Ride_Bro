@@ -5,7 +5,6 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Register() {
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,27 +21,32 @@ export default function Register() {
       email,
       password,
       Type_of_User,
-      phone // ✅ SEND PHONE
+      phone, // ✅ SEND PHONE
     };
 
     try {
       const response = await axios.post(
         "http://localhost:3000/api/user/register",
-        userData
+        userData,
       );
 
       if (response.status === 201) {
         alert("Registration Successful!");
         navigate("/");
+      } else if (response.message === "Invalid phone number") {
+        alert(
+          "Invalid phone number. Please enter a valid 10-digit phone number.",
+        );
       } else {
         alert(response.data?.message || "Registration Failed!");
         console.warn("Unexpected response:", response);
       }
-
     } catch (err) {
       if (err.response) {
         console.error("Server Error:", err.response.data);
-        alert(err.response.data.message || "User already exists or invalid data!");
+        alert(
+          err.response.data.message || "User already exists or invalid data!",
+        );
       } else if (err.request) {
         console.error("No response from server:", err.request);
         alert("Server not responding. Please try again later.");
@@ -65,7 +69,6 @@ export default function Register() {
           </p>
 
           <Form onSubmit={handleSubmit}>
-            
             <Form.Group className="mb-3" controlId="formName">
               <Form.Label className="roboto-slab-uniquifier">
                 Full Name :

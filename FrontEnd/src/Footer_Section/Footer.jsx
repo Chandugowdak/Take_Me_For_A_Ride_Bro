@@ -97,9 +97,15 @@ const Footer = () => {
           <div className="col-md-2 col-12 mb-4 text-md-start text-center">
             <h5 className="footer-subtitle">Follow Us</h5>
             <div className="footer-social">
-              <FaInstagram />
-              <FaFacebook />
-              <FaTwitter />
+              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                <FaInstagram />
+              </a>
+              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                <FaFacebook />
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <FaTwitter />
+              </a>
             </div>
 
             <h6 className="footer-subtitle mt-3">Customer Care</h6>

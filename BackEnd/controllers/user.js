@@ -17,11 +17,14 @@ const userRegistration = async (req, res) => {
         if (!name || !email || !password || !Type_of_User || !phone) {
             return res.status(400).json({ message: "All fields are required" });
         }
-
+        if(phone.length !== 10){
+            return res.status(400).json({ message: "Invalid phone number" });
+        }
         const existingUser = await UserModel.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "User already exists with this email" });
         }
+    
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
