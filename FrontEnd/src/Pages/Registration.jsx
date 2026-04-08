@@ -3,6 +3,7 @@ import "../CssFolder/Registration.css";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -31,28 +32,28 @@ export default function Register() {
       );
 
       if (response.status === 201) {
-        alert("Registration Successful!");
+        toast.success("Registration Successful!");
         navigate("/");
       } else if (response.message === "Invalid phone number") {
-        alert(
+        toast.error(
           "Invalid phone number. Please enter a valid 10-digit phone number.",
         );
       } else {
-        alert(response.data?.message || "Registration Failed!");
+        toast.error(response.data?.message || "Registration Failed!");
         console.warn("Unexpected response:", response);
       }
     } catch (err) {
       if (err.response) {
         console.error("Server Error:", err.response.data);
-        alert(
+        toast.error(
           err.response.data.message || "User already exists or invalid data!",
         );
       } else if (err.request) {
         console.error("No response from server:", err.request);
-        alert("Server not responding. Please try again later.");
+        toast.error("Server not responding. Please try again later.");
       } else {
         console.error("Unexpected Error:", err.message);
-        alert("Something went wrong. Please try again.");
+        toast.error("Something went wrong. Please try again.");
       }
     }
   };

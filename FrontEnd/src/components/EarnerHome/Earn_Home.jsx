@@ -5,6 +5,7 @@ import "./Earn_Home.css";
 import TopCities from "../../Footer_Section/TopCities";
 import Testimonials from "../../Common_Component/Testimonials";
 import EarnFeatures from "./EarnFeatures";
+import { toast } from "react-toastify";
 
 const Earn_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
@@ -39,7 +40,7 @@ const Earn_Home = () => {
         }
       );
 
-      alert("Vehicle added successfully!");
+      toast.success("Vehicle added successfully!");
       setShowModal(false);
 
       // reset form
@@ -54,7 +55,7 @@ const Earn_Home = () => {
       });
 
     } catch (err) {
-      alert(err.response?.data?.message || "Error adding vehicle");
+      toast.error(err.response?.data?.message || "Error adding vehicle");
     }
   };
 

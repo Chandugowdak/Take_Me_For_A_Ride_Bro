@@ -6,7 +6,7 @@ import TopCities from "../../Footer_Section/TopCities";
 import AutoScrollCarousel from "../../Common_Component/AutoScrollCarousel";
 import Testimonials from "../../Common_Component/Testimonials";
 import HowRentingWorks from "./HowRentingWorks";
-
+import { toast } from "react-toastify";
 const User_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
 
@@ -138,13 +138,13 @@ const User_Home = () => {
         }
       );
 
-      alert("Request sent successfully ✅");
+      toast.success("Request sent successfully ✅");
 
       setShowModal(false);
       fetchRequestedVehicles();
 
     } catch (error) {
-      alert(error?.response?.data?.message || "Something went wrong 🚨");
+      toast.error(error?.response?.data?.message || "Something went wrong 🚨");
     } finally {
       setSendingId(null);
     }

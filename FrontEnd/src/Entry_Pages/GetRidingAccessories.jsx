@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './GetRidingAccessories.css';
+import { toast } from "react-toastify";
 
 const GetRidingAccessories = () => {
   const [accessories, setAccessories] = useState([]);
@@ -14,7 +15,7 @@ const GetRidingAccessories = () => {
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      alert('Server Error');
+      toast.error('Server Error');
       console.log(err.message);
     }
   };

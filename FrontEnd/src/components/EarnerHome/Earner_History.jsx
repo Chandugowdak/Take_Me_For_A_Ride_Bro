@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Earner_History.css";
+import { toast } from "react-toastify";
 
 const Earner_History = () => {
   const [activeTab, setActiveTab] = useState("all");

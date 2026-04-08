@@ -11,6 +11,7 @@ import {
   FaHandshake,
   FaPaperPlane,
 } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Contect = () => {
   const [formData, setFormData] = useState({
@@ -35,7 +36,7 @@ const Contect = () => {
     e.preventDefault();
 
     if (!formData.SenderName || !formData.SenderEmail || !formData.IssueType) {
-      alert("Please fill all required fields");
+      toast.error("Please fill all required fields");
       return;
     }
 
@@ -47,11 +48,11 @@ const Contect = () => {
         formData,
       );
       if (res.message == "No user found with this email") {
-        alert(
+        toast.error(
           "No user found with this email. Please use the email associated with your account.",
         );
       } else {
-        alert(res.data.message);
+        toast.success(res.data.message);
       }
 
       // ✅ Reset form
@@ -63,7 +64,7 @@ const Contect = () => {
       });
     } catch (error) {
       console.error(error);
-      alert(error.response?.data?.message || "Something went wrong");
+      toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }

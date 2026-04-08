@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaUser, FaCalendarAlt, FaClock,FaMoneyBill,FaPhone } from "react-icons/fa";
 import "./My_Requests.css";
+import { toast } from "react-toastify";
 
 const My_Requests = () => {
   const [requests, setRequests] = useState([]);
@@ -44,7 +45,7 @@ const My_Requests = () => {
 
       setRequests((prev) => prev.filter((r) => r._id !== id));
     } catch (err) {
-      alert("Action failed");
+      toast.error("Action failed");
     }
   };
 

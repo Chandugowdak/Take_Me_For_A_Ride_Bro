@@ -1,6 +1,10 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
+// Toast Container
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // CORE COMPONENTS (do not lazy load)
 import GlobelContext from "./context/GlobelContext";
 import PublicRoute from "./router/PublicRoute";
@@ -54,9 +58,11 @@ const App = () => {
   return (
     <GlobelContext>
       <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
-        <Routes>
 
-          {/* PARENT ROUTE */}
+        {/* ✅ CORRECT PLACE */}
+        <ToastContainer position="top-right" autoClose={2000} />
+
+        <Routes>
           <Route element={<Layout />}>
 
             {/* PUBLIC ROUTES */}
@@ -80,7 +86,6 @@ const App = () => {
               <Route path="/user/booking" element={<My_Bookings />} />
               <Route path="/user/offers" element={<Offers />} />
               <Route path="/user/support" element={<Support />} />
-              
               <Route path="/user/history" element={<User_History />} />
               <Route path="/earner/history" element={<Earner_History />} />
               <Route path="/footer" element={<Footer />} />
@@ -96,6 +101,7 @@ const App = () => {
 
           </Route>
         </Routes>
+
       </Suspense>
     </GlobelContext>
   );

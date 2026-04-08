@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { GlobelValue } from "../context/GlobelVariable";
 import "./CurrentUserProfile.css";
+import { toast } from "react-toastify";
 
 const CurrentUserProfile = () => {
   const [showProfile, setShowProfile] = useState(false);
@@ -102,7 +103,7 @@ const CurrentUserProfile = () => {
       );
 
       if (res.status === 200) {
-        alert("Profile updated successfully!");
+        toast.success("Profile updated successfully!");
         setUser(res.data.user);
         closeAll();
       }

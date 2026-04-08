@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { GlobelValue } from "../../context/GlobelVariable";
 import "./Earner_Vehical.css";
+import { toast } from "react-toastify";
 
 const Earner_Vehical = () => {
   const { JWT_Token } = useContext(GlobelValue);
@@ -51,10 +52,10 @@ const Earner_Vehical = () => {
         headers: { Authorization: `Bearer ${JWT_Token}` },
       });
 
-      alert("Vehicle deleted successfully!");
+      toast.success("Vehicle deleted successfully!");
       fetchVehicals();
     } catch (err) {
-      alert(err.response?.data?.message || "Error deleting vehicle");
+      toast.error(err.response?.data?.message || "Error deleting vehicle");
     }
   };
 
@@ -91,11 +92,11 @@ const Earner_Vehical = () => {
         { headers: { Authorization: `Bearer ${JWT_Token}` } }
       );
 
-      alert("Vehicle updated successfully!");
+      toast.success("Vehicle updated successfully!");
       setEditModal(false);
       fetchVehicals();
     } catch (err) {
-      alert(err.response?.data?.message || "Error updating vehicle");
+      toast.error(err.response?.data?.message || "Error updating vehicle");
     }
   };
 

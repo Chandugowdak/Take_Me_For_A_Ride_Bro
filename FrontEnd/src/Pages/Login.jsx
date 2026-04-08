@@ -5,6 +5,7 @@ import "../CssFolder/NavBar.css";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { GlobelValue } from "../context/GlobelVariable";
+import { toast } from "react-toastify";
 
 export default function Login() {
 
@@ -30,7 +31,7 @@ export default function Login() {
       );
 
       if (response.status === 200) {
-        alert("Login Successful!");
+        toast.success("Login Successful!");
 
         const token = response.data.JWT_Token;
         const user = response.data.user;
@@ -63,7 +64,7 @@ export default function Login() {
       }
 
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+     toast.error(err.response?.data?.message || "Login failed");
     } finally {
       setLoading(false);
     }
