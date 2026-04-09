@@ -1,7 +1,22 @@
-import React from "react";
+import React,{useContext} from "react";
 import "./OffersSection.css";
+import { GlobelValue } from "../context/GlobelVariable";
+import {toast} from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const OffersSection = () => {
+  const {JWT_Token} = useContext(GlobelValue);
+  const navigate = useNavigate();
+
+  const HandelClick = ()=>{
+    if(!JWT_Token){
+      toast.warning("Please login to apply offer");
+      navigate('/');
+
+    }
+  };
+
+
   const offers = [
     {
       title: "WELCOME OFFER",
@@ -103,7 +118,7 @@ const OffersSection = () => {
 
                 <p className="offer-note">{offer.note}</p>
 
-                <button className="btn btn-success w-100 mt-3">
+                <button className="btn btn-success w-100 mt-3" onClick={HandelClick}>
                   Apply Offer
                 </button>
 

@@ -72,10 +72,10 @@ const App = () => {
               <Route path="/earn/with/us" element={<EarnWithUs />} />
               <Route path="/franchise/own" element={<Franchise />} />
               <Route path="/OffersSection" element={<OffersSection />} />
-              <Route path="/Sub" element={<SubscriptionSection />} />
+              
               <Route path="/static/data" element={<GetRidingAccessories />} />
             </Route>
-
+<Route path="/user/subscription" element={<SubscriptionSection />} />
             {/* PROTECTED ROUTES */}
             <Route element={<ProtectedRoute />}>
               <Route path="/Userhome" element={<User_Home />} />
@@ -89,6 +89,7 @@ const App = () => {
               <Route path="/user/history" element={<User_History />} />
               <Route path="/earner/history" element={<Earner_History />} />
               <Route path="/footer" element={<Footer />} />
+              {/* <Route path="/user/subscription" element={<SubscriptionSection />} /> */}
             </Route>
 
             {/* STATIC ROUTES */}

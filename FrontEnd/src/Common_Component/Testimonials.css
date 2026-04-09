@@ -1,86 +1,103 @@
 /* ===============================
-   SECTION BACKGROUND
+   SECTION (MATCH YOUR APP THEME)
 ================================ */
 .testimonials-section {
   background: linear-gradient(135deg, #fffaf0, #ffffff);
-  overflow: hidden; /* Important */
+  padding: 30px 0;
+  overflow: hidden;
 }
 
 /* ===============================
    HEADINGS
 ================================ */
 .section-title {
- font-size: 2.3rem;
+  font-size: 2.4rem;
   font-weight: 700;
   color: #1f2937;
 }
-.section-span{
-  color: #f4a11e;
+
+.section-title span {
+  color: #f59e0b; /* warm gold */
 }
+
 .section-subtitle {
-  color: #0a0c10;
-  font-size: 1rem;
+  color: #6b7280;
 }
 
 /* ===============================
    WRAPPER
 ================================ */
 .testimonial-wrapper {
-  width: 100%;
   overflow: hidden;
   position: relative;
 }
 
 /* ===============================
-   MOVING TRACK
+   TRACK ANIMATION
 ================================ */
 .testimonial-track {
   display: flex;
-  gap: 30px;
+  gap: 25px;
   width: max-content;
-  animation: scroll 40s linear infinite;
+  animation: scroll 30s linear infinite;
 }
 
-/* Pause on hover */
 .testimonial-wrapper:hover .testimonial-track {
   animation-play-state: paused;
 }
 
 /* ===============================
-   CARD BASE STYLE
+   CARD STYLE (LIGHT GLASS)
 ================================ */
 .testimonial-card {
-  min-width: 320px;
-  max-width: 320px;
-  background: #e0cbcb48;
-  border-radius: 16px;
+  position: relative;
+  min-width: 300px;
+  max-width: 300px;
   padding: 25px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
+/* Hover effect */
 .testimonial-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px) scale(1.04);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
 /* ===============================
-   PROFILE SECTION
+   SOFT GLOW BORDER (WARM)
+================================ */
+.card-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 1.5px;
+  background: linear-gradient(45deg, #f59e0b, #fbbf24, #fde68a);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* ===============================
+   PROFILE
 ================================ */
 .profile {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 18px;
+  gap: 12px;
+  margin-bottom: 10px;
 }
 
 .profile img {
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  object-fit: cover;
 }
 
 .profile h6 {
@@ -90,27 +107,25 @@
 }
 
 .profile span {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #6b7280;
+}
+
+/* ===============================
+   STARS
+================================ */
+.stars {
+  color: #fbbf24;
+  margin-bottom: 10px;
 }
 
 /* ===============================
    TEXT
 ================================ */
 .testimonial-card p {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: #374151;
   line-height: 1.6;
-}
-
-
-/* ===============================
-   RESPONSIVE
-================================ */
-@media (max-width: 768px) {
-  .testimonial-card {
-    min-width: 260px;
-  }
 }
 
 /* ===============================
@@ -122,5 +137,14 @@
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .testimonial-card {
+    min-width: 260px;
   }
 }

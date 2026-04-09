@@ -1,7 +1,21 @@
-import React from "react";
+import React,{useContext} from "react";
 import "./SubscriptionSection.css";
+import { GlobelValue } from "../context/GlobelVariable";
+import {toast} from 'react-toastify';
+import {useNavigate} from 'react-router-dom';
+
 
 const SubscriptionSection = () => {
+  const {JWT_Token} = useContext(GlobelValue);
+  const navigate = useNavigate();
+
+  const HandelClick = ()=>{
+    console.log(JWT_Token);
+    if(!JWT_Token){
+    toast.warning("Please login to subscribe");
+    navigate('/');
+    }
+  }
  const bikes = [
      {
     name: "Bullet 350",
@@ -80,8 +94,9 @@ const SubscriptionSection = () => {
           Starts at <span>₹ {bike.price}</span>/month
         </p>
 
-        <button className="btn subscribe-btn w-100">
-          Book Now
+        <button className="btn subscribe-btn w-100"
+        onClick={HandelClick}>
+          Subscribe Now
         </button>
 
       </div>

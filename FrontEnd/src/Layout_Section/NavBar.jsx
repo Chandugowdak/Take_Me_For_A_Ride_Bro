@@ -30,7 +30,7 @@ const NavBar = () => {
           <div className="nav-center d-none d-lg-flex">
 
             <div className="nav-item">
-              <Link to="/Sub" className="nav-link">
+              <Link to="/user/subscription" className="nav-link">
                 Subscription
               </Link>
             </div>
@@ -100,7 +100,7 @@ const NavBar = () => {
           {/* MOBILE LINKS */}
           <div className="mobile-item">
             <Link
-              to="/Sub"
+              to="/user/subscription"
               className="nav-link"
               onClick={() => setOpen(false)}
             >

@@ -39,6 +39,9 @@ const User_Nav = () => {
             <Link to="/user/support" className="nav-link">
               Support
             </Link>
+             <Link to="/user/subscription" className="nav-link">
+              SubScription
+            </Link>
             <Link to="/user/history" className="nav-link">
               History
             </Link>
@@ -95,6 +98,10 @@ const User_Nav = () => {
           >
             Support
           </Link>
+           <Link to="/user/subscription" className="mobile-item nav-link"
+           onClick={() => setOpen(false)}>
+              SubScription
+            </Link>
 
           <Link
             to="/user/history"
