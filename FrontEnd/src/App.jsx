@@ -1,6 +1,9 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
+// Auto Scroll To Top
+import ScrollToTop from "./AutoScrollFuncanality/ScrollToTop";
+
 // Toast Container
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -57,6 +60,8 @@ const Contect = lazy(() => import("./Footer_Section/Contect"));
 const App = () => {
   return (
     <GlobelContext>
+      <ScrollToTop />
+
       <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
 
         {/* ✅ CORRECT PLACE */}

@@ -1,8 +1,17 @@
-import React from 'react';
-import './Franchise.css';
-import {Link} from 'react-router-dom'
+import React, { useContext } from "react";
+import "./Franchise.css";
+import { Link } from "react-router-dom";
+import { GlobelValue } from "../context/GlobelVariable";
+import { toast } from "react-toastify";
 
 const Franchise = () => {
+  const { JWT_Token } = useContext(GlobelValue);
+
+  const handleGetStarted = () => {
+    if (!JWT_Token) {
+      toast.warning("Please login to get started!");
+    }
+  };
   return (
     <div className="franchise-section container-fluid py-5">
       {/* HERO */}
@@ -14,7 +23,9 @@ const Franchise = () => {
               Build a profitable rental business by owning a franchise with a
               trusted mobility brand.
             </p>
-            <Link to="/" className="btn btn-warning btn-lg mt-3">
+            <Link to="/" className="btn btn-warning btn-lg mt-3"
+              onClick={handleGetStarted}
+            >
               Apply for Franchise
             </Link>
           </div>
@@ -30,7 +41,9 @@ const Franchise = () => {
 
       {/* WHY FRANCHISE */}
       <div className="container mb-5">
-        <h2 className="section-title text-center mb-4">Why Choose Our Franchise?</h2>
+        <h2 className="section-title text-center mb-4">
+          Why Choose Our Franchise?
+        </h2>
         <div className="row g-4">
           <div className="col-md-6 col-lg-3">
             <div className="feature-card">
@@ -92,7 +105,13 @@ const Franchise = () => {
         <div className="cta-box">
           <h3>Ready to Start Your Franchise Journey?</h3>
           <p>Join us and grow your business with confidence.</p>
-          <Link to="/" className="btn btn-light btn-lg">Get Started</Link>
+          <Link
+            to="/"
+            className="btn btn-light btn-lg"
+            onClick={handleGetStarted}
+          >
+            Get Started
+          </Link>
         </div>
       </div>
     </div>
@@ -100,6 +119,3 @@ const Franchise = () => {
 };
 
 export default Franchise;
-
-
-

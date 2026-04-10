@@ -1,8 +1,17 @@
-import React from 'react';
-import './EarnWithUs.css';
-import {Link} from 'react-router-dom';
+import React, { useContext } from "react";
+import "./EarnWithUs.css";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { GlobelValue } from "../context/GlobelVariable";
 
 const EarnWithUs = () => {
+  const { JWT_Token } = useContext(GlobelValue);
+
+  const handleGetStarted = () => {
+    if (!JWT_Token) {
+      toast.warning("Please login to get started!");
+    }
+  };
   return (
     <div className="earn-with-us container-fluid py-5">
       {/* Hero Section */}
@@ -71,7 +80,11 @@ const EarnWithUs = () => {
                 We manage bookings, customers, and support while you enjoy a
                 passive income.
               </p>
-              <Link to="/" className="btn btn-warning btn-lg mt-3">
+              <Link
+                to="/"
+                className="btn btn-warning btn-lg mt-3"
+                onClick={handleGetStarted}
+              >
                 Get Started
               </Link>
             </div>
@@ -83,6 +96,3 @@ const EarnWithUs = () => {
 };
 
 export default EarnWithUs;
-
-
-

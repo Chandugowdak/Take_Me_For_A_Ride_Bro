@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Support.css";
+import ReactDOM from "react-dom"; // ✅ ADD THIS
 
 const supportData = [
   {
@@ -103,21 +104,23 @@ const Support = () => {
       </div>
 
       {/* MODAL */}
-      {activeCard && (
-        <div className="support-overlay">
-          <div className="support-modal" ref={modalRef}>
-            <span
-              className="close-btn"
-              onClick={() => setActiveCard(null)}
-            >
-              ✖
-            </span>
-            <div className="modal-icon">{activeCard.icon}</div>
-            <h4>{activeCard.title}</h4>
-            <p>{activeCard.details}</p>
-          </div>
-        </div>
-      )}
+      {activeCard &&
+  ReactDOM.createPortal(
+    <div className="support-overlay">
+      <div className="support-modal" ref={modalRef}>
+        <span
+          className="close-btn"
+          onClick={() => setActiveCard(null)}
+        >
+          ✖
+        </span>
+        <div className="modal-icon">{activeCard.icon}</div>
+        <h4>{activeCard.title}</h4>
+        <p>{activeCard.details}</p>
+      </div>
+    </div>,
+    document.body
+  )}
       </div>
     </div>
   );
