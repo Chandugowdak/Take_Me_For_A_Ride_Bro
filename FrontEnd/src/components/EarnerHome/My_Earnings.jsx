@@ -20,7 +20,7 @@ const My_Earnings = () => {
           },
         },
       );
-
+      console.log(res.data);
       setEarnings(res.data.earnings);
       setTotalTrips(res.data.totalTrips);
       setTotal_Earinig_Amount(res.data.totalEarnings);
@@ -75,7 +75,8 @@ const My_Earnings = () => {
                   </h5>
 
                   <p className="earning-user">
-                    Booked by <strong>{item.userId.name}</strong>
+                    Booked by{" "}
+                    <strong>{item.userId?.name || "Unknown User"}</strong>
                   </p>
 
                   <p className="earning-user">

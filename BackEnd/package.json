@@ -4,9 +4,10 @@
   "description": "",
   "main": "Main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon Main.cjs"
-  },
+  "test": "echo \"No tests yet\"",
+  "start": "nodemon Main.cjs",
+  "dev": "node Main.cjs"
+},
   "author": "Gowda_Bro",
   "license": "ISC",
   "dependencies": {
