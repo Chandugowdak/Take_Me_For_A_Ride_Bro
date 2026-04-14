@@ -272,3 +272,15 @@
     display: none;
   }
 }
+
+/* ✅ FIX: Prevent white text on click */
+.dropdown-item:active,
+.dropdown-item:focus {
+  background-color: #f0f6ff !important;
+  color: #000 !important;
+}
+
+/* Optional: keep consistent look */
+.dropdown-item {
+  color: #333 !important;
+}

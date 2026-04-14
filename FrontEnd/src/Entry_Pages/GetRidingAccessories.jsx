@@ -11,11 +11,11 @@ const GetRidingAccessories = () => {
     try {
       setLoading(true);
       const resp = await axios.get('http://localhost:3000/api/static/data');
-      setAccessories(resp.data.data.accessories); // ✅ correct mapping
+      setAccessories(resp.data.data.accessories);
       setLoading(false);
     } catch (err) {
       setLoading(false);
-      toast.error('Server Error');
+      toast.error('🚨 Server Error');
       console.log(err.message);
     }
   };
@@ -23,6 +23,16 @@ const GetRidingAccessories = () => {
   useEffect(() => {
     Handel_Static_Data();
   }, []);
+
+  // 🔥 AMAZON REDIRECT FUNCTION
+  const handleViewAccessory = (name) => {
+    toast.info(`Redirecting to Amazon for "${name}" 🛒`);
+
+    setTimeout(() => {
+      const query = encodeURIComponent(name);
+      window.open(`https://www.amazon.in/s?k=${query}`, "_blank");
+    }, 1200);
+  };
 
   return (
     <div className="accessories-wrapper container-fluid py-5">
@@ -42,6 +52,7 @@ const GetRidingAccessories = () => {
               className="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-4"
             >
               <div className="accessory-card">
+
                 {/* IMAGE */}
                 <div className="accessory-image">
                   <img src={item.Image} alt={item.Name} />
@@ -70,10 +81,14 @@ const GetRidingAccessories = () => {
                     <span className="price">₹{item.Price}</span>
                   </div>
 
-                  <button className="btn btn-dark w-100 mt-3">
-                    View Accessory
+                  <button
+                    onClick={() => handleViewAccessory(item.Name)}
+                    className="btn btn-dark w-100 mt-3 view-btn"
+                  >
+                    View on Amazon
                   </button>
                 </div>
+
               </div>
             </div>
           ))}

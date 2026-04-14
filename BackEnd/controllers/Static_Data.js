@@ -6,7 +6,7 @@ const Accessories_Data =
     {
       "id": 1,
       "Name": "Full Face Helmet",
-      "Image": "https://arihanthelmets.com/wp-content/uploads/2025/08/LS2_Pioneer_2_Crazy_Gloss_Black_Red_Helmet_2-Photoroom.jpg",
+      "Image": "https://www.customelements.in/wp-content/uploads/2021/10/dfff71e9bc87e6506c47c1d07df496a7.jpg",
       "Description": "High safety full face helmet with ventilation.\nProvides maximum head protection during rides.",
       "Type_Of_Vehical_We_Use": ["Bike", "Scooter"],
       "Price": 2500,

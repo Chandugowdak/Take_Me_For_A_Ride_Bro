@@ -59,8 +59,8 @@ const NavBar = () => {
                 <Link className="dropdown-item" to="/earn/with/us">
                   Earn With Us
                 </Link>
-                <Link className="dropdown-item" to="/franchise/own">
-                  Own a Franchise
+                <Link className="dropdown-item" to="/Investor/own">
+                  Be an Investor
                 </Link>
               </div>
             </div>
@@ -147,10 +147,10 @@ const NavBar = () => {
 
               <Link
                 className="dropdown-item"
-                to="/franchise/own"
+                to="/Investor/own"
                 onClick={() => setOpen(false)}
               >
-                Own a Franchise
+                Be an Investor
               </Link>
             </div>
           </div>

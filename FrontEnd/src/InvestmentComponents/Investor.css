@@ -1,0 +1,116 @@
+.investor-section {
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+}
+
+/* Title */
+.investor-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  animation: fadeDown 0.8s ease;
+}
+
+.investor-subtitle {
+  color: #555;
+  max-width: 500px;
+}
+
+/* Image */
+.investor-image {
+  max-width: 280px;
+  animation: float 3s infinite ease-in-out;
+}
+
+/* Button */
+.glow-btn {
+  box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);
+  transition: 0.3s;
+}
+
+.glow-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Cards */
+.benefit-card {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.benefit-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Steps */
+.step-card {
+  background: #1e293b;
+  color: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.step-card span {
+  background: #ffc107;
+  color: black;
+  padding: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* Form */
+.form-box {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  animation: fadeUp 0.8s ease;
+}
+
+.form-control {
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.submit-btn {
+  border-radius: 30px;
+  padding: 10px 30px;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .investor-title {
+    font-size: 2rem;
+  }
+
+  .form-box {
+    padding: 20px;
+  }
+}
+
