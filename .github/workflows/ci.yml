@@ -55,6 +55,6 @@ jobs:
         working-directory: ./BackEnd
         run: npm ci
 
-      - name: 🚀 Run Backend
+      - name: ✅ Verify Backend Code
         working-directory: ./BackEnd
-        run: npm run dev
+        run: node -c Main.js

@@ -4,10 +4,10 @@
   "description": "",
   "main": "Main.js",
   "scripts": {
-  "test": "echo \"No tests yet\"",
-  "start": "nodemon Main.cjs",
-  "dev": "node Main.cjs"
-},
+    "test": "echo \"No tests yet\"",
+    "start": "nodemon Main.js",
+    "dev": "node Main.js"
+  },
   "author": "Gowda_Bro",
   "license": "ISC",
   "dependencies": {
