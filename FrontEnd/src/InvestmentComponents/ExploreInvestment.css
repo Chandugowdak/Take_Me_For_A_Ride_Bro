@@ -1,102 +1,102 @@
-/* ================= CSS ================= */
-
 .explore-wrapper {
   background: linear-gradient(135deg, #fffaf0, #ffffff);
-  min-height: 100vh;
 }
 
-.hero {
-  animation: fadeDown 0.8s ease;
-}
-
-.title {
-  font-size: 2.8rem;
+/* HERO */
+.main-title {
+  font-size: 3rem;
   font-weight: 800;
-  color: #ff7a18;
+  background: linear-gradient(90deg, #ff9800, #ff5722);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.subtitle {
-  color: #666;
+.main-subtitle {
+  color: #555;
+  max-width: 700px;
+  margin: auto;
 }
 
-.hero-img {
-  width: 260px;
-  animation: float 4s ease-in-out infinite;
-}
-
-.card-custom {
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 18px;
+/* ABOUT */
+.about-box {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.about-img {
+  max-width: 280px;
+  animation: float 3s infinite;
+}
+
+/* WHY INVEST */
+.why-invest {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.why-item {
+  background: white;
+  padding: 20px;
+  border-left: 5px solid #ff9800;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* STRATEGY */
+.strategy-card {
+  background: #fff3e0;
+  padding: 25px;
+  border-radius: 15px;
   transition: 0.3s;
 }
 
-.card-custom:hover {
+.strategy-card:hover {
   transform: translateY(-8px);
 }
 
-.card-hover {
-  background: #fff;
+/* APP */
+.app-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.app-item {
+  background: #ffffff;
   padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  transition: 0.3s;
+  border-radius: 12px;
+  border-left: 5px solid #ff5722;
 }
 
-.card-hover:hover {
-  transform: translateY(-10px) scale(1.05);
-}
-
-.model-box {
-  background: #fff3e0;
-  padding: 25px;
-  border-radius: 18px;
-  transition: 0.3s;
-}
-
-.model-box:hover {
-  transform: scale(1.03);
-}
-
-.section-title {
-  font-weight: 700;
-}
-
-.cta-box {
-  background: linear-gradient(135deg, #ffcc80, #ffb74d);
-  padding: 40px;
+/* CTA */
+.final-cta {
+  background: linear-gradient(135deg, #ffe0b2, #ffcc80);
+  padding: 50px;
   border-radius: 25px;
-  animation: fadeUp 1s ease;
 }
 
-.btn-invest {
-  margin-top: 15px;
-  padding: 10px 25px;
-  border: none;
-  background: #ff5722;
-  color: white;
-  border-radius: 25px;
-  transition: 0.3s;
+.final-btn {
+  border-radius: 30px;
+  padding: 12px 35px;
 }
 
-.btn-invest:hover {
+.final-btn:hover {
   transform: scale(1.1);
 }
 
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-30px);} 
-  to { opacity: 1; transform: translateY(0);} 
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px);} 
-  to { opacity: 1; transform: translateY(0);} 
-}
-
+/* ANIMATIONS */
 @keyframes float {
-  0% { transform: translateY(0);} 
-  50% { transform: translateY(-15px);} 
-  100% { transform: translateY(0);} 
+  0% { transform: translateY(0);}
+  50% { transform: translateY(-10px);}
+  100% { transform: translateY(0);}
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2rem;
+  }
 }

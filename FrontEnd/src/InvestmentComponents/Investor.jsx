@@ -1,19 +1,24 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import "./Investor.css";
 import { toast } from "react-toastify";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Investor = () => {
-
   const navigate = useNavigate();
+
   const handleExplore = () => {
-    navigate('/explore/investment');
-  }
+    navigate("/explore/investment");
+    toast.info("🚀 Navigated to Explore Investment Page!");
+  };
+
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    investment: "",
+    investment_Range: "",   // ✅ UPDATED
     message: "",
   });
 
@@ -21,30 +26,74 @@ const Investor = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.investment) {
-      toast.error("Please fill all required fields!");
-      return;
+  // ✅ Validation
+  if (
+    !formData.name ||
+    !formData.email ||
+    !formData.phone ||
+    !formData.investment_Range
+  ) {
+    toast.error("⚠️ Please fill all required fields!");
+    return;
+  }
+
+  // ✅ Email validation
+  if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    toast.error("Invalid email format!");
+    return;
+  }
+
+  // ✅ Phone validation (India)
+  if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+    toast.error("Invalid phone number!");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const res = await axios.post(
+      "http://localhost:3000/api/create/investment", // ✅ correct backend port + route
+      formData
+    );
+
+    const data = res.data;
+
+    if (data.success) {
+     toast.success("🚀 Request submitted! Our team will contact you soon.");
+
+      // ✅ Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        investment_Range: "",
+        message: "",
+      });
+    } else {
+      toast.error(data.message || "Something went wrong!");
     }
 
-    // 🔥 You can connect backend API here
-    console.log(formData);
+  } catch (error) {
+    console.error(error);
 
-    toast.success("🚀 Investment request submitted successfully!");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      investment: "",
-      message: "",
-    });
-  };
+    // ✅ Better error handling
+    if (error.response) {
+      toast.error(error.response.data.message);
+    } else {
+      toast.error("🔥 Server not responding!");
+    }
+
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="investor-section container-fluid py-5">
-
       {/* HERO */}
       <div className="container mb-5">
         <div className="row align-items-center">
@@ -54,8 +103,9 @@ const Investor = () => {
               Partner with us and be part of a fast-growing mobility startup.
               Invest smart, earn big, and grow with innovation.
             </p>
-            <button className="btn btn-warning btn-lg mt-3 glow-btn"
-            onClick={handleExplore}
+            <button
+              className="btn btn-warning btn-lg mt-3 glow-btn"
+              onClick={handleExplore}
             >
               Explore Investment
             </button>
@@ -71,76 +121,6 @@ const Investor = () => {
         </div>
       </div>
 
-      {/* BENEFITS */}
-      <div className="container mb-5">
-        <h2 className="section-title text-center mb-4">
-          Why Invest With Us?
-        </h2>
-
-        <div className="row g-4">
-          <div className="col-md-6 col-lg-3">
-            <div className="benefit-card">
-              <h5>High Growth</h5>
-              <p>Rapidly expanding rental market with huge demand.</p>
-            </div>
-          </div>
-
-          <div className="col-md-6 col-lg-3">
-            <div className="benefit-card">
-              <h5>Scalable Model</h5>
-              <p>Business model designed for nationwide expansion.</p>
-            </div>
-          </div>
-
-          <div className="col-md-6 col-lg-3">
-            <div className="benefit-card">
-              <h5>Tech Driven</h5>
-              <p>Powered by modern technology & analytics.</p>
-            </div>
-          </div>
-
-          <div className="col-md-6 col-lg-3">
-            <div className="benefit-card">
-              <h5>Secure Returns</h5>
-              <p>Transparent investment with promising ROI.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* PROCESS */}
-      <div className="container mb-5">
-        <h2 className="section-title text-center mb-4">
-          Investment Process
-        </h2>
-
-        <div className="row g-4">
-          <div className="col-md-4">
-            <div className="step-card">
-              <span>1</span>
-              <h6>Submit Interest</h6>
-              <p>Fill the form and show your interest.</p>
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <div className="step-card">
-              <span>2</span>
-              <h6>Discussion</h6>
-              <p>Our team connects with investment details.</p>
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <div className="step-card">
-              <span>3</span>
-              <h6>Invest & Grow</h6>
-              <p>Start your journey as an investor.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* FORM */}
       <div className="container">
         <div className="form-box">
@@ -148,7 +128,6 @@ const Investor = () => {
 
           <form onSubmit={handleSubmit}>
             <div className="row g-3">
-
               <div className="col-md-6">
                 <input
                   type="text"
@@ -175,7 +154,7 @@ const Investor = () => {
                 <input
                   type="text"
                   name="phone"
-                  placeholder="Phone Number"
+                  placeholder="Phone Number *"
                   value={formData.phone}
                   onChange={handleChange}
                   className="form-control"
@@ -184,8 +163,8 @@ const Investor = () => {
 
               <div className="col-md-6">
                 <select
-                  name="investment"
-                  value={formData.investment}
+                  name="investment_Range"   // ✅ UPDATED
+                  value={formData.investment_Range}
                   onChange={handleChange}
                   className="form-control"
                 >
@@ -209,16 +188,18 @@ const Investor = () => {
               </div>
 
               <div className="col-12 text-center">
-                <button type="submit" className="btn btn-dark submit-btn">
-                  Submit Request 🚀
+                <button
+                  type="submit"
+                  className="btn btn-dark submit-btn"
+                  disabled={loading}
+                >
+                  {loading ? "Submitting..." : "Submit Request 🚀"}
                 </button>
               </div>
-
             </div>
           </form>
         </div>
       </div>
-
     </div>
   );
 };
