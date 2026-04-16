@@ -1,11 +1,11 @@
-import React, { lazy, Suspense, useEffect, useRef } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React, { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 
 // Auto Scroll To Top
 import ScrollToTop from "./AutoScrollFuncanality/ScrollToTop";
 
 // Toast Container
-import { toast, ToastContainer } from "react-toastify";
+import {  ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // CORE COMPONENTS (do not lazy load)
@@ -58,61 +58,7 @@ const HelpCenter = lazy(() => import("./Footer_Section/HelpCenter"));
 const Contect = lazy(() => import("./Footer_Section/Contect"));
 
 const App = () => {
-  const location = useLocation();
-  const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    const routeLabels = {
-      "/": "Login",
-      "/register": "Register",
-      "/earn/with/us": "Earn With Us",
-      "/investor/own": "Investor",
-      "/explore/investment": "Explore Investment",
-      "/offerssection": "Offers",
-      "/static/data": "Accessories",
-      "/user/subscription": "Subscription",
-      "/userhome": "User Dashboard",
-      "/earnerhome": "Earner Dashboard",
-      "/earner/data": "My Vehicles",
-      "/earner/requests": "Requests",
-      "/earner/earnings": "Earnings",
-      "/user/booking": "My Bookings",
-      "/user/offers": "Offers",
-      "/user/support": "Support",
-      "/user/history": "Booking History",
-      "/earner/history": "Earner History",
-      "/footer": "Footer",
-      "/how-it-works": "How It Works",
-      "/terms": "Terms",
-      "/privacy": "Privacy Policy",
-      "/about": "About",
-      "/help-center": "Help Center",
-      "/contact": "Contact",
-    };
-
-    const path = location.pathname.toLowerCase();
-    const label = routeLabels[path] || path.replace("/", "") || "Page";
-    const toastMethod = path.startsWith("/user") || path.startsWith("/earner") ? toast.success : toast.info;
-
-    toastMethod(`Navigated to ${label}`, {
-      position: "top-right",
-      autoClose: 2000,
-      pauseOnHover: true,
-      iconTheme: { primary: "#0f172a", secondary: "#ffffff" },
-      style: {
-        background: "#ffffff",
-        color: "#0f172a",
-        border: "0.5px solid rgba(15, 23, 42, 0.12)",
-        boxShadow: "0 10px 30px rgba(15, 23, 42, 0.08)",
-        borderRadius: "20px",
-      },
-    });
-  }, [location]);
+  
 
   return (
     <GlobelContext>

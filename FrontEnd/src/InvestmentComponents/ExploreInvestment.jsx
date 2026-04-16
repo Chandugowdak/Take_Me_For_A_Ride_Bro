@@ -9,7 +9,7 @@ const ExploreInvestment = () => {
 
   const handleExplore = () => {
     navigate("/Investor/own");
-    toast.info("🚀 Navigated to Investor Page!");
+    
   }
   return (
     <div className="explore-wrapper container-fluid py-5">

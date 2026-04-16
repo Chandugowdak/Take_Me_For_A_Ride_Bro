@@ -9,7 +9,6 @@ const Investor = () => {
 
   const handleExplore = () => {
     navigate("/explore/investment");
-    toast.info("🚀 Navigated to Explore Investment Page!");
   };
 
   const [loading, setLoading] = useState(false);
