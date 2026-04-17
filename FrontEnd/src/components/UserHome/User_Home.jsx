@@ -7,6 +7,7 @@ import AutoScrollCarousel from "../../Common_Component/AutoScrollCarousel";
 import Testimonials from "../../Common_Component/Testimonials";
 import HowRentingWorks from "./HowRentingWorks";
 import { toast } from "react-toastify";
+
 const User_Home = () => {
   const { JWT_Token } = useContext(GlobelValue);
 
@@ -21,11 +22,13 @@ const User_Home = () => {
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
   const [totalAmount, setTotalAmount] = useState(0);
 
-  /* ========================= */
-  /* FETCH VEHICLES */
-  /* ========================= */
+  // ✅ ONLY coupon field (simple)
+  const [couponCode, setCouponCode] = useState("");
+
+  /* ================= FETCH VEHICLES ================= */
   const fetchVehicals = async () => {
     try {
       const res = await axios.get("http://localhost:3000/api/vehicals/all");
@@ -37,9 +40,7 @@ const User_Home = () => {
     }
   };
 
-  /* ========================= */
-  /* FETCH USER REQUESTS */
-  /* ========================= */
+  /* ================= FETCH USER REQUESTS ================= */
   const fetchRequestedVehicles = async () => {
     try {
       if (!JWT_Token) return;
@@ -64,9 +65,6 @@ const User_Home = () => {
     }
   };
 
-  /* ========================= */
-  /* EFFECTS */
-  /* ========================= */
   useEffect(() => {
     fetchVehicals();
   }, []);
@@ -75,9 +73,7 @@ const User_Home = () => {
     fetchRequestedVehicles();
   }, [JWT_Token]);
 
-  /* ========================= */
-  /* DATE CALCULATION */
-  /* ========================= */
+  /* ================= DATE CALCULATION ================= */
   useEffect(() => {
     if (startDate && endDate && selectedVehicle) {
       const start = new Date(startDate);
@@ -86,50 +82,39 @@ const User_Home = () => {
       const days =
         Math.ceil((end - start) / (1000 * 60 * 60 * 24)) || 1;
 
-      setTotalAmount(days > 0 ? days * selectedVehicle.pricePerDay : 0);
+      const total = days > 0 ? days * selectedVehicle.pricePerDay : 0;
+
+      setTotalAmount(total);
     }
   }, [startDate, endDate, selectedVehicle]);
 
-  /* ========================= */
-  /* OPEN MODAL */
-  /* ========================= */
+  /* ================= OPEN MODAL ================= */
   const openBooking = (vehicle) => {
     setSelectedVehicle(vehicle);
     setShowModal(true);
     setStartDate("");
     setEndDate("");
     setTotalAmount(0);
+    setCouponCode(""); // reset
   };
 
-  /* ========================= */
-  /* SEND REQUEST */
-  /* ========================= */
+  /* ================= SEND REQUEST ================= */
   const handleSendRequest = async () => {
     try {
       if (!JWT_Token) {
-        alert("Please login first");
-        return;
-      }
-
-      const days =
-        Math.ceil(
-          (new Date(endDate) - new Date(startDate)) /
-            (1000 * 60 * 60 * 24)
-        ) || 1;
-
-      if (days <= 0) {
-        alert("Invalid date selection");
+        toast.error("Please login first");
         return;
       }
 
       setSendingId(selectedVehicle._id);
 
-      await axios.post(
+      const res = await axios.post(
         "http://localhost:3000/api/req/send",
         {
           rentalId: selectedVehicle._id,
           startDate,
           endDate,
+          couponCode // ✅ sent directly
         },
         {
           headers: {
@@ -138,7 +123,13 @@ const User_Home = () => {
         }
       );
 
-      toast.success("Request sent successfully ✅");
+ toast.success(
+  `Booked Successfully 🎉 ${
+    res?.data?.request?.discountAmount
+      ? `You saved ₹${res.data.request.discountAmount}`
+      : ""
+  }`
+);
 
       setShowModal(false);
       fetchRequestedVehicles();
@@ -150,9 +141,7 @@ const User_Home = () => {
     }
   };
 
-  /* ========================= */
-  /* SEARCH */
-  /* ========================= */
+  /* ================= SEARCH ================= */
   const filteredVehicals = vehicals.filter((item) => {
     const keyword = searchTerm.toLowerCase();
     return (
@@ -225,7 +214,7 @@ const User_Home = () => {
         </div>
       </section>
 
-      {/* MODAL */}
+      {/* ================= MODAL ================= */}
       {showModal && (
         <div
           className="modal fade show d-block"
@@ -239,7 +228,8 @@ const User_Home = () => {
             <div className="modal-content p-4">
 
               <h4>{selectedVehicle?.Vehical_Name}</h4>
-              <label className="form-label">Start Date</label>
+
+              <label>Start Date</label>
               <input
                 type="date"
                 min={today}
@@ -248,7 +238,7 @@ const User_Home = () => {
                 onChange={(e) => setStartDate(e.target.value)}
               />
 
-              <label className="form-label">End Date</label>
+              <label>End Date</label>
               <input
                 type="date"
                 min={startDate || today}
@@ -258,6 +248,15 @@ const User_Home = () => {
               />
 
               <h5>Total: ₹{totalAmount}</h5>
+
+              {/* ✅ SIMPLE COUPON INPUT */}
+              <input
+                type="text"
+                placeholder="Enter Coupon Code (Optional)"
+                className="form-control mt-2"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value)}
+              />
 
               <div className="d-flex justify-content-end gap-2 mt-3">
                 <button
@@ -272,8 +271,7 @@ const User_Home = () => {
                   disabled={
                     sendingId === selectedVehicle?._id ||
                     !startDate ||
-                    !endDate ||
-                    totalAmount === 0
+                    !endDate
                   }
                   onClick={handleSendRequest}
                 >

@@ -1,15 +1,16 @@
 const Request_Model = require('../model/Request');
 const Rent_Model = require('../model/Rentel');
+const Coupon = require('../model/OfferSchema');
 
 
 // ✅ SEND REQUEST
 const sendRequest = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { rentalId, startDate, endDate } = req.body;
+    const { rentalId, startDate, endDate, couponCode } = req.body;
 
     // ✅ VALIDATION
-    if (!rentalId || !startDate || !endDate) {
+    if (!rentalId || !startDate || !endDate ) {
       return res.status(400).json({
         message: "All fields are required"
       });
@@ -87,15 +88,40 @@ const sendRequest = async (req, res) => {
     // ✅ TOTAL AMOUNT
     const totalAmount = numberOfDays * rental.pricePerDay;
 
-    // ✅ CREATE REQUEST
-    const request = await Request_Model.create({
-      userId,
-      rentalId,
-      startDate: start,
-      endDate: end,
-      numberOfDays,
-      totalAmount
+      // ✅ APPLY COUPON
+
+let discountAmount = 0;
+
+if (couponCode) {
+  const coupon = await Coupon.findOne({ code: couponCode.toUpperCase() });
+
+  if (!coupon) {
+    return res.status(400).json({
+      message: "Invalid coupon code"
     });
+  }
+
+  if (new Date() > new Date(coupon.expiry)) {
+    return res.status(400).json({
+      message: "Coupon expired"
+    });
+  }
+
+  // ✅ Apply discount
+  discountAmount = (totalAmount * coupon.discountPercent) / 100;
+}
+
+    // ✅ CREATE REQUEST
+ const request = await Request_Model.create({
+  userId,
+  rentalId,
+  startDate: start,
+  endDate: end,
+  numberOfDays,
+  totalAmount: Math.max(0, totalAmount - discountAmount),
+  couponCode: couponCode || null,
+  discountAmount
+});
 
     res.status(201).json({
       message: "Request sent successfully",
@@ -154,16 +180,18 @@ const updateRequestStatus = async (req, res) => {
     }
 
     // ✅ ACCEPT → calculate amount
-    if (status === "accepted") {
-      const start = new Date(request.startDate);
-      const end = new Date(request.endDate);
+if (status === "accepted") {
+  const start = new Date(request.startDate);
+  const end = new Date(request.endDate);
 
-      const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+  const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+  const pricePerDay = request.rentalId.pricePerDay;
 
-      const pricePerDay = request.rentalId.pricePerDay;
+  const baseAmount = days * pricePerDay;
 
-      request.totalAmount = days * pricePerDay;
-    }
+  // ✅ Apply stored discount
+  request.totalAmount = baseAmount - (request.discountAmount || 0);
+}
 
     request.status = status;
     await request.save();

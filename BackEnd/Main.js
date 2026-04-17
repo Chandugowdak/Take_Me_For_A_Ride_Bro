@@ -10,6 +10,7 @@ const Staticrouter = require('./router/StaticRoute');
 const requestrouter = require('./router/RequestRout');
 const SupportRouter = require('./router/SupportRout');
 const Investmentrouter = require('./router/InvestmentRout');
+const offerrouter = require('./router/OfferRoute');
 //MIDDLE WARES
 const app = express();
 app.use(cors());
@@ -32,6 +33,8 @@ app.use('/api', Staticrouter);
 app.use('/api' , SupportRouter);
 //INVESTMENT ROUTE
 app.use('/api', Investmentrouter);
+//OFFER ROUTE
+app.use('/api', offerrouter);
 
 DB()
 .then(()=>{

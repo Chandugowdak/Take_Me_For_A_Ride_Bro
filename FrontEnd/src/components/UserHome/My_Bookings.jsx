@@ -106,7 +106,7 @@ const My_Bookings = () => {
 
                   {/* PRICE */}
                   <p className="duration mb-2">
-                    💰 Price / Day: ₹{req.rentalId?.pricePerDay || "--"}
+                    💰 Price / Day: ₹{req.totalAmount || "--"}
                   </p>
 
                   {/* ✅ VIEW OWNER BUTTON */}
