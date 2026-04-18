@@ -28,4 +28,18 @@ const createCoupon = async (req, res) => {
   }
 };
 
-module.exports = { createCoupon };
+const getAllCoupon  = async(req,res)=>{
+  try{
+    const CouponData = await Coupon.find();
+    if(CouponData.length == 0){
+      return res.status().json({message:"No Coupon Present Yet"})
+    }else{
+      return res.status(200).json({message:"Coupon Data" , CouponData});
+    }
+  }
+  catch(err){
+    res.status(500).json({error:err.message});
+  }
+}
+
+module.exports = { createCoupon ,getAllCoupon};

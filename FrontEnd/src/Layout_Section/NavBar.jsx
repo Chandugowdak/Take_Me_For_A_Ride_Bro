@@ -36,7 +36,7 @@ const NavBar = () => {
             </div>
 
             <div className="nav-item">
-              <Link to="/OffersSection" className="nav-link">
+              <Link to="/user/offers" className="nav-link">
                 Offers
               </Link>
             </div>
@@ -110,7 +110,7 @@ const NavBar = () => {
 
           <div className="mobile-item">
             <Link
-              to="/OffersSection"
+              to="/user/offers"
               className="nav-link"
               onClick={() => setOpen(false)}
             >

@@ -23,7 +23,7 @@ const My_Bookings = () => {
       );
 
       setRequests([...res.data.pending, ...res.data.accepted]);
-
+     console.log(res.data);
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -106,7 +106,7 @@ const My_Bookings = () => {
 
                   {/* PRICE */}
                   <p className="duration mb-2">
-                    💰 Price / Day: ₹{req.totalAmount || "--"}
+                    💰 Price / Day: ₹{req.discountedAmount || "--"}
                   </p>
 
                   {/* ✅ VIEW OWNER BUTTON */}

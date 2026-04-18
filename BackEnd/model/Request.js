@@ -52,6 +52,10 @@ const Request_Schema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    discountedAmount:{
+      type:Number,
+      default:0,
+    }
   },
   { timestamps: true },
 );

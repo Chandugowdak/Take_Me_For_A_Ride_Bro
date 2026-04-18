@@ -1,8 +1,9 @@
 const express = require('express');
 const offerrouter = express.Router();
-const {createCoupon} = require('../controllers/offerController');
+const {createCoupon,getAllCoupon} = require('../controllers/offerController');
 const Verify_User = require('../Middleware/Auth');
 
-offerrouter.post('/create/coupon',  createCoupon);
+offerrouter.post('/create/coupon', Verify_User, createCoupon);
+offerrouter.get('/get/coupon' , getAllCoupon);
 
 module.exports = offerrouter;

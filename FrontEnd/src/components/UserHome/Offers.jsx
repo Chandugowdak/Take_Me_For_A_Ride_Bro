@@ -1,129 +1,95 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./Offers.css";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Offers = () => {
+  const [coupons, setCoupons] = useState([]);
+  const JWT_TOCKEN = localStorage.getItem("JWT_Token");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    loadCoupons();
+  }, []);
+
+  const loadCoupons = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/get/coupon");
+      setCoupons(res.data.CouponData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleCopy = (code) => {
+    if(!JWT_TOCKEN){
+      toast.warning("Please Login to Copy the Code")
+     navigate('/');
+    }else{
+    navigator.clipboard.writeText(code);
+    toast.success("Coupon copied!");
+    }
+  };
+
   return (
-    <div className="offers-wrapper container-fluid py-5">
+    <section className="promo-wrapper py-5">
+      <div className="container">
 
-      <div className="text-center mb-5">
-        <h1 className="offers-heading">Rental Deals & Rewards</h1>
-        <p className="offers-subheading">
-          Premium offers on Bike & Car rentals
-        </p>
-      </div>
-
-      <div className="row g-4 px-4 justify-content-center">
-
-        {/* 1 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box blue">
-            <h3>₹300 OFF</h3>
-            <p>First bike or car booking</p>
-            <span className="code">FIRST300</span>
-          </div>
+        {/* Heading */}
+        <div className="text-center mb-5">
+          <h2 className="promo-title">Exclusive Deals</h2>
+          <p className="promo-subtitle">
+            Unlock savings on every ride 🚀
+          </p>
         </div>
 
-        {/* 2 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box green">
-            <h3>Weekend Deal</h3>
-            <p>Rent 2 days, pay for 1</p>
-            <span className="code">WEEKEND</span>
-          </div>
-        </div>
+        {/* Cards */}
+        <div className="row g-4">
+          {coupons.map((item) => {
+            const expired = new Date(item.expiry) < new Date();
 
-        {/* 3 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box purple">
-            <h3>20% OFF</h3>
-            <p>Bike rentals above 7 days</p>
-            <span className="code">BIKE20</span>
-          </div>
-        </div>
+            return (
+              <div
+                key={item._id}
+                className="col-xl-4 col-lg-4 col-md-6 col-sm-12"
+              >
+                <div className="promo-card">
 
-        {/* 4 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box orange">
-            <h3>₹500 Cashback</h3>
-            <p>UPI payments on car booking</p>
-            <span className="code">CAR500</span>
-          </div>
-        </div>
+                  {/* Status Badge */}
+                  <span className={`promo-status ${expired ? "promo-expired" : "promo-active"}`}>
+                    {expired ? "Expired" : "Active"}
+                  </span>
 
-        {/* 5 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box dark">
-            <h3>Earner Bonus</h3>
-            <p>₹1000 after 15 completed rentals</p>
-            <span className="code">EARN1000</span>
-          </div>
-        </div>
+                  {/* Discount */}
+                  <h5 className="promo-discount">
+                    {item.discountPercent}% OFF
+                  </h5>
 
-        {/* 6 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box red">
-            <h3>Festival Offer</h3>
-            <p>₹700 OFF on car rentals</p>
-            <span className="code">FEST700</span>
-          </div>
-        </div>
+                  {/* Expiry */}
+                  <p className="promo-validity">
+                    Valid till {new Date(item.expiry).toLocaleDateString()}
+                  </p>
 
-        {/* 7 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box blue">
-            <h3>Night Ride</h3>
-            <p>Flat 15% OFF after 9 PM</p>
-            <span className="code">NIGHT15</span>
-          </div>
-        </div>
+                  {/* Code Box */}
+                  <div className="promo-code-area">
+                    <span>{item.code}</span>
+                    <button
+                      onClick={() => handleCopy(item.code)}
+                      disabled={expired}
+                    >
+                      Copy
+                    </button>
+                  </div>
 
-        {/* 8 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box green">
-            <h3>Monthly Saver</h3>
-            <p>30% OFF on 30-day rentals</p>
-            <span className="code">MONTH30</span>
-          </div>
-        </div>
-
-        {/* 9 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box purple">
-            <h3>Student Offer</h3>
-            <p>₹200 OFF with valid ID</p>
-            <span className="code">STUDENT</span>
-          </div>
-        </div>
-
-        {/* 10 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box orange">
-            <h3>Referral Reward</h3>
-            <p>₹250 per successful referral</p>
-            <span className="code">REFER250</span>
-          </div>
-        </div>
-
-        {/* 11 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box dark">
-            <h3>Loyalty Bonus</h3>
-            <p>10th ride completely FREE</p>
-            <span className="code">LOYAL10</span>
-          </div>
-        </div>
-
-        {/* 12 */}
-        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-          <div className="offer-box red">
-            <h3>Corporate Deal</h3>
-            <p>Special pricing for offices</p>
-            <span className="code">CORP</span>
-          </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
       </div>
-    </div>
+    </section>
   );
 };
 

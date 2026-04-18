@@ -122,7 +122,7 @@ const User_Home = () => {
           },
         }
       );
-
+    
  toast.success(
   `Booked Successfully 🎉 ${
     res?.data?.request?.discountAmount

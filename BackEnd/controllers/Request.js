@@ -88,9 +88,13 @@ const sendRequest = async (req, res) => {
     // ✅ TOTAL AMOUNT
     const totalAmount = numberOfDays * rental.pricePerDay;
 
+    
+   
+
       // ✅ APPLY COUPON
 
 let discountAmount = 0;
+let DiscountedAmount = 0 ;
 
 if (couponCode) {
   const coupon = await Coupon.findOne({ code: couponCode.toUpperCase() });
@@ -118,9 +122,10 @@ if (couponCode) {
   startDate: start,
   endDate: end,
   numberOfDays,
-  totalAmount: Math.max(0, totalAmount - discountAmount),
+  totalAmount,
   couponCode: couponCode || null,
-  discountAmount
+  discountAmount,
+  discountedAmount : Math.max(0, totalAmount - discountAmount),
 });
 
     res.status(201).json({

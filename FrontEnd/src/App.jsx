@@ -40,7 +40,7 @@ const Investor = lazy(() => import("./InvestmentComponents/Investor"));
 const ExploreInvestment = lazy(
   () => import("./InvestmentComponents/ExploreInvestment"),
 );
-const OffersSection = lazy(() => import("./Entry_Pages/OffersSection"));
+
 const SubscriptionSection = lazy(
   () => import("./Entry_Pages/SubscriptionSection"),
 );
@@ -80,7 +80,7 @@ const App = () => {
                 path="/Explore/Investment"
                 element={<ExploreInvestment />}
               />
-              <Route path="/OffersSection" element={<OffersSection />} />
+             
 
               <Route path="/static/data" element={<GetRidingAccessories />} />
             </Route>
@@ -88,6 +88,7 @@ const App = () => {
               path="/user/subscription"
               element={<SubscriptionSection />}
             />
+             <Route path="/user/offers" element={<Offers />} />
             {/* PROTECTED ROUTES */}
             <Route element={<ProtectedRoute />}>
               <Route path="/Userhome" element={<User_Home />} />
@@ -96,7 +97,7 @@ const App = () => {
               <Route path="/earner/requests" element={<My_Requests />} />
               <Route path="/earner/earnings" element={<My_Earnings />} />
               <Route path="/user/booking" element={<My_Bookings />} />
-              <Route path="/user/offers" element={<Offers />} />
+              
               <Route path="/user/support" element={<Support />} />
               <Route path="/user/history" element={<User_History />} />
               <Route path="/earner/history" element={<Earner_History />} />
