@@ -160,3 +160,69 @@
     font-size: 1.6rem;
   }
 }
+/* 🔥 SUBSCRIPTION MODAL (NO CONFLICT) */
+
+.subscription-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: subscriptionFadeIn 0.3s ease;
+}
+
+.subscription-modal-box {
+  background: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  animation: subscriptionScaleUp 0.3s ease;
+}
+
+.subscription-modal-title {
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #ffb300;
+}
+
+.subscription-modal-text {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.subscription-modal-btn {
+  background: #ffb300;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+}
+
+.subscription-modal-btn:hover {
+  background: #e6a200;
+}
+
+/* Animations */
+@keyframes subscriptionScaleUp {
+  from {
+    transform: scale(0.7);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes subscriptionFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -14,7 +14,14 @@ const couponSchema = new mongoose.Schema({
   expiry: {
     type: Date,
     required: true
-  }
+  } ,
+  // ✅ NEW FIELD
+  usedBy: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ]
 });
 
 module.exports = mongoose.model("Coupon", couponSchema);

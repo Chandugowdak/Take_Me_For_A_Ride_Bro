@@ -3,43 +3,58 @@ const Coupon = require("../model/OfferSchema");
 // ✅ CREATE COUPON
 const createCoupon = async (req, res) => {
   try {
-    const { code, discountPercent, expiry } = req.body;
+    let { code, discountPercent, expiry } = req.body;
 
-    // validation
+    // ✅ VALIDATION
     if (!code || !discountPercent || !expiry) {
       return res.status(400).json({
-        message: "All fields are required"
+        message: "All fields are required",
+      });
+    }
+
+    // ✅ NORMALIZE CODE
+    code = code.toUpperCase();
+
+    // ❌ PREVENT DUPLICATE COUPON
+    const existing = await Coupon.findOne({ code });
+    if (existing) {
+      return res.status(400).json({
+        message: "Coupon already exists",
       });
     }
 
     const coupon = await Coupon.create({
       code,
       discountPercent,
-      expiry
+      expiry,
+
+      // ✅ IMPORTANT (for per-user usage tracking)
+      usedBy: [],
     });
 
     res.status(201).json({
       message: "Coupon created successfully",
-      coupon
+      coupon,
     });
-
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+// ✅ GET ALL COUPONS (without usedBy details)
+const getAllCoupon = async (req, res) => {
+  try {
+    const CouponData = await Coupon.find().select("-usedBy");
 
-const getAllCoupon  = async(req,res)=>{
-  try{
-    const CouponData = await Coupon.find();
-    if(CouponData.length == 0){
-      return res.status().json({message:"No Coupon Present Yet"})
-    }else{
-      return res.status(200).json({message:"Coupon Data" , CouponData});
-    }
+    return res.status(200).json({
+      message:
+        CouponData.length === 0
+          ? "No Coupon Present Yet"
+          : "Coupon Data",
+      count: CouponData.length,
+      CouponData,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-  catch(err){
-    res.status(500).json({error:err.message});
-  }
-}
-
-module.exports = { createCoupon ,getAllCoupon};
+};
+module.exports = { createCoupon, getAllCoupon };
