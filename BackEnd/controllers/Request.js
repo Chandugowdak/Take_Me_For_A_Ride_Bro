@@ -1,6 +1,7 @@
 const Request_Model = require("../model/Request");
 const Rent_Model = require("../model/Rentel");
 const Coupon = require("../model/OfferSchema");
+const mongoose = require('mongoose');
 
 // ✅ SEND REQUEST
 const sendRequest = async (req, res) => {
@@ -107,9 +108,9 @@ const sendRequest = async (req, res) => {
   }
 
   // 🔥 NEW: Check if user already used coupon
-  const alreadyUsed = coupon.usedBy.some(
-    (id) => id.toString() === userId
-  );
+ const alreadyUsed = (coupon.usedBy || []).some(
+  (id) => id.toString() === userId
+);
 
   if (alreadyUsed) {
     return res.status(400).json({
