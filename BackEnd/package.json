@@ -5,7 +5,7 @@
   "main": "Main.js",
   "scripts": {
     "test": "echo \"No tests yet\"",
-    "start": "nodemon Main.js",
+    "start": "nodemon Main.js --host 0.0.0.0",
     "dev": "node Main.js"
   },
   "author": "Gowda_Bro",

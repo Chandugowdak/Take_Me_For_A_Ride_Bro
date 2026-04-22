@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./BackEnd
+    container_name: cake-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://mongo:27017/cakeDB
+    depends_on:
+      - mongo
+    restart: always
+
+  frontend:
+    build: ./FrontEnd
+    container_name: cake-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    restart: always
+
+  mongo:
+    image: mongo:7
+    container_name: cake-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+volumes:
+  mongo-data:
