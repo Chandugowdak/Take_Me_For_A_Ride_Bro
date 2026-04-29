@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import ScrollToTop from "./AutoScrollFuncanality/ScrollToTop";
 
 // Toast Container
-import {  ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // CORE COMPONENTS (do not lazy load)
@@ -48,6 +48,9 @@ const GetRidingAccessories = lazy(
   () => import("./Entry_Pages/GetRidingAccessories"),
 );
 
+//CHAT BOT
+const HandelChatBot = lazy(() => import("./ChatBote/HandelChatBot"));
+
 // Footer Pages
 const Footer = lazy(() => import("./Footer_Section/Footer"));
 const Terms = lazy(() => import("./Footer_Section/Trems"));
@@ -58,8 +61,6 @@ const HelpCenter = lazy(() => import("./Footer_Section/HelpCenter"));
 const Contect = lazy(() => import("./Footer_Section/Contect"));
 
 const App = () => {
-  
-
   return (
     <GlobelContext>
       <ScrollToTop />
@@ -67,7 +68,7 @@ const App = () => {
       <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
         {/* ✅ CORRECT PLACE */}
         <ToastContainer position="top-right" autoClose={2000} theme="light" />
-
+        <HandelChatBot />
         <Routes>
           <Route element={<Layout />}>
             {/* PUBLIC ROUTES */}
@@ -80,7 +81,6 @@ const App = () => {
                 path="/Explore/Investment"
                 element={<ExploreInvestment />}
               />
-             
 
               <Route path="/static/data" element={<GetRidingAccessories />} />
             </Route>
@@ -88,7 +88,7 @@ const App = () => {
               path="/user/subscription"
               element={<SubscriptionSection />}
             />
-             <Route path="/user/offers" element={<Offers />} />
+            <Route path="/user/offers" element={<Offers />} />
             {/* PROTECTED ROUTES */}
             <Route element={<ProtectedRoute />}>
               <Route path="/Userhome" element={<User_Home />} />
@@ -97,7 +97,7 @@ const App = () => {
               <Route path="/earner/requests" element={<My_Requests />} />
               <Route path="/earner/earnings" element={<My_Earnings />} />
               <Route path="/user/booking" element={<My_Bookings />} />
-              
+
               <Route path="/user/support" element={<Support />} />
               <Route path="/user/history" element={<User_History />} />
               <Route path="/earner/history" element={<Earner_History />} />
