@@ -60,8 +60,8 @@ const ChatBot = () => {
           
           {/* Header */}
           <div className="chat-header">
-            <span>Support</span>
-            <button onClick={() => setIsOpen(false)}>✖</button>
+            <span>Chat-Bot</span>
+
           </div>
 
           {/* Messages */}

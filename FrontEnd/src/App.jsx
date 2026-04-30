@@ -59,6 +59,7 @@ const HowWorks = lazy(() => import("./Footer_Section/HowWorks"));
 const About = lazy(() => import("./Footer_Section/About"));
 const HelpCenter = lazy(() => import("./Footer_Section/HelpCenter"));
 const Contect = lazy(() => import("./Footer_Section/Contect"));
+const PaymentPage = lazy(() => import("./payment/PaymentPage"));
 
 const App = () => {
   return (
@@ -102,6 +103,7 @@ const App = () => {
               <Route path="/user/history" element={<User_History />} />
               <Route path="/earner/history" element={<Earner_History />} />
               <Route path="/footer" element={<Footer />} />
+              <Route path="/payment" element={<PaymentPage />} />
               {/* <Route path="/user/subscription" element={<SubscriptionSection />} /> */}
             </Route>
 

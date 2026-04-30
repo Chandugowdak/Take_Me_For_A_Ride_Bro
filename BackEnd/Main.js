@@ -12,6 +12,7 @@ const SupportRouter = require('./router/SupportRout');
 const Investmentrouter = require('./router/InvestmentRout');
 const offerrouter = require('./router/OfferRoute');
 const chartrouter = require('./router/chatRoutes');
+const paymentRoutes = require('./router/paymentRoutes');
 //MIDDLE WARES
 const app = express();
 app.use(cors());
@@ -38,7 +39,8 @@ app.use('/api', Investmentrouter);
 app.use('/api', offerrouter);
 //CHAT ROUTE
 app.use('/api', chartrouter);
-
+//PAYMENT ROUTE
+app.use('/api', paymentRoutes);
 
 DB()
 .then(()=>{

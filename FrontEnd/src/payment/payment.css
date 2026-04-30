@@ -1,0 +1,119 @@
+/* Root Container */
+.pay-container-root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+}
+
+/* Card */
+.pay-card-box {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  animation: payFade 0.4s ease;
+}
+
+/* Title */
+.pay-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Input */
+.pay-input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  transition: 0.3s;
+}
+
+.pay-input:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 5px rgba(26, 115, 232, 0.3);
+  outline: none;
+}
+
+/* Button */
+.pay-btn-main {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1a73e8, #4fc3f7);
+  color: white;
+  font-weight: 600;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.pay-btn-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4);
+}
+
+/* Loader */
+.pay-loader-box {
+  text-align: center;
+}
+
+.pay-spinner {
+  border: 4px solid #eee;
+  border-top: 4px solid #1a73e8;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: auto;
+  animation: spin 1s linear infinite;
+}
+
+/* Success / Error */
+.pay-success-icon {
+  font-size: 60px;
+  color: green;
+}
+
+.pay-error-icon {
+  font-size: 60px;
+  color: red;
+}
+
+.pay-success-text {
+  color: green;
+}
+
+.pay-error-text {
+  color: red;
+}
+
+/* Animation */
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes payFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .pay-card-box {
+    margin: 10px;
+  }
+}

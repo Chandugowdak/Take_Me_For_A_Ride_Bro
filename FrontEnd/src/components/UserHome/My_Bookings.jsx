@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./My_Bookings.css";
+import { useNavigate } from "react-router-dom";
 
 const My_Bookings = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // For Navigation
+  const navigate = useNavigate();
 
   // ✅ NEW STATE FOR MODAL
   const [showOwnerModal, setShowOwnerModal] = useState(false);
@@ -110,17 +114,46 @@ const My_Bookings = () => {
                   </p>
 
                   {/* ✅ VIEW OWNER BUTTON */}
-                  {req.status === "accepted" && (
-                    <button
-                      className="btn btn-outline-primary w-100 btn-sm mb-2"
-                      onClick={() => {
-                        setSelectedOwner(req.rentalId?.userId);
-                        setShowOwnerModal(true);
-                      }}
-                    >
-                      View Owner Details
-                    </button>
-                  )}
+                {req.status === "accepted" && (
+  <>
+    {/* View Owner */}
+    <button
+      className="btn btn-outline-primary w-100 btn-sm mb-2"
+      onClick={() => {
+        setSelectedOwner(req.rentalId?.userId);
+        setShowOwnerModal(true);
+      }}
+    >
+      View Owner Details
+    </button>
+
+    {/* 💸 PAY ONLINE */}
+    <button
+      className="btn btn-success w-100 btn-sm mb-2"
+      onClick={() => {
+        navigate("/payment", {
+          state: {
+            receiverPhone: req.rentalId?.userId?.phone,
+            amount: req.discountedAmount,
+            vehicleName: req.rentalId?.Vehical_Name,
+          },
+        });
+      }}
+    >
+      Pay Online 💸
+    </button>
+
+    {/* 💵 CASH ON DELIVERY */}
+    <button
+      className="btn btn-warning w-100 btn-sm"
+      onClick={() => {
+        alert("Cash on Delivery Selected 💵");
+      }}
+    >
+      Cash on Delivery 💵
+    </button>
+  </>
+)}
 
                   {/* ✅ CANCEL ONLY IF PENDING */}
                   {req.status === "pending" && (
