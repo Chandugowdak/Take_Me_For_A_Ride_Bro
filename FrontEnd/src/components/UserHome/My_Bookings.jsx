@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./My_Bookings.css";
-import { useNavigate } from "react-router-dom";
+import PaymentModal from "../../payment/PaymentModal";
 
 const My_Bookings = () => {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // For Navigation
-  const navigate = useNavigate();
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [paymentData, setPaymentData] = useState(null);
 
   // ✅ NEW STATE FOR MODAL
   const [showOwnerModal, setShowOwnerModal] = useState(false);
@@ -27,7 +27,7 @@ const My_Bookings = () => {
       );
 
       setRequests([...res.data.pending, ...res.data.accepted]);
-     console.log(res.data);
+      console.log(res.data);
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -69,9 +69,7 @@ const My_Bookings = () => {
         <h3 className="mb-4 fw-bold text-center">
           🚗 My Bookings (Pending & Accepted)
         </h3>
-        <p className="cod-warning text-center">
-          ⚠️ Only Cash on Delivery (COD) is accepted on this platform
-        </p>
+       
 
         {requests.length === 0 ? (
           <p className="text-center text-muted">No bookings found</p>
@@ -114,46 +112,44 @@ const My_Bookings = () => {
                   </p>
 
                   {/* ✅ VIEW OWNER BUTTON */}
-                {req.status === "accepted" && (
-  <>
-    {/* View Owner */}
-    <button
-      className="btn btn-outline-primary w-100 btn-sm mb-2"
-      onClick={() => {
-        setSelectedOwner(req.rentalId?.userId);
-        setShowOwnerModal(true);
-      }}
-    >
-      View Owner Details
-    </button>
+                  {req.status === "accepted" && (
+                    <>
+                      {/* View Owner */}
+                      <button
+                        className="btn btn-outline-primary w-100 btn-sm mb-2"
+                        onClick={() => {
+                          setSelectedOwner(req.rentalId?.userId);
+                          setShowOwnerModal(true);
+                        }}
+                      >
+                        View Owner Details
+                      </button>
 
-    {/* 💸 PAY ONLINE */}
-    <button
-      className="btn btn-success w-100 btn-sm mb-2"
-      onClick={() => {
-        navigate("/payment", {
-          state: {
-            receiverPhone: req.rentalId?.userId?.phone,
-            amount: req.discountedAmount,
-            vehicleName: req.rentalId?.Vehical_Name,
-          },
-        });
-      }}
-    >
-      Pay Online 💸
-    </button>
+                      {/* 💸 PAY ONLINE */}
+                      <button
+                        className="btn btn-success w-100 btn-sm mb-2"
+                        onClick={() => {
+                          setPaymentData({
+                            receiverPhone: req.rentalId?.userId?.phone,
+                            amount: req.discountedAmount,
+                          });
+                          setShowPaymentModal(true);
+                        }}
+                      >
+                        Pay Online 💸
+                      </button>
 
-    {/* 💵 CASH ON DELIVERY */}
-    <button
-      className="btn btn-warning w-100 btn-sm"
-      onClick={() => {
-        alert("Cash on Delivery Selected 💵");
-      }}
-    >
-      Cash on Delivery 💵
-    </button>
-  </>
-)}
+                      {/* 💵 CASH ON DELIVERY */}
+                      <button
+                        className="btn btn-warning w-100 btn-sm"
+                        onClick={() => {
+                          alert("Cash on Delivery Selected 💵");
+                        }}
+                      >
+                        Cash on Delivery 💵
+                      </button>
+                    </>
+                  )}
 
                   {/* ✅ CANCEL ONLY IF PENDING */}
                   {req.status === "pending" && (
@@ -174,37 +170,40 @@ const My_Bookings = () => {
       {/* ================= OWNER MODAL ================= */}
       {showOwnerModal && selectedOwner && (
         <>
-          {/* BACKDROP */}
           <div
             className="custom-backdrop"
             onClick={() => setShowOwnerModal(false)}
           ></div>
 
-          {/* MODAL */}
           <div className="custom-modal">
-            <div className="modal-box text-center">
-              <h4 className="mb-3">👤 Owner Details</h4>
+  <div className="modal-box text-center">
+    <h4 className="mb-3">👤 Owner Details</h4>
 
-              <i className="bi bi-person-circle fs-1 text-primary mb-3"></i>
+    <p className="mb-2">
+      <strong>Name:</strong> {selectedOwner?.name || "N/A"}
+    </p>
 
-              <p className="mb-2">
-                <strong>Name:</strong> {selectedOwner?.name || "N/A"}
-              </p>
+    <p className="mb-3">
+      <strong>Phone:</strong> {selectedOwner?.phone || "N/A"}
+    </p>
 
-              <p className="mb-3">
-                <strong>Phone:</strong> {selectedOwner?.phone || "N/A"}
-              </p>
-
-              <button
-                className="btn btn-secondary w-100"
-                onClick={() => setShowOwnerModal(false)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
+    <button
+      className="btn btn-secondary w-100"
+      onClick={() => setShowOwnerModal(false)}
+    >
+      Close
+    </button>
+  </div>
+</div>
         </>
       )}
+
+      {/* ✅ PAYMENT MODAL */}
+      <PaymentModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        defaultData={paymentData}
+      />
     </div>
   );
 };

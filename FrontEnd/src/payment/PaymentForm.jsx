@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function PaymentForm({ onPay }) {
+function PaymentForm({ onPay, defaultData }) {
   const [form, setForm] = useState({
     senderPhone: "",
     receiverPhone: "",
     amount: "",
   });
+
+  useEffect(() => {
+    if (defaultData) {
+      setForm({
+        senderPhone: "",
+        receiverPhone: defaultData.receiverPhone || "",
+        amount: defaultData.amount || "",
+      });
+    }
+  }, [defaultData]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,6 +39,7 @@ function PaymentForm({ onPay }) {
         className="pay-input"
         placeholder="Your Phone"
         name="senderPhone"
+        value={form.senderPhone}
         onChange={handleChange}
       />
 
@@ -36,6 +47,7 @@ function PaymentForm({ onPay }) {
         className="pay-input"
         placeholder="Receiver Phone"
         name="receiverPhone"
+        value={form.receiverPhone}
         onChange={handleChange}
       />
 
@@ -43,6 +55,7 @@ function PaymentForm({ onPay }) {
         className="pay-input"
         placeholder="Amount"
         name="amount"
+        value={form.amount}
         onChange={handleChange}
       />
 

@@ -61,9 +61,7 @@ const My_Requests = () => {
     <div className="my-requests container-fluid py-5">
       <div className="container">
         <h2 className="text-center fw-bold mb-5">Rental Requests</h2>
-<p className="cod-warning text-center">
-  ⚠️ Only Cash on Delivery (COD) is accepted on this platform
-</p>
+
         <div className="row g-4">
           {requests.length === 0 ? (
             <p className="text-center">No pending requests</p>
