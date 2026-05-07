@@ -108,7 +108,7 @@ const CurrentUserProfile = () => {
         closeAll();
       }
     } catch (err) {
-      console.error("Update failed:", err);
+      toast.error("Update failed:", err);
     } finally {
       setLoading(false);
     }
@@ -172,6 +172,7 @@ const CurrentUserProfile = () => {
               className="form-control mb-3"
               placeholder="Name"
               value={formData.name}
+              required
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
@@ -181,6 +182,7 @@ const CurrentUserProfile = () => {
               className="form-control mb-3"
               placeholder="Email"
               value={formData.email}
+              required
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
@@ -190,6 +192,7 @@ const CurrentUserProfile = () => {
               className="form-control mb-3"
               placeholder="Phone Number"
               value={formData.phone}
+              required
               onChange={(e) =>
                 setFormData({ ...formData, phone: e.target.value })
               }

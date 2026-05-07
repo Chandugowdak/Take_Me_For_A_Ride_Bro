@@ -7,7 +7,7 @@ const testimonialsData = [
     role: "User",
     type: "user",
     text: "The app is extremely smooth and reliable. Ordering products is simple and delivery tracking is perfect.",
-      image:"https://media.licdn.com/dms/image/v2/D5603AQF5Bgf_-EmBYQ/profile-displayphoto-scale_200_200/B56ZxlsYipKgAY-/0/1771232661503?e=1777507200&v=beta&t=NiKrJam5ZXEJH8itI0Zv6zCHDF0oh3ICbpWqLZaZDW0"
+      image:"https://media.licdn.com/dms/image/v2/D5603AQHa7HHAcjPqpA/profile-displayphoto-crop_800_800/B56Z3c0EBaGUAI-/0/1777526138563?e=1779926400&v=beta&t=V2bFOFs8N30v-4od5IvWKHVOXSjK9T9SYn69X3yZBOA"
   },
   {
     name: "Manoj Kumar",
