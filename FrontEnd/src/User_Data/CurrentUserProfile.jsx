@@ -17,7 +17,7 @@ const CurrentUserProfile = () => {
     name: "",
     email: "",
     phone: "",
-    password: ""
+    password: "",
   });
 
   const navigate = useNavigate();
@@ -33,10 +33,7 @@ const CurrentUserProfile = () => {
   /* ================= OUTSIDE CLICK ================= */
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target)
-      ) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         closeAll(); // 🔥 close everything
       }
     };
@@ -55,18 +52,15 @@ const CurrentUserProfile = () => {
         const token = localStorage.getItem("JWT_Token");
         if (!token) return;
 
-        const res = await axios.get(
-          "http://localhost:3000/api/current/user",
-          {
-            headers: { Authorization: `Bearer ${token}` }
-          }
-        );
+        const res = await axios.get("http://localhost:3000/api/current/user", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
         setUser(res.data.userData);
         setFormData({
           name: res.data.userData.name,
           email: res.data.userData.email,
-          phone: res.data.userData.phone
+          phone: res.data.userData.phone,
         });
       } catch (err) {
         console.error("User fetch error:", err);
@@ -92,6 +86,16 @@ const CurrentUserProfile = () => {
 
   /* ================= UPDATE ================= */
   const Handle_Update = async () => {
+    // 🔥 VALIDATION FIRST
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.phone.trim()
+    ) {
+      toast.error("All fields are required!");
+      return;
+    }
+
     try {
       setLoading(true);
       const token = localStorage.getItem("JWT_Token");
@@ -99,7 +103,7 @@ const CurrentUserProfile = () => {
       const res = await axios.patch(
         `http://localhost:3000/api/user/update/${user._id}`,
         formData,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
 
       if (res.status === 200) {
@@ -128,10 +132,7 @@ const CurrentUserProfile = () => {
       {showProfile && user && (
         <div className="cup-profile-card shadow">
           <div className="text-end">
-            <i
-              className="bi bi-x-lg cup-close-btn"
-              onClick={closeAll}
-            ></i>
+            <i className="bi bi-x-lg cup-close-btn" onClick={closeAll}></i>
           </div>
 
           <div className="text-center">
@@ -151,10 +152,7 @@ const CurrentUserProfile = () => {
                 Edit
               </button>
 
-              <button
-                className="btn btn-danger w-50"
-                onClick={Handel_Logout}
-              >
+              <button className="btn btn-danger w-50" onClick={Handel_Logout}>
                 Logout
               </button>
             </div>
@@ -203,15 +201,10 @@ const CurrentUserProfile = () => {
               value={user.Type_of_User}
               disabled
             />
-            <small className="text-muted">
-              User role cannot be changed
-            </small>
+            <small className="text-muted">User role cannot be changed</small>
 
             <div className="d-flex justify-content-end gap-2 mt-4">
-              <button
-                className="btn btn-secondary"
-                onClick={closeAll}
-              >
+              <button className="btn btn-secondary" onClick={closeAll}>
                 Cancel
               </button>
 

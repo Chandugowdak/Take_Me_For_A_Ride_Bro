@@ -104,9 +104,6 @@ const Update_Data = async (req, res) => {
   const { name, email, phone } = req.body;
 
   try {
-    if (!name || !email || !phone || phone.length !== 10) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
     const updateUser = await UserModel.findOneAndUpdate(
       { _id: id },
       { name, email, phone }, // ✅ include phone
@@ -121,7 +118,6 @@ const Update_Data = async (req, res) => {
       message: "User Profile Updated Successfully",
       user: updateUser,
     });
-    
   } catch (err) {
     return res
       .status(500)
