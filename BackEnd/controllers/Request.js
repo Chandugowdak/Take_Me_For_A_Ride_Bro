@@ -7,10 +7,10 @@ const mongoose = require('mongoose');
 const sendRequest = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { rentalId, startDate, endDate, couponCode } = req.body;
+    const { rentalId, startDate, endDate, couponCode ,TypeOfPayment} = req.body;
 
     // ✅ VALIDATION
-    if (!rentalId || !startDate || !endDate) {
+    if (!rentalId || !startDate || !endDate || !TypeOfPayment) {
       return res.status(400).json({
         message: "All fields are required",
       });
@@ -134,6 +134,7 @@ const sendRequest = async (req, res) => {
       couponCode: couponCode || null,
       discountAmount,
       discountedAmount: Math.max(0, totalAmount - discountAmount),
+      TypeOfPayment: TypeOfPayment || 'UPI'
     });
    if (coupon) {
   await Coupon.updateOne(

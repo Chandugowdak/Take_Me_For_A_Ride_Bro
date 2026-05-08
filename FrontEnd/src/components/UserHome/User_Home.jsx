@@ -22,6 +22,7 @@ const User_Home = () => {
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [TypeOfPayment, setTypeOfPayment] = useState("UPI");
 
   const [totalAmount, setTotalAmount] = useState(0);
 
@@ -45,14 +46,11 @@ const User_Home = () => {
     try {
       if (!JWT_Token) return;
 
-      const res = await axios.get(
-        "http://localhost:3000/api/req/user",
-        {
-          headers: {
-            Authorization: `Bearer ${JWT_Token}`,
-          },
-        }
-      );
+      const res = await axios.get("http://localhost:3000/api/req/user", {
+        headers: {
+          Authorization: `Bearer ${JWT_Token}`,
+        },
+      });
 
       const ids =
         res.data?.pendingRequests
@@ -79,8 +77,7 @@ const User_Home = () => {
       const start = new Date(startDate);
       const end = new Date(endDate);
 
-      const days =
-        Math.ceil((end - start) / (1000 * 60 * 60 * 24)) || 1;
+      const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) || 1;
 
       const total = days > 0 ? days * selectedVehicle.pricePerDay : 0;
 
@@ -114,26 +111,26 @@ const User_Home = () => {
           rentalId: selectedVehicle._id,
           startDate,
           endDate,
-          couponCode // ✅ sent directly
+          couponCode, // ✅ sent directly
+          TypeOfPayment, // ✅ sent directly
         },
         {
           headers: {
             Authorization: `Bearer ${JWT_Token}`,
           },
-        }
+        },
       );
-    
- toast.success(
-  `Booked Successfully 🎉 ${
-    res?.data?.request?.discountAmount
-      ? `You saved ₹${res.data.request.discountAmount}`
-      : ""
-  }`
-);
+
+      toast.success(
+        `Booked Successfully 🎉 ${
+          res?.data?.request?.discountAmount
+            ? `You saved ₹${res.data.request.discountAmount}`
+            : ""
+        }`,
+      );
 
       setShowModal(false);
       fetchRequestedVehicles();
-
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong 🚨");
     } finally {
@@ -154,7 +151,6 @@ const User_Home = () => {
 
   return (
     <div className="user-home-container">
-
       <AutoScrollCarousel />
 
       <section className="user-hero container">
@@ -172,9 +168,7 @@ const User_Home = () => {
       </section>
 
       <section className="popular-bikes container mt-5">
-        <h2 className="section-heading text-center">
-          Popular Vehicles
-        </h2>
+        <h2 className="section-heading text-center">Popular Vehicles</h2>
 
         <div className="row mt-4 gy-4 justify-content-center">
           {loading ? (
@@ -188,7 +182,6 @@ const User_Home = () => {
               return (
                 <div className="col-12 col-sm-6 col-md-4" key={item._id}>
                   <div className="bike-card shadow-sm">
-
                     <img
                       src={item.Image_URL}
                       alt={item.Vehical_Name}
@@ -205,7 +198,6 @@ const User_Home = () => {
                     >
                       {isRequested ? "Requested" : "Rent Now"}
                     </button>
-
                   </div>
                 </div>
               );
@@ -226,7 +218,6 @@ const User_Home = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-content p-4">
-
               <h4>{selectedVehicle?.Vehical_Name}</h4>
 
               <label>Start Date</label>
@@ -246,6 +237,20 @@ const User_Home = () => {
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
               />
+              <label>Type Of Payment</label>
+              <select
+                className="form-control mb-2"
+                value={TypeOfPayment}
+                onChange={(e) => setTypeOfPayment(e.target.value)}
+              >
+                <option value="">Select Payment Method</option>
+                <option value="UPI">UPI</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Debit Card">Debit Card</option>
+                <option value="Net Banking">Net Banking</option>
+                <option value="Cash On Delivery">Cash On Delivery</option>
+                <option value="Online Payment">Online Payment</option>
+              </select>
 
               <h5>Total: ₹{totalAmount}</h5>
 
@@ -271,7 +276,8 @@ const User_Home = () => {
                   disabled={
                     sendingId === selectedVehicle?._id ||
                     !startDate ||
-                    !endDate
+                    !endDate ||
+                    !TypeOfPayment
                   }
                   onClick={handleSendRequest}
                 >
@@ -280,7 +286,6 @@ const User_Home = () => {
                     : "Book Now"}
                 </button>
               </div>
-
             </div>
           </div>
         </div>
@@ -289,7 +294,6 @@ const User_Home = () => {
       <HowRentingWorks />
       <TopCities />
       <Testimonials />
-
     </div>
   );
 };

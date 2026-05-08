@@ -55,8 +55,17 @@ const Request_Schema = new mongoose.Schema(
     discountedAmount:{
       type:Number,
       default:0,
+    },
+    
+    TypeOfPayment:{
+      type:String,
+      enum:['Credit Card','Debit Card','UPI','Net Banking','Cash On Delivery','Online Payment'],
+      default:'UPI'
     }
+
+  
   },
+  
   { timestamps: true },
 );
 

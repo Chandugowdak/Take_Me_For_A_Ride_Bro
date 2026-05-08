@@ -25,7 +25,7 @@ const My_Bookings = () => {
           headers: { Authorization: `Bearer ${token}` },
         },
       );
-
+      console.log(res.data);
       setRequests([...res.data.pending, ...res.data.accepted]);
       console.log(res.data);
       setLoading(false);
@@ -112,44 +112,47 @@ const My_Bookings = () => {
                   </p>
 
                   {/* ✅ VIEW OWNER BUTTON */}
-                  {req.status === "accepted" && (
-                    <>
-                      {/* View Owner */}
-                      <button
-                        className="btn btn-outline-primary w-100 btn-sm mb-2"
-                        onClick={() => {
-                          setSelectedOwner(req.rentalId?.userId);
-                          setShowOwnerModal(true);
-                        }}
-                      >
-                        View Owner Details
-                      </button>
+               {req.status === "accepted" && (
+  <>
+    {/* ✅ COMMON CONTENT (always visible) */}
 
-                      {/* 💸 PAY ONLINE */}
-                      <button
-                        className="btn btn-success w-100 btn-sm mb-2"
-                        onClick={() => {
-                          setPaymentData({
-                            receiverPhone: req.rentalId?.userId?.phone,
-                            amount: req.discountedAmount,
-                          });
-                          setShowPaymentModal(true);
-                        }}
-                      >
-                        Pay Online 💸
-                      </button>
+    {/* View Owner */}
+    <button
+      className="btn btn-outline-primary w-100 btn-sm mb-2"
+      onClick={() => {
+        setSelectedOwner(req.rentalId?.userId);
+        setShowOwnerModal(true);
+      }}
+    >
+      View Owner Details
+    </button>
 
-                      {/* 💵 CASH ON DELIVERY */}
-                      <button
-                        className="btn btn-warning w-100 btn-sm"
-                        onClick={() => {
-                          alert("Cash on Delivery Selected 💵");
-                        }}
-                      >
-                        Cash on Delivery 💵
-                      </button>
-                    </>
-                  )}
+    {/* 💳 PAYMENT BASED ON TYPE */}
+    {req.TypeOfPayment === "Cash On Delivery" ? (
+      <button
+        className="btn btn-warning w-100 btn-sm"
+        onClick={() => {
+          alert("Cash on Delivery Selected 💵");
+        }}
+      >
+        Cash on Delivery 💵
+      </button>
+    ) : (
+      <button
+        className="btn btn-success w-100 btn-sm mb-2"
+        onClick={() => {
+          setPaymentData({
+            receiverPhone: req.rentalId?.userId?.phone,
+            amount: req.discountedAmount,
+          });
+          setShowPaymentModal(true);
+        }}
+      >
+        Pay Online 💸
+      </button>
+    )}
+  </>
+)}
 
                   {/* ✅ CANCEL ONLY IF PENDING */}
                   {req.status === "pending" && (
