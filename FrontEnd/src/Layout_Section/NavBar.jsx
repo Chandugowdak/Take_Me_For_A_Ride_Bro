@@ -22,7 +22,7 @@ const NavBar = () => {
               to="/"
               className="brand-name fw-bold ms-2 text-dark text-decoration-none"
             >
-              Take_Me_Forword
+             ➳ Take Me For A Ride ➳
             </Link>
           </div>
 

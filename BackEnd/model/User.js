@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
     Type_of_User:{
         required: true,
         type: String,
-        enum: ['User','Earner']
+        enum: ['User','Earner','admin']
     },
 
     

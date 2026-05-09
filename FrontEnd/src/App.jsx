@@ -35,17 +35,17 @@ const Earner_History = lazy(
   () => import("./components/EarnerHome/Earner_History"),
 );
 
-const EarnWithUs = lazy(() => import("./Entry_Pages/EarnWitUs"));
+const EarnWithUs = lazy(() => import("./EntryPages/EarnWitUs"));
 const Investor = lazy(() => import("./InvestmentComponents/Investor"));
 const ExploreInvestment = lazy(
   () => import("./InvestmentComponents/ExploreInvestment"),
 );
 
 const SubscriptionSection = lazy(
-  () => import("./Entry_Pages/SubscriptionSection"),
+  () => import("./EntryPages/SubscriptionSection"),
 );
 const GetRidingAccessories = lazy(
-  () => import("./Entry_Pages/GetRidingAccessories"),
+  () => import("./EntryPages/GetRidingAccessories"),
 );
 
 //CHAT BOT

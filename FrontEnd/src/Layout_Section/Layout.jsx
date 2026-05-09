@@ -2,6 +2,7 @@ import React,{useContext} from 'react';
 import NavBar from  './NavBar';
 import Earn_Nav from './Earn_Nav';
 import User_Nav from './User_Nav';
+
 import {Outlet} from 'react-router-dom';
 import { GlobelValue } from '../context/GlobelVariable';
 import Footer from '../Footer_Section/Footer';
