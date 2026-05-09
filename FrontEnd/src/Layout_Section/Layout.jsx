@@ -6,6 +6,7 @@ import User_Nav from './User_Nav';
 import {Outlet} from 'react-router-dom';
 import { GlobelValue } from '../context/GlobelVariable';
 import Footer from '../Footer_Section/Footer';
+import AdminNav from './AdminNav';
 
 const Layout= ()=>{
  const {User_Type} = useContext(GlobelValue);
@@ -13,6 +14,7 @@ const Layout= ()=>{
         <div>
             {User_Type === "Earner" && <Earn_Nav/>}
             {User_Type === "User" && <User_Nav/>}
+            {User_Type === 'admin' && <AdminNav/>}
             {User_Type === null && <NavBar/>}
      <Outlet/>
      <Footer/>

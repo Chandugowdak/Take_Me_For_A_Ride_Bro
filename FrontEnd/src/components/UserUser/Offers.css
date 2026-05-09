@@ -1,0 +1,334 @@
+/* ================= GOOGLE FONT ================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ================= WRAPPER ================= */
+
+.promo-wrapper{
+
+  min-height: 100vh;
+
+  padding: 60px 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffaf0,
+      #ffffff
+    );
+}
+
+/* ================= HEADER ================= */
+
+.promo-title{
+
+  font-size: 3rem;
+
+  font-weight: 800;
+
+  color: #0e5484;
+
+  margin-bottom: 12px;
+
+  letter-spacing: 0.5px;
+}
+
+.promo-subtitle{
+
+  font-size: 1rem;
+
+  color: #666;
+
+  font-weight: 400;
+}
+
+/* ================= CARD ================= */
+
+.promo-card{
+
+  position: relative;
+
+  background: white;
+
+  border-radius: 22px;
+
+  padding: 28px 24px;
+
+  overflow: hidden;
+
+  border: 1px solid #f1f1f1;
+
+  transition: 0.35s ease;
+
+  height: 100%;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,0.06);
+}
+
+/* TOP DESIGN */
+
+.promo-card::before{
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 6px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0e5484,
+      #1f8a70
+    );
+}
+
+/* HOVER */
+
+.promo-card:hover{
+
+  transform: translateY(-8px);
+
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.10);
+}
+
+/* ================= STATUS ================= */
+
+.promo-status{
+
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+
+  padding: 6px 14px;
+
+  border-radius: 30px;
+
+  font-size: 0.75rem;
+
+  font-weight: 600;
+}
+
+.promo-active{
+
+  background: #dcfce7;
+
+  color: #15803d;
+}
+
+.promo-expired{
+
+  background: #fee2e2;
+
+  color: #b91c1c;
+}
+
+/* ================= DISCOUNT ================= */
+
+.promo-discount{
+
+  font-size: 2.3rem;
+
+  font-weight: 700;
+
+  color: #1f8a70;
+
+  margin-top: 18px;
+
+  margin-bottom: 15px;
+}
+
+/* ================= VALIDITY ================= */
+
+.promo-validity{
+
+  color: #666;
+
+  font-size: 0.95rem;
+
+  margin-bottom: 22px;
+}
+
+/* ================= CODE AREA ================= */
+
+.promo-code-area{
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8fbff,
+      #eef7ff
+    );
+
+  border: 1px dashed #1f8a70;
+
+  padding: 12px;
+
+  border-radius: 14px;
+}
+
+.promo-code-area span{
+
+  font-size: 1rem;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  color: #0e5484;
+}
+
+/* ================= BUTTON ================= */
+
+.promo-code-area button{
+
+  border: none;
+
+  padding: 9px 18px;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0e5484,
+      #1f8a70
+    );
+
+  color: white;
+
+  font-size: 0.85rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.promo-code-area button:hover{
+
+  transform: scale(1.05);
+
+  opacity: 0.95;
+}
+
+.promo-code-area button:disabled{
+
+  background: #ccc;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* ================= EMPTY ================= */
+
+.no-offers{
+
+  text-align: center;
+
+  padding: 60px 20px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.06);
+}
+
+.no-offers h3{
+
+  color: #555;
+
+  font-size: 1.5rem;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px){
+
+  .promo-title{
+    font-size: 2.5rem;
+  }
+
+  .promo-discount{
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px){
+
+  .promo-wrapper{
+    padding: 45px 15px;
+  }
+
+  .promo-title{
+    font-size: 2rem;
+  }
+
+  .promo-subtitle{
+    font-size: 0.95rem;
+  }
+
+  .promo-card{
+    padding: 24px 20px;
+  }
+
+  .promo-discount{
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px){
+
+  .promo-title{
+    font-size: 1.7rem;
+  }
+
+  .promo-subtitle{
+    font-size: 0.88rem;
+  }
+
+  .promo-code-area{
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .promo-code-area button{
+    width: 100%;
+  }
+
+  .promo-code-area span{
+    text-align: center;
+  }
+
+  .promo-discount{
+    font-size: 1.6rem;
+  }
+}

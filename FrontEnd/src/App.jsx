@@ -18,21 +18,26 @@ const Layout = lazy(() => import("./Layout_Section/Layout"));
 const Login = lazy(() => import("./Pages/Login"));
 const Register = lazy(() => import("./Pages/Registration"));
 
-const User_Home = lazy(() => import("./components/UserHome/User_Home"));
-const Earn_Home = lazy(() => import("./components/EarnerHome/Earn_Home"));
+
+const AdminAddCoupon = lazy(()=> import('./components/AdminUser/AddCoupon'));
+const AdminHome = lazy(()=> import('./components/AdminUser/AdminWelcome'));
+const DeleteCoupon = lazy(()=> import('./components/AdminUser/DeleteCoupon'));
+
+const User_Home = lazy(() => import("./components/UserUser/User_Home"));
+const Earn_Home = lazy(() => import("./components/EarnerUser/Earn_Home"));
 const Earner_Vehicals = lazy(
-  () => import("./components/EarnerHome/Earner_Vehicals"),
+  () => import("./components/EarnerUser/Earner_Vehicals"),
 );
-const My_Earnings = lazy(() => import("./components/EarnerHome/My_Earnings"));
-const My_Requests = lazy(() => import("./components/EarnerHome/My_Requests"));
+const My_Earnings = lazy(() => import("./components/EarnerUser/My_Earnings"));
+const My_Requests = lazy(() => import("./components/EarnerUser/My_Requests"));
 
-const My_Bookings = lazy(() => import("./components/UserHome/My_Bookings"));
-const Offers = lazy(() => import("./components/UserHome/Offers"));
-const Support = lazy(() => import("./components/UserHome/Support"));
+const My_Bookings = lazy(() => import("./components/UserUser/My_Bookings"));
+const Offers = lazy(() => import("./components/UserUser/Offers"));
+const Support = lazy(() => import("./components/UserUser/Support"));
 
-const User_History = lazy(() => import("./components/UserHome/User_History"));
+const User_History = lazy(() => import("./components/UserUser/User_History"));
 const Earner_History = lazy(
-  () => import("./components/EarnerHome/Earner_History"),
+  () => import("./components/EarnerUser/Earner_History"),
 );
 
 const EarnWithUs = lazy(() => import("./EntryPages/EarnWitUs"));
@@ -97,11 +102,14 @@ const App = () => {
               <Route path="/earner/requests" element={<My_Requests />} />
               <Route path="/earner/earnings" element={<My_Earnings />} />
               <Route path="/user/booking" element={<My_Bookings />} />
-
               <Route path="/user/support" element={<Support />} />
               <Route path="/user/history" element={<User_History />} />
               <Route path="/earner/history" element={<Earner_History />} />
               <Route path="/footer" element={<Footer />} />
+              
+              <Route path='/Admin/add/coupon' element={<AdminAddCoupon/>} />
+              <Route path='/Adminhome' element={<AdminHome/>} />
+              <Route path='/Admin/delete/coupon' element={<DeleteCoupon/>} />
 
               {/* <Route path="/user/subscription" element={<SubscriptionSection />} /> */}
             </Route>

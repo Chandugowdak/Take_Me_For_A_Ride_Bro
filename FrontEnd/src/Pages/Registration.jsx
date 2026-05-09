@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../CssFolder/Registration.css";
+import "../PagesCSS/Registration.css";
 import { Form, Button, InputGroup } from "react-bootstrap";
 
 import axios from "axios";

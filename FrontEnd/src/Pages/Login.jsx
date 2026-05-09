@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import "../CssFolder/Login.css";
+import "../PagesCSS/Login.css";
 import { Form, Button, InputGroup } from "react-bootstrap";
-import "../CssFolder/NavBar.css";
+import "../PagesCSS/NavBar.css";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { GlobelValue } from "../context/GlobelVariable";
@@ -68,6 +68,10 @@ export default function Login() {
         }
         else if (userType === "Earner") {
           navigate("/Earnerhome");
+        }
+        else if( userType === 'admin')
+        {
+          navigate('/Adminhome');
         }
         else {
           navigate("/");

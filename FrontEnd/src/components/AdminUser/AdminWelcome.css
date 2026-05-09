@@ -1,0 +1,116 @@
+/* AdminWelcome.css */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ================= PAGE ================= */
+
+.admin-page{
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* ================= CARD ================= */
+
+.welcome-card{
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 45px 35px;
+  text-align: center;
+  box-shadow: 0px 10px 30px rgba(245, 158, 11, 0.15);
+  border: 1px solid #f3f4f6;
+  transition: 0.3s ease;
+}
+
+.welcome-card:hover{
+  transform: translateY(-5px);
+}
+
+/* ================= TITLE ================= */
+
+.admin-title{
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #b45309;
+  margin-bottom: 18px;
+}
+
+/* ================= TEXT ================= */
+
+.admin-text{
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+/* ================= BUTTON ================= */
+
+.admin-btn{
+  padding: 13px 28px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0px 5px 15px rgba(245, 158, 11, 0.3);
+}
+
+.admin-btn:hover{
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px){
+
+  .welcome-card{
+    padding: 35px 25px;
+  }
+
+  .admin-title{
+    font-size: 2rem;
+  }
+
+  .admin-text{
+    font-size: 0.95rem;
+  }
+
+}
+
+@media (max-width: 480px){
+
+  .welcome-card{
+    padding: 30px 20px;
+    border-radius: 18px;
+  }
+
+  .admin-title{
+    font-size: 1.7rem;
+  }
+
+  .admin-text{
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .admin-btn{
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+}

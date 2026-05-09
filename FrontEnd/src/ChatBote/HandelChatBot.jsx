@@ -3,8 +3,10 @@ import ChatBot from "./ChatBot";
 import { GlobelValue } from "../context/GlobelVariable";
 
 const HandelChatBot = () => {
-  const { JWT_Token } = useContext(GlobelValue);
+  const { User_Type } = useContext(GlobelValue);
 
-  return <div>{JWT_Token ? <ChatBot /> : null}</div>;
+  return <div>
+    {(User_Type === "User" || User_Type === "Earner") && <ChatBot />}
+  </div>;
 };
 export default HandelChatBot;

@@ -1,0 +1,214 @@
+/* AddCoupon.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ================= PAGE ================= */
+
+.coupon-page{
+  width: 100%;
+  min-height: 100vh;
+
+  background: linear-gradient(135deg, #fffaf0, #ffffff);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+}
+
+/* ================= CARD ================= */
+
+.coupon-card{
+  width: 100%;
+  max-width: 520px;
+
+  background: #ffffff;
+
+  padding: 40px 32px;
+
+  border-radius: 22px;
+
+  box-shadow: 0px 10px 30px rgba(245, 158, 11, 0.12);
+
+  border: 1px solid #f3f4f6;
+
+  animation: fadeIn 0.5s ease;
+}
+
+/* ================= TITLE ================= */
+
+.coupon-title{
+  text-align: center;
+
+  font-size: 2rem;
+
+  font-weight: 700;
+
+  color: #b45309;
+
+  margin-bottom: 10px;
+}
+
+/* ================= SUBTITLE ================= */
+
+.coupon-subtitle{
+  text-align: center;
+
+  color: #6b7280;
+
+  font-size: 0.95rem;
+
+  margin-bottom: 30px;
+
+  line-height: 1.6;
+}
+
+/* ================= FORM GROUP ================= */
+
+.coupon-group{
+  margin-bottom: 22px;
+}
+
+/* ================= LABEL ================= */
+
+.coupon-label{
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-weight: 600;
+
+  color: #374151;
+}
+
+/* ================= INPUT ================= */
+
+.coupon-input{
+  width: 100%;
+
+  height: 52px;
+
+  border-radius: 14px;
+
+  border: 1px solid #d1d5db;
+
+  padding: 0 16px;
+
+  font-size: 0.95rem;
+
+  outline: none;
+
+  transition: 0.3s ease;
+
+  background: #fff;
+}
+
+.coupon-input:focus{
+  border-color: #f59e0b;
+
+  box-shadow: 0px 0px 0px 4px rgba(245, 158, 11, 0.15);
+}
+
+/* ================= BUTTON ================= */
+
+.coupon-btn{
+  width: 100%;
+
+  height: 52px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+
+  color: white;
+
+  font-size: 1rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  margin-top: 10px;
+
+  box-shadow: 0px 5px 15px rgba(245, 158, 11, 0.25);
+}
+
+.coupon-btn:hover{
+  transform: translateY(-2px);
+
+  background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+.coupon-btn:disabled{
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeIn{
+
+  from{
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px){
+
+  .coupon-card{
+    padding: 35px 24px;
+  }
+
+  .coupon-title{
+    font-size: 1.8rem;
+  }
+
+}
+
+@media (max-width: 480px){
+
+  .coupon-card{
+    padding: 28px 20px;
+    border-radius: 18px;
+  }
+
+  .coupon-title{
+    font-size: 1.5rem;
+  }
+
+  .coupon-subtitle{
+    font-size: 0.9rem;
+  }
+
+  .coupon-input{
+    height: 48px;
+    font-size: 0.9rem;
+  }
+
+  .coupon-btn{
+    height: 48px;
+    font-size: 0.95rem;
+  }
+
+}
