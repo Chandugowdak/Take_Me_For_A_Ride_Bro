@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+
 import "./HowRentingWorks.css";
 
 const HowRentingWorks = () => {
@@ -74,15 +75,18 @@ const HowRentingWorks = () => {
 
   return (
     <>
+
       <section className="how-works container mt-5 mb-5">
 
-        <h2 className="how-heading text-center">How Renting Works</h2>
+        <h2 className="how-heading text-center">
+          How Renting Works
+        </h2>
 
         <div className="row mt-4 gy-4 justify-content-center">
 
           {steps.map((step, index) => (
 
-            <div key={index} className="col-md-3 col-sm-6">
+            <div key={index} className="col-lg-3 col-md-4 col-sm-6">
 
               <div
                 className="step-card shadow-sm"
@@ -93,9 +97,13 @@ const HowRentingWorks = () => {
                   <i className={`bi ${step.icon}`}></i>
                 </div>
 
-                <h5>{index + 1}. {step.title}</h5>
+                <h5>
+                  {index + 1}. {step.title}
+                </h5>
 
-                <p className="text-dark">{step.desc}</p>
+                <p className="text-dark">
+                  {step.desc}
+                </p>
 
               </div>
 
@@ -113,12 +121,17 @@ const HowRentingWorks = () => {
         show={show}
         onHide={handleClose}
         centered
+        size="md"
         dialogClassName="custom-modal"
       >
+
         <Modal.Header closeButton>
+
           <Modal.Title>
-            {selectedStep !== null && modalDetails[selectedStep].title}
+            {selectedStep !== null &&
+              modalDetails[selectedStep].title}
           </Modal.Title>
+
         </Modal.Header>
 
         <Modal.Body>
@@ -146,12 +159,15 @@ const HowRentingWorks = () => {
         </Modal.Body>
 
         <Modal.Footer>
+
           <Button variant="primary" onClick={handleClose}>
             Close
           </Button>
+
         </Modal.Footer>
 
       </Modal>
+
     </>
   );
 };
