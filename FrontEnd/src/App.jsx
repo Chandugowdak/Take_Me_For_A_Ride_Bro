@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense  } from "react";
 import { Routes, Route } from "react-router-dom";
 
 // Auto Scroll To Top
@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // CORE COMPONENTS (do not lazy load)
-import GlobelContext from "./context/GlobelContext";
+
 import PublicRoute from "./router/PublicRoute";
 import ProtectedRoute from "./router/ProtectedRoute";
 
@@ -57,7 +57,7 @@ const GetRidingAccessories = lazy(
 const HandelChatBot = lazy(() => import("./ChatBote/HandelChatBot"));
 
 // Footer Pages
-const Footer = lazy(() => import("./Footer_Section/Footer"));
+
 const Terms = lazy(() => import("./Footer_Section/Trems"));
 const PrivatecyPolicy = lazy(() => import("./Footer_Section/PrivacyPolicy"));
 const HowWorks = lazy(() => import("./Footer_Section/HowWorks"));
@@ -66,8 +66,10 @@ const HelpCenter = lazy(() => import("./Footer_Section/HelpCenter"));
 const Contect = lazy(() => import("./Footer_Section/Contect"));
 
 const App = () => {
+
+
   return (
-    <GlobelContext>
+   <>
       <ScrollToTop />
 
       <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
@@ -105,8 +107,6 @@ const App = () => {
               <Route path="/user/support" element={<Support />} />
               <Route path="/user/history" element={<User_History />} />
               <Route path="/earner/history" element={<Earner_History />} />
-              <Route path="/footer" element={<Footer />} />
-              
               <Route path='/Admin/add/coupon' element={<AdminAddCoupon/>} />
               <Route path='/Adminhome' element={<AdminHome/>} />
               <Route path='/Admin/delete/coupon' element={<DeleteCoupon/>} />
@@ -124,7 +124,7 @@ const App = () => {
           </Route>
         </Routes>
       </Suspense>
-    </GlobelContext>
+    </>
   );
 };
 

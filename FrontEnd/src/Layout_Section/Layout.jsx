@@ -17,7 +17,7 @@ const Layout= ()=>{
             {User_Type === 'admin' && <AdminNav/>}
             {User_Type === null && <NavBar/>}
      <Outlet/>
-     <Footer/>
+     {User_Type !== 'admin' && <Footer/>}
         </div>
     )
 }
